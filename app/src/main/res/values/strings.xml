@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">OddsCalator</string>
+    <string name="select_card">Select card</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_odds">your odds</string>
+    <string name="player_tie_odds">tie odds</string>
+</resources>

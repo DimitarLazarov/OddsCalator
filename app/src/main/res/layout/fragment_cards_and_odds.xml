@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="140dp"
+              tools:context=".CardsAndOddsFragment">
+
+    <Button
+        android:id="@+id/player_card_one"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:text="Ac"/>
+
+    <Button
+        android:id="@+id/player_card_two"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toRightOf="@+id/player_card_one"
+        android:layout_toEndOf="@+id/player_card_one"
+        android:text="As"/>
+
+    <LinearLayout
+        android:layout_toRightOf="@id/player_card_two"
+        android:layout_toEndOf="@+id/player_card_two"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/player_odds_win"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:text="50%"
+            android:textSize="85dp"
+            android:hint="p1 odds"/>
+
+        <TextView
+            android:id="@+id/your_odds"
+            android:text="@string/your_odds"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:hint="p1 odds"/>
+
+        <TextView
+            android:id="@+id/player_odds_tie"
+            android:text="@string/player_tie_odds"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:hint="p1 odds"/>
+    </LinearLayout>
+
+</RelativeLayout>
