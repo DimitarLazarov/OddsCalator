@@ -48,24 +48,27 @@ public class AddCardFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        mDeuces =       (Button) getView().findViewById(R.id.deuces_button);
-        mTreys =        (Button) getView().findViewById(R.id.treys_button);
-        mFours =        (Button) getView().findViewById(R.id.fours_button);
-        mFives =        (Button) getView().findViewById(R.id.fives_button);
-        mSixes =        (Button) getView().findViewById(R.id.sixes_button);
-        mSevens =       (Button) getView().findViewById(R.id.sevens_button);
-        mEights =       (Button) getView().findViewById(R.id.eights_button);
-        mNines =        (Button) getView().findViewById(R.id.nines_button);
-        mTens =         (Button) getView().findViewById(R.id.tens_button);
-        mJacks =        (Button)getView().findViewById(R.id.jacks_button);
-        mQueens =       (Button) getView().findViewById(R.id.queens_button);
-        mKings =        (Button) getView().findViewById(R.id.kings_button);
-        mAces =         (Button) getView().findViewById(R.id.aces_button);
-        mHearts =       (ImageButton) getView().findViewById(R.id.hearts_button);
-        mDiamonds =     (ImageButton) getView().findViewById(R.id.diamonds_button);
-        mClubs =        (ImageButton) getView().findViewById(R.id.clubs_button);
-        mSpades =       (ImageButton) getView().findViewById(R.id.spades_button);
-        return inflater.inflate(R.layout.fragment_add_card, container, false);
+        View v = inflater.inflate(R.layout.fragment_add_card, container, false);
+
+        mDeuces =       (Button) v.findViewById(R.id.deuces_button);
+        mTreys =        (Button) v.findViewById(R.id.treys_button);
+        mFours =        (Button) v.findViewById(R.id.fours_button);
+        mFives =        (Button) v.findViewById(R.id.fives_button);
+        mSixes =        (Button) v.findViewById(R.id.sixes_button);
+        mSevens =       (Button) v.findViewById(R.id.sevens_button);
+        mEights =       (Button) v.findViewById(R.id.eights_button);
+        mNines =        (Button) v.findViewById(R.id.nines_button);
+        mTens =         (Button) v.findViewById(R.id.tens_button);
+        mJacks =        (Button) v.findViewById(R.id.jacks_button);
+        mQueens =       (Button) v.findViewById(R.id.queens_button);
+        mKings =        (Button) v.findViewById(R.id.kings_button);
+        mAces =         (Button) v.findViewById(R.id.aces_button);
+        mHearts =       (ImageButton) v.findViewById(R.id.hearts_button);
+        mDiamonds =     (ImageButton) v.findViewById(R.id.diamonds_button);
+        mClubs =        (ImageButton) v.findViewById(R.id.clubs_button);
+        mSpades =       (ImageButton) v.findViewById(R.id.spades_button);
+
+        return v;
     }
 
     @NonNull

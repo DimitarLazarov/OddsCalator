@@ -2,6 +2,7 @@ package com.example.chav.poker;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -110,10 +111,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String card = "";
         switch(v.getId()) {
             case R.id.player_one_card_one:
-                card = "";
-                players[0].add(new Card(card));
-                deck.remove(card);
-                mPOneCardOne.setText(card);
+                AddCardFragment d = new AddCardFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                d.show(fm, "sth");
+//                card = "";
+//                players[0].add(new Card(card));
+//                deck.remove(card);
+//                mPOneCardOne.setText(card);
                 break;
             case R.id.player_one_card_two:
                 card = "";
