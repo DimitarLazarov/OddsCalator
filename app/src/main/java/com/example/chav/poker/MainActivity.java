@@ -23,16 +23,18 @@ public class MainActivity extends AppCompatActivity {
     private Button mBoardCardThree;
     private Button mBoardCardFour;
     private Button mBoardCardFive;
-    private Button mCalculate;
-    private TextView pOne;
+    private Button mResetButton;
+    private Button mAddPlayerButton;
+    private TextView mPlayerOneWinOdds;
+    private TextView mPlayerTwoWinOdds;
+    private TextView mPlayerOneTieOdds;
+    private TextView mPlayerTwoTieOdds;
     private TextView pTwo;
     private CardSet deck;
     private CardSet[] players;
     private double mPlayerOneWinningChance;
     private double mPlayerTwoWinningChance;
-    private Button button;
 
-    private int fragmentCounter;
 
 
     @Override
@@ -40,24 +42,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPOneCardOne = (Button) findViewById(R.id.player_card_one);
-        mPOneCardTwo = (Button) findViewById(R.id.player_card_two);
-        mPTwoCardOne = (Button) findViewById(R.id.card_one_p_two);
-        mPTwoCardTwo = (Button) findViewById(R.id.card_two_p_two);
+        mPOneCardOne = (Button) findViewById(R.id.player_one_card_one);
+        mPOneCardTwo = (Button) findViewById(R.id.player_one_card_two);
+        mPTwoCardOne = (Button) findViewById(R.id.player_two_card_one);
+        mPTwoCardTwo = (Button) findViewById(R.id.player_two_card_two);
         mBoardCardOne = (Button) findViewById(R.id.card_one_board);
         mBoardCardTwo = (Button) findViewById(R.id.card_two_board);
         mBoardCardThree = (Button) findViewById(R.id.card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.card_five_board);
-        pOne = (TextView) findViewById(R.id.odds_p_one);
-        pTwo = (TextView) findViewById(R.id.odds_p_two);
-        mCalculate = (Button) findViewById(R.id.calculate);
-        mCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new CalculateOdds().execute();
-            }
-        });
+        mPlayerOneWinOdds = (TextView) findViewById(R.id.player_one_odds_win);
+        mPlayerTwoWinOdds = (TextView) findViewById(R.id.player_two_odds_win);
+        mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
+        mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
+        mResetButton = (Button) findViewById(R.id.button_reset);
+        mAddPlayerButton = (Button) findViewById(R.id.button_add_player);
 
 
         deck = CardSet.freshDeck();
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayerOneWinningChance = wins[0] * 100.0 / pots;
         mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
 
-        pOne.setText(String.format("%.2f%%", mPlayerOneWinningChance));
+        mPlayerOneWinOdds.setText(String.format("%.2f%%", mPlayerOneWinningChance));
         pTwo.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
     }
 
