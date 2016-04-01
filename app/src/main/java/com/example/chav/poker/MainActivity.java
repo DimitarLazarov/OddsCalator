@@ -12,7 +12,7 @@ import ver4.poker.Card;
 import ver4.poker.CardSet;
 import ver4.showdown.Enumerator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button mPOneCardOne;
     private Button mPOneCardTwo;
@@ -58,24 +58,28 @@ public class MainActivity extends AppCompatActivity {
         mResetButton = (Button) findViewById(R.id.button_reset);
         mAddPlayerButton = (Button) findViewById(R.id.button_add_player);
 
+        mPOneCardOne.setOnClickListener(this);
+        mPOneCardTwo.setOnClickListener(this);
+        mPTwoCardOne.setOnClickListener(this);
+        mPTwoCardTwo.setOnClickListener(this);
 
         deck = CardSet.freshDeck();
         players = new CardSet[3];
         players[0] = new CardSet();
         players[1] = new CardSet();
-        players[2] = new CardSet();
-        players[0].add(new Card("Ad"));
-        players[0].add(new Card("Ac"));
-        players[1].add(new Card("Jd"));
-        players[1].add(new Card("Jc"));
-        players[2].add(new Card("Td"));
-        players[2].add(new Card("Tc"));
-        deck.remove(new Card("Ad"));
-        deck.remove(new Card("Ac"));
-        deck.remove(new Card("Jd"));
-        deck.remove(new Card("Jc"));
-        deck.remove(new Card("Td"));
-        deck.remove(new Card("Tc"));
+//        players[2] = new CardSet();
+//        players[0].add(new Card("Ad"));
+//        players[0].add(new Card("Ac"));
+//        players[1].add(new Card("Jd"));
+//        players[1].add(new Card("Jc"));
+//        players[2].add(new Card("Td"));
+//        players[2].add(new Card("Tc"));
+//        deck.remove(new Card("Ad"));
+//        deck.remove(new Card("Ac"));
+//        deck.remove(new Card("Jd"));
+//        deck.remove(new Card("Jc"));
+//        deck.remove(new Card("Td"));
+//        deck.remove(new Card("Tc"));
 
 //        HandEval.HandCategory handCategory = new HandEval.HandCategory();
 //        Enumerator enumerator = new Enumerator()
@@ -98,7 +102,43 @@ public class MainActivity extends AppCompatActivity {
         mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
 
         mPlayerOneWinOdds.setText(String.format("%.2f%%", mPlayerOneWinningChance));
-        pTwo.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+    }
+
+    @Override
+    public void onClick(View v) {
+        String card = "";
+        switch(v.getId()) {
+            case R.id.player_one_card_one:
+                card = "";
+                players[0].add(new Card(card));
+                deck.remove(card);
+                mPOneCardOne.setText(card);
+                break;
+            case R.id.player_one_card_two:
+                card = "";
+                players[0].add(new Card(card));
+                deck.remove(card);
+                mPOneCardTwo.setText(card);
+                break;
+            case R.id.player_two_card_one:
+                card = "";
+                players[1].add(new Card(card));
+                deck.remove(card);
+                mPTwoCardOne.setText(card);
+                break;
+            case R.id.player_two_card_two:
+                card = "";
+                players[1].add(new Card(card));
+                deck.remove(card);
+                mPTwoCardTwo.setText(card);
+                startCalculate();
+                break;
+        }
+    }
+
+    public void startCalculate(){
+        new CalculateOdds().execute(null,null,null);
     }
 
     class CalculateOdds extends AsyncTask<Void, Void, Void> {
