@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private CardSet[] players;
     private double mPlayerOneWinningChance;
     private double mPlayerTwoWinningChance;
+    private Button button;
 
     private int fragmentCounter;
 
