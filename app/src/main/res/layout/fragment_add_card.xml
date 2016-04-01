@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chav.poker.CardSelectionActivity">
+    tools:context="com.example.chav.poker.AddCardFragment">
 
     <TextView
         android:id="@+id/text_select_card"
@@ -70,6 +67,7 @@
         android:layout_above="@id/suits_holder"
         android:layout_below="@id/text_select_card"
         >
+
 
 
 
@@ -209,6 +207,8 @@
             android:layout_marginBottom="10dp"
             android:textSize="@dimen/select_card_text"/>
 
+
     </LinearLayout>
+
 
 </RelativeLayout>
