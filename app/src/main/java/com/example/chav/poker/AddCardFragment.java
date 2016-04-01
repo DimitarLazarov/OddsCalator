@@ -118,7 +118,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         else if(CardSuitPower == 2) {
             cardSuit = 'H';
         }
-        else if(CardSuitPower == 3){
+        else {
             cardSuit = 'S';
         }
 
@@ -200,6 +200,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
             case R.id.spades_button:
                 CardSuitPower = 3;
                 break;
+
 
         }
     }

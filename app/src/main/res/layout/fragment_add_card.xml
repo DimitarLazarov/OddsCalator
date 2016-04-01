@@ -43,7 +43,7 @@
             android:src="@drawable/diamonds_very_small"/>
 
         <ImageButton
-            android:id="@+id/clubs_button"
+            android:id="@+id/spades_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
             android:src="@drawable/spade_very_small"/>
 
         <ImageButton
-            android:id="@+id/spades_button"
+            android:id="@+id/clubs_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
