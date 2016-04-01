@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Poker.iml" filepath="$PROJECT_DIR$/Poker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OddsCalator.iml" filepath="$PROJECT_DIR$/OddsCalator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
