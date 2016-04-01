@@ -9,16 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.chav.poker.communicators.AddCardCommunicator;
+
 import ver4.poker.Card;
 import ver4.poker.CardSet;
 import ver4.showdown.Enumerator;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AddCardCommunicator {
 
     private Button mPOneCardOne;
     private Button mPOneCardTwo;
     private Button mPTwoCardOne;
     private Button mPTwoCardTwo;
+    private Button buttonOccuredEvend;
     private Button mBoardCardOne;
     private Button mBoardCardTwo;
     private Button mBoardCardThree;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView pTwo;
     private CardSet deck;
     private CardSet[] players;
+    private int playerOccuredEvent;
     private double mPlayerOneWinningChance;
     private double mPlayerTwoWinningChance;
 
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPTwoCardTwo.setOnClickListener(this);
 
         deck = CardSet.freshDeck();
-        players = new CardSet[3];
+        players = new CardSet[2];
         players[0] = new CardSet();
         players[1] = new CardSet();
 //        players[2] = new CardSet();
@@ -108,41 +112,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        String card = "";
+        AddCardFragment d = new AddCardFragment();
+        FragmentManager fm = getSupportFragmentManager();
         switch(v.getId()) {
             case R.id.player_one_card_one:
-                AddCardFragment d = new AddCardFragment();
-                FragmentManager fm = getSupportFragmentManager();
                 d.show(fm, "sth");
-//                card = "";
-//                players[0].add(new Card(card));
-//                deck.remove(card);
-//                mPOneCardOne.setText(card);
+                buttonOccuredEvend = mPOneCardOne;
+                playerOccuredEvent = 0;
                 break;
             case R.id.player_one_card_two:
-                card = "";
-                players[0].add(new Card(card));
-                deck.remove(card);
-                mPOneCardTwo.setText(card);
+                d.show(fm, "sth");
+                buttonOccuredEvend = mPOneCardTwo;
+                playerOccuredEvent = 0;
                 break;
             case R.id.player_two_card_one:
-                card = "";
-                players[1].add(new Card(card));
-                deck.remove(card);
-                mPTwoCardOne.setText(card);
+                d.show(fm, "sth");
+                buttonOccuredEvend = mPTwoCardOne;
+                playerOccuredEvent = 1;
                 break;
             case R.id.player_two_card_two:
-                card = "";
-                players[1].add(new Card(card));
-                deck.remove(card);
-                mPTwoCardTwo.setText(card);
-                startCalculate();
+                d.show(fm, "sth");
+                buttonOccuredEvend = mPTwoCardTwo;
+                playerOccuredEvent = 1;
                 break;
         }
     }
 
     public void startCalculate(){
         new CalculateOdds().execute(null,null,null);
+    }
+
+    @Override
+    public void addCart(String string) {
+        buttonOccuredEvend.setText(string);
+        Card card = new Card(string);
+        players[playerOccuredEvent].add(card);
+        deck.remove(card);
+        if (52 - deck.size() == 4) {
+            startCalculate();
+        }
+        String player1Card = String.valueOf(players[0].size());
+        String player1Card2 = String.valueOf(players[1].size());
+        Log.e("Player1", player1Card);
+        Log.e("Player1", player1Card2);
+
     }
 
     class CalculateOdds extends AsyncTask<Void, Void, Void> {
