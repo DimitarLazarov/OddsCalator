@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardSet deck;
     private CardSet[] players;
     private int playerOccuredEvent;
-    private double mPlayerOneWinningChance;
-    private double mPlayerTwoWinningChance;
+
 
 
 
@@ -103,11 +102,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void assignOdds(long[] wins, long[] ties, double pots) {
-        mPlayerOneWinningChance = wins[0] * 100.0 / pots;
-        mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
+        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
+        double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
+        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
+        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
 
         mPlayerOneWinOdds.setText(String.format("%.2f%%", mPlayerOneWinningChance));
         mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+
+        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
+        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
 
     @Override
