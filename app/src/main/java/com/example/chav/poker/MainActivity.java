@@ -81,10 +81,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPTwoCardTwo.setClickable(false);
 
         mBoardCardOne.setOnClickListener(this);
+        mBoardCardOne.setClickable(false);
         mBoardCardTwo.setOnClickListener(this);
+        mBoardCardTwo.setClickable(false);
         mBoardCardThree.setOnClickListener(this);
+        mBoardCardThree.setClickable(false);
         mBoardCardFour.setOnClickListener(this);
+        mBoardCardFour.setClickable(false);
         mBoardCardFive.setOnClickListener(this);
+        mBoardCardFive.setClickable(false);
 
 
 
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonOccuredEvend = mPTwoCardOne;
                 mPTwoCardOne.setClickable(false);
                 mPTwoCardTwo.setClickable(true);
+                mPTwoCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
@@ -177,59 +183,82 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mBoardCardOne.setClickable(false);
                 mBoardCardTwo.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
+                mBoardCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
                 allBoardCards++;
+                break;
             case R.id.card_two_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardTwo;
                 mBoardCardTwo.setClickable(false);
                 mBoardCardThree.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
+                mBoardCardThree.setBackgroundResource(R.drawable.card_plus_sign);
                 allBoardCards++;
+                break;
             case R.id.card_three_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardThree;
                 mBoardCardThree.setClickable(false);
                 mBoardCardFour.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
+                mBoardCardFour.setBackgroundResource(R.drawable.card_plus_sign);
                 allBoardCards++;
+                break;
             case R.id.card_four_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFour;
                 mBoardCardFour.setClickable(false);
                 mBoardCardFive.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
+                mBoardCardFive.setBackgroundResource(R.drawable.card_plus_sign);
                 allBoardCards++;
+                break;
             case R.id.card_five_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFive;
                 mBoardCardFive.setClickable(false);
                 playerOccuredEvent = BOARD_CARD;
                 allBoardCards++;
+                break;
         }
     }
 
     public void startCalculate(){
-        new CalculateOdds().execute(boardCards,null,null);
+        new CalculateOdds().execute(boardCards, null, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void addCart(String string) {
-        buttonOccuredEvend.setText(string.charAt(0) + "");
-        buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
-        Drawable image = getCardSuit(string.charAt(1));
-        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-        buttonOccuredEvend.setTextSize(40);
-        buttonOccuredEvend.setPadding(0, 60, 0, 60);
+
         Card card = new Card(string);
         if (playerOccuredEvent == BOARD_CARD) {
             boardCards.add(card);
+            buttonOccuredEvend.setText(string.charAt(0) + "");
+            buttonOccuredEvend.setTextSize(30);
+            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
+            Drawable image = getCardSuit(string.charAt(1));
+            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+
         }
-        else
+        else {
             players[playerOccuredEvent].add(card);
+            buttonOccuredEvend.setText(string.charAt(0) + "");
+            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
+            Drawable image = getCardSuit(string.charAt(1));
+            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+            buttonOccuredEvend.setTextSize(40);
+            buttonOccuredEvend.setPadding(0, 60, 0, 60);
+        }
         deck.remove(card);
 
-        if (allPlayersCards == 4) {
+        if (allPlayersCards == 4 && allBoardCards == 0) {
+            startCalculate();
+            mBoardCardOne.setClickable(true);
+            mBoardCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+        }
+
+        if (allBoardCards >= 3) {
             startCalculate();
         }
 

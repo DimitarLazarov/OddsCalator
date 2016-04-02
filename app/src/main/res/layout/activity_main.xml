@@ -103,7 +103,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
-                android:background="@drawable/card_plus_sign"
+                android:background="@color/cardColor"
                 android:clickable="false"/>
 
             <Button
