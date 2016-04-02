@@ -97,50 +97,51 @@
 
         <LinearLayout
             android:id="@+id/board"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="100dp">
 
             <Button
                 android:id="@+id/card_one_board"
                 android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginEnd="5dp"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
             <Button
                 android:id="@+id/card_two_board"
                 android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginEnd="5dp"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
             <Button
                 android:id="@+id/card_three_board"
                 android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginEnd="5dp"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
             <Button
                 android:id="@+id/card_four_board"
                 android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginEnd="5dp"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
             <Button
                 android:id="@+id/card_five_board"
                 android:layout_width="75dp"
-                android:layout_height="100dp"
-                android:layout_margin="5dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
