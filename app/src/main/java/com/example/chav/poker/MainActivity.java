@@ -75,8 +75,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mPOneCardOne.setOnClickListener(this);
         mPOneCardTwo.setOnClickListener(this);
+        mPOneCardTwo.setClickable(false);
         mPTwoCardOne.setOnClickListener(this);
         mPTwoCardTwo.setOnClickListener(this);
+        mPTwoCardTwo.setClickable(false);
 
         mBoardCardOne.setOnClickListener(this);
         mBoardCardTwo.setOnClickListener(this);
