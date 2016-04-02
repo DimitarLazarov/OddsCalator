@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/boardColor"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -43,12 +43,12 @@
                     android:id="@+id/player_one_card_two"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
+                    android:layout_margin="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_margin="5dp"
-                    android:background="@color/cardColor"
                     android:layout_toEndOf="@+id/player_one_card_one"
                     android:layout_toRightOf="@+id/player_one_card_one"
+                    android:background="@color/cardColor"
                     android:clickable="false"
                     />
 
@@ -67,6 +67,7 @@
                         android:gravity="center"
                         android:hint="p1 odds"
                         android:text="50%"
+                        android:textColor="@color/cardColor"
                         android:textSize="40sp"/>
 
                     <TextView
@@ -76,7 +77,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="@string/your_odds"/>
+                        android:text="@string/your_odds"
+                        android:textColor="@color/cardColor"/>
 
                     <TextView
                         android:id="@+id/player_one_odds_tie"
@@ -85,7 +87,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="@string/player_tie_odds"/>
+                        android:text="@string/player_tie_odds"
+                        android:textColor="@color/cardColor"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -101,8 +104,8 @@
                 android:id="@+id/card_one_board"
                 android:layout_width="75dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
@@ -110,8 +113,8 @@
                 android:id="@+id/card_two_board"
                 android:layout_width="75dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
@@ -119,8 +122,8 @@
                 android:id="@+id/card_three_board"
                 android:layout_width="75dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
@@ -128,8 +131,8 @@
                 android:id="@+id/card_four_board"
                 android:layout_width="75dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
@@ -137,8 +140,8 @@
                 android:id="@+id/card_five_board"
                 android:layout_width="75dp"
                 android:layout_height="100dp"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@color/cardColor"
                 android:clickable="false"/>
 
@@ -160,9 +163,9 @@
                     android:id="@+id/player_two_card_one"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
+                    android:layout_margin="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_margin="5dp"
                     android:background="@drawable/card_plus_sign"
                     />
 
@@ -170,12 +173,12 @@
                     android:id="@+id/player_two_card_two"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
+                    android:layout_margin="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_margin="5dp"
-                    android:background="@color/cardColor"
                     android:layout_toEndOf="@+id/player_two_card_one"
                     android:layout_toRightOf="@+id/player_two_card_one"
+                    android:background="@color/cardColor"
                     android:clickable="false"
                     />
 
@@ -194,6 +197,7 @@
                         android:gravity="center"
                         android:hint="p1 odds"
                         android:text="50%"
+                        android:textColor="@color/cardColor"
                         android:textSize="40sp"/>
 
                     <TextView
@@ -203,7 +207,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="@string/your_odds"/>
+                        android:text="@string/your_odds"
+                        android:textColor="@color/cardColor"/>
 
                     <TextView
                         android:id="@+id/player_two_odds_tie"
@@ -212,7 +217,8 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="@string/player_tie_odds"/>
+                        android:text="@string/player_tie_odds"
+                        android:textColor="@color/cardColor"/>
                 </LinearLayout>
 
             </RelativeLayout>

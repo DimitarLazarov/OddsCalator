@@ -1,6 +1,8 @@
 package com.example.chav.poker;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -238,7 +240,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buttonOccuredEvend.setTextSize(30);
             buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
             Drawable image = getCardSuit(string.charAt(1));
-            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+            Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+            Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
+            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
+            buttonOccuredEvend.setPadding(0, 50, 0, 50);
 
         }
         else {
