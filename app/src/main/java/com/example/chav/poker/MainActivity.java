@@ -1,8 +1,12 @@
 package com.example.chav.poker;
 
+import android.annotation.TargetApi;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +22,9 @@ import ver4.showdown.Enumerator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AddCardCommunicator {
 
+    public static final int PLAYER_ONE = 0;
+    public static final int PLAYER_TWO = 1;
+    public static final int BOARD_CARD = 2;
     private Button mPOneCardOne;
     private Button mPOneCardTwo;
     private Button mPTwoCardOne;
@@ -136,27 +143,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttonOccuredEvend = mPOneCardOne;
                 mPOneCardOne.setClickable(false);
                 mPOneCardTwo.setClickable(true);
-                playerOccuredEvent = 0;
+                mPOneCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
+                playerOccuredEvent = PLAYER_ONE;
+                allPlayersCards++;
                 break;
             case R.id.player_one_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardTwo;
                 mPOneCardTwo.setClickable(false);
-                playerOccuredEvent = 0;
+                playerOccuredEvent = PLAYER_ONE;
+                allPlayersCards++;
                 break;
             case R.id.player_two_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardOne;
                 mPTwoCardOne.setClickable(false);
                 mPTwoCardTwo.setClickable(true);
-                playerOccuredEvent = 1;
+                playerOccuredEvent = PLAYER_TWO;
+                allPlayersCards++;
                 break;
             case R.id.player_two_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardTwo;
                 mPTwoCardTwo.setClickable(false);
-                playerOccuredEvent = 1;
+                playerOccuredEvent = PLAYER_TWO;
+                allPlayersCards++;
                 break;
+            case R.id.card_one_board:
+                d.show(fm, "sth");
+                buttonOccuredEvend = mBoardCardOne;
+                mBoardCardOne.setClickable(false);
+                mBoardCardTwo.setClickable(true);
+                playerOccuredEvent = BOARD_CARD;
+                allBoardCards++;
+            case R.id.card_two_board:
+                d.show(fm, "sth");
+                buttonOccuredEvend = mBoardCardTwo;
+                mBoardCardTwo.setClickable(false);
+                mBoardCardThree.setClickable(true);
+                playerOccuredEvent = BOARD_CARD;
+                allBoardCards++;
+            case R.id.card_three_board:
+                d.show(fm, "sth");
+                buttonOccuredEvend = mBoardCardThree;
+                mBoardCardThree.setClickable(false);
+                mBoardCardFour.setClickable(true);
+                playerOccuredEvent = BOARD_CARD;
+                allBoardCards++;
+            case R.id.card_four_board:
+                d.show(fm, "sth");
+                buttonOccuredEvend = mBoardCardFour;
+                mBoardCardFour.setClickable(false);
+                mBoardCardFive.setClickable(true);
+                playerOccuredEvent = BOARD_CARD;
+                allBoardCards++;
+            case R.id.card_five_board:
+                d.show(fm, "sth");
+                buttonOccuredEvend = mBoardCardFive;
+                mBoardCardFive.setClickable(false);
+                playerOccuredEvent = BOARD_CARD;
+                allBoardCards++;
         }
     }
 
@@ -164,17 +210,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         new CalculateOdds().execute(boardCards,null,null);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void addCart(String string) {
-        buttonOccuredEvend.setText(string);
+        buttonOccuredEvend.setText(string.charAt(0) + "");
+        buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
+        Drawable image = getCardSuit(string.charAt(1));
+        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        buttonOccuredEvend.setTextSize(40);
+        buttonOccuredEvend.setPadding(0, 60, 0, 60);
         Card card = new Card(string);
-        players[playerOccuredEvent].add(card);
+        if (playerOccuredEvent == BOARD_CARD) {
+            boardCards.add(card);
+        }
+        else
+            players[playerOccuredEvent].add(card);
         deck.remove(card);
-        if (52 - deck.size() == 4) {
+
+        if (allPlayersCards == 4) {
             startCalculate();
         }
 
+
     }
+
+    public Drawable getCardSuit(char suit) {
+        Drawable image = null;
+        switch (suit) {
+            case 'C':
+                image = ContextCompat.getDrawable(this, R.drawable.image_very_small);
+                break;
+            case 'D':
+                image = ContextCompat.getDrawable(this, R.drawable.diamonds_very_small);
+                break;
+            case 'H':
+                image = ContextCompat.getDrawable(this, R.drawable.hearts_very_small);
+                break;
+            case 'S':
+                image = ContextCompat.getDrawable(this, R.drawable.spade_very_small);
+                break;
+        }
+
+        return image;
+    }
+
+
 
     class CalculateOdds extends AsyncTask<CardSet, Void, Void> {
         Enumerator enumerator;
