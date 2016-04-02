@@ -3,14 +3,12 @@ package com.example.chav.poker;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,7 +21,7 @@ import com.example.chav.poker.communicators.AddCardCommunicator;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddCardFragment extends DialogFragment implements View.OnClickListener{
+public class AddCardFragment extends DialogFragment implements View.OnClickListener, View.OnTouchListener{
 
 
     AddCardCommunicator communicator;
@@ -45,7 +43,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     private ImageButton mDiamonds;
     private ImageButton mClubs;
     private ImageButton mSpades;
-    private int CardSuitPower = 0;
+    private int cardSuitPower = 0;
 
     @Override
     public void onAttach(Activity activity) {
@@ -96,10 +94,11 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mQueens.setOnClickListener(this);
         mKings.setOnClickListener(this);
         mAces.setOnClickListener(this);
-        mHearts.setOnClickListener(this);
-        mDiamonds.setOnClickListener(this);
-        mClubs.setOnClickListener(this);
-        mSpades.setOnClickListener(this);
+        mHearts.setOnTouchListener(this);
+        mDiamonds.setOnTouchListener(this);
+        mClubs.setOnTouchListener(this);
+        mClubs.setPressed(true);
+        mSpades.setOnTouchListener(this);
 
 
         return v;
@@ -109,13 +108,13 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     public void onClick(View v) {
         char cardSuit = 'C';
         String cardStrength = "";
-        if(CardSuitPower == 0){
+        if(cardSuitPower == 0){
             cardSuit = 'C';
         }
-        else if(CardSuitPower == 1) {
+        else if(cardSuitPower == 1) {
             cardSuit = 'D';
         }
-        else if(CardSuitPower == 2) {
+        else if(cardSuitPower == 2) {
             cardSuit = 'H';
         }
         else {
@@ -188,20 +187,6 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
                 communicator.addCart(cardStrength);
                 onDestroyView();
                 break;
-            case R.id.clubs_button:
-                CardSuitPower = 0;
-                break;
-            case R.id.diamonds_button:
-                CardSuitPower = 1;
-                break;
-            case R.id.hearts_button:
-                CardSuitPower = 2;
-                break;
-            case R.id.spades_button:
-                CardSuitPower = 3;
-                break;
-
-
         }
     }
 
@@ -217,5 +202,35 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch(v.getId()) {
+            case R.id.clubs_button:
+                cardSuitPower = 0;
+                setPressed(true,false,false,false);
+                break;
+            case R.id.diamonds_button:
+                cardSuitPower = 1;
+                setPressed(false,true,false,false);
+                break;
+            case R.id.hearts_button:
+                cardSuitPower = 2;
+                setPressed(false,false,true,false);
+                break;
+            case R.id.spades_button:
+                cardSuitPower = 3;
+                setPressed(false,false,false,true);
+                break;
+        }
+        return true;
+    }
+
+    public void setPressed(boolean clubs, boolean diamonds, boolean hearts, boolean spades){
+        mClubs.setPressed(clubs);
+        mDiamonds.setPressed(diamonds);
+        mHearts.setPressed(hearts);
+        mSpades.setPressed(spades);
     }
 }

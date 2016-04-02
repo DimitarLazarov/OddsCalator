@@ -1,7 +1,10 @@
 package com.example.chav.poker;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mPTwoCardOne;
     private Button mPTwoCardTwo;
     private Button buttonOccuredEvend;
+    private Button nextButtonToClick;
     private Button mBoardCardOne;
     private Button mBoardCardTwo;
     private Button mBoardCardThree;
@@ -130,13 +134,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void assignOdds(long[] wins, long[] ties, double pots) {
-        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
+        final double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
         double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
         double mPlayerOneTieChance = ties[0] * 100.0 / pots;
         double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
 
-        mPlayerOneWinOdds.setText(String.format("%.2f%%", mPlayerOneWinningChance));
-        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+
+//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
+
+
+        ValueAnimator animator = new ValueAnimator();
+        animator.setObjectValues(0, (int) mPlayerOneWinningChance);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mPlayerOneWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
+            }
+        });
+        animator.setEvaluator(new TypeEvaluator<Integer>() {
+            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+                return Math.round(startValue + (endValue - startValue) * fraction);
+            }
+        });
+        animator.setDuration(500);
+        animator.start();
+
+        ValueAnimator animator2 = new ValueAnimator();
+        animator2.setObjectValues(0, (int) mPlayerTwoWinningChance);
+        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                mPlayerTwoWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
+            }
+        });
+        animator2.setEvaluator(new TypeEvaluator<Integer>() {
+            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+                return Math.round(startValue + (endValue - startValue) * fraction);
+            }
+        });
+        animator2.setDuration(500);
+        animator2.start();
+
+
 
         mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
         mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
@@ -150,74 +188,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.player_one_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardOne;
-                mPOneCardOne.setClickable(false);
-                mPOneCardTwo.setClickable(true);
-                mPOneCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mPOneCardTwo;
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
             case R.id.player_one_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardTwo;
-                mPOneCardTwo.setClickable(false);
+                nextButtonToClick = new Button(this);
+                nextButtonToClick.setVisibility(View.GONE);
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
             case R.id.player_two_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardOne;
-                mPTwoCardOne.setClickable(false);
-                mPTwoCardTwo.setClickable(true);
-                mPTwoCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mPTwoCardTwo;
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
             case R.id.player_two_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardTwo;
-                mPTwoCardTwo.setClickable(false);
+                nextButtonToClick = new Button(this);
+                nextButtonToClick.setVisibility(View.GONE);
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
             case R.id.card_one_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardOne;
-                mBoardCardOne.setClickable(false);
-                mBoardCardTwo.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
-                mBoardCardTwo.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mBoardCardTwo;
                 allBoardCards++;
                 break;
             case R.id.card_two_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardTwo;
-                mBoardCardTwo.setClickable(false);
-                mBoardCardThree.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
-                mBoardCardThree.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mBoardCardThree;
                 allBoardCards++;
                 break;
             case R.id.card_three_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardThree;
-                mBoardCardThree.setClickable(false);
-                mBoardCardFour.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
-                mBoardCardFour.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mBoardCardFour;
                 allBoardCards++;
                 break;
             case R.id.card_four_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFour;
-                mBoardCardFour.setClickable(false);
-                mBoardCardFive.setClickable(true);
                 playerOccuredEvent = BOARD_CARD;
-                mBoardCardFive.setBackgroundResource(R.drawable.card_plus_sign);
+                nextButtonToClick = mBoardCardFive;
                 allBoardCards++;
                 break;
             case R.id.card_five_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFive;
+                nextButtonToClick = new Button(this);
+                nextButtonToClick.setVisibility(View.GONE);
                 mBoardCardFive.setClickable(false);
                 playerOccuredEvent = BOARD_CARD;
                 allBoardCards++;
@@ -233,12 +263,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void addCart(String string) {
 
+        buttonOccuredEvend.setClickable(false);
+        nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);
+        nextButtonToClick.setClickable(true);
         Card card = new Card(string);
+        int color = getSuitColor(string.charAt(1));
+        buttonOccuredEvend.setText(string.charAt(0) + "");
+        buttonOccuredEvend.setTextColor(color);
+        buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
         if (playerOccuredEvent == BOARD_CARD) {
             boardCards.add(card);
-            buttonOccuredEvend.setText(string.charAt(0) + "");
             buttonOccuredEvend.setTextSize(30);
-            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
             Drawable image = getCardSuit(string.charAt(1));
             Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
             Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
@@ -248,15 +283,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else {
             players[playerOccuredEvent].add(card);
-            buttonOccuredEvend.setText(string.charAt(0) + "");
-            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
             Drawable image = getCardSuit(string.charAt(1));
             buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
             buttonOccuredEvend.setTextSize(40);
             buttonOccuredEvend.setPadding(0, 60, 0, 60);
         }
         deck.remove(card);
+        checkForCalculations();
 
+    }
+
+    private int getSuitColor(char c) {
+        if(c == 'S' || c == 'C') {
+            return ContextCompat.getColor(this, R.color.blackCards);
+        }
+        else
+            return ContextCompat.getColor(this, R.color.redCards);
+    }
+
+    public void checkForCalculations() {
         if (allPlayersCards == 4 && allBoardCards == 0) {
             startCalculate();
             mBoardCardOne.setClickable(true);
@@ -266,9 +311,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (allBoardCards >= 3) {
             startCalculate();
         }
-
-
     }
+
 
     public Drawable getCardSuit(char suit) {
         Drawable image = null;
