@@ -37,7 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView pTwo;
     private CardSet deck;
     private CardSet[] players;
+    private CardSet boardCards = new CardSet();
     private int playerOccuredEvent;
+    private int allPlayersCards = 0;
+    private int allBoardCards = 0;
 
 
 
@@ -47,26 +50,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPOneCardOne = (Button) findViewById(R.id.player_one_card_one);
-        mPOneCardTwo = (Button) findViewById(R.id.player_one_card_two);
-        mPTwoCardOne = (Button) findViewById(R.id.player_two_card_one);
-        mPTwoCardTwo = (Button) findViewById(R.id.player_two_card_two);
-        mBoardCardOne = (Button) findViewById(R.id.card_one_board);
-        mBoardCardTwo = (Button) findViewById(R.id.card_two_board);
-        mBoardCardThree = (Button) findViewById(R.id.card_three_board);
-        mBoardCardFour = (Button) findViewById(R.id.card_four_board);
-        mBoardCardFive = (Button) findViewById(R.id.card_five_board);
+        mPOneCardOne      = (Button) findViewById(R.id.player_one_card_one);
+        mPOneCardTwo      = (Button) findViewById(R.id.player_one_card_two);
+        mPTwoCardOne      = (Button) findViewById(R.id.player_two_card_one);
+        mPTwoCardTwo      = (Button) findViewById(R.id.player_two_card_two);
+        mBoardCardOne     = (Button) findViewById(R.id.card_one_board);
+        mBoardCardTwo     = (Button) findViewById(R.id.card_two_board);
+        mBoardCardThree   = (Button) findViewById(R.id.card_three_board);
+        mBoardCardFour    = (Button) findViewById(R.id.card_four_board);
+        mBoardCardFive    = (Button) findViewById(R.id.card_five_board);
         mPlayerOneWinOdds = (TextView) findViewById(R.id.player_one_odds_win);
         mPlayerTwoWinOdds = (TextView) findViewById(R.id.player_two_odds_win);
         mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
         mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
-        mResetButton = (Button) findViewById(R.id.button_reset);
-        mAddPlayerButton = (Button) findViewById(R.id.button_add_player);
+        mResetButton      = (Button) findViewById(R.id.button_reset);
+        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
         mPOneCardOne.setOnClickListener(this);
         mPOneCardTwo.setOnClickListener(this);
         mPTwoCardOne.setOnClickListener(this);
         mPTwoCardTwo.setOnClickListener(this);
+
+        mBoardCardOne.setOnClickListener(this);
+        mBoardCardTwo.setOnClickListener(this);
+        mBoardCardThree.setOnClickListener(this);
+        mBoardCardFour.setOnClickListener(this);
+        mBoardCardFive.setOnClickListener(this);
+
+
 
         deck = CardSet.freshDeck();
         players = new CardSet[2];
@@ -123,28 +134,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.player_one_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardOne;
+                mPOneCardOne.setClickable(false);
+                mPOneCardTwo.setClickable(true);
                 playerOccuredEvent = 0;
                 break;
             case R.id.player_one_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardTwo;
+                mPOneCardTwo.setClickable(false);
                 playerOccuredEvent = 0;
                 break;
             case R.id.player_two_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardOne;
+                mPTwoCardOne.setClickable(false);
+                mPTwoCardTwo.setClickable(true);
                 playerOccuredEvent = 1;
                 break;
             case R.id.player_two_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardTwo;
+                mPTwoCardTwo.setClickable(false);
                 playerOccuredEvent = 1;
                 break;
         }
     }
 
     public void startCalculate(){
-        new CalculateOdds().execute(null,null,null);
+        new CalculateOdds().execute(boardCards,null,null);
     }
 
     @Override
@@ -156,14 +173,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (52 - deck.size() == 4) {
             startCalculate();
         }
-        String player1Card = String.valueOf(players[0].size());
-        String player1Card2 = String.valueOf(players[1].size());
-        Log.e("Player1", player1Card);
-        Log.e("Player1", player1Card2);
 
     }
 
-    class CalculateOdds extends AsyncTask<Void, Void, Void> {
+    class CalculateOdds extends AsyncTask<CardSet, Void, Void> {
         Enumerator enumerator;
         double pots;
 
@@ -174,8 +187,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            enumerator = new Enumerator(0, 1, deck, players, 0, new CardSet());
+        protected Void doInBackground(CardSet... params) {
+            enumerator = new Enumerator(0, 1, deck, players, 0, params[0]);
             enumerator.run();
 
             for (long l : enumerator.getWins()) {
