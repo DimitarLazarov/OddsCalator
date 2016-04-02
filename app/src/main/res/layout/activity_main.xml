@@ -92,34 +92,33 @@
             android:id="@+id/board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <Button
                 android:layout_weight="1"
-                android:text="2c"
                 android:id="@+id/card_one_board"
+                android:background="@drawable/plus_two"
+                android:clickable="false"
                 android:layout_width="75dp"
                 android:layout_height="105dp"/>
             <Button
                 android:id="@+id/card_two_board"
                 android:layout_weight="1"
-                android:text="8c"
                 android:layout_width="75dp"
-                android:layout_height="105dp"/>
+                android:layout_height="105dp"
+                android:clickable="false"/>
             <Button
                 android:id="@+id/card_three_board"
                 android:layout_weight="1"
-                android:text="Td"
                 android:layout_width="75dp"
                 android:layout_height="105dp"/>
             <Button
                 android:id="@+id/card_four_board"
                 android:layout_weight="1"
-                android:text="Qs"
                 android:layout_width="75dp"
                 android:layout_height="105dp"/>
             <Button
                 android:id="@+id/card_five_board"
                 android:layout_weight="1"
-                android:text="4d"
                 android:layout_width="75dp"
                 android:layout_height="105dp"/>
 
