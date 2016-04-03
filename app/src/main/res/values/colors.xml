@@ -7,5 +7,7 @@
     <color name="cardColor">#f7fedb</color>
     <color name="redCards">#de5656</color>
     <color name="blackCards">#424242</color>
+    <color name="darkGreen">#8ea92c</color>
+    <color name="white">#ffffff</color>
 
 </resources>

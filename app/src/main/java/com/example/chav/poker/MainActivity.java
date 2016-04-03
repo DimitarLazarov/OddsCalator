@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void addCart(String string) {
+    public void addCard(String string) {
 
         buttonOccuredEvend.setClickable(false);
         nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);

@@ -3,6 +3,9 @@ package com.example.chav.poker;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -16,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
+
+import java.util.ArrayList;
 
 
 /**
@@ -44,6 +49,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     private ImageButton mClubs;
     private ImageButton mSpades;
     private int cardSuitPower = 0;
+    private ArrayList<Button> mRanks;
 
     @Override
     public void onAttach(Activity activity) {
@@ -62,6 +68,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         // Inflate the layout for this fragment
 
         View v = inflater.inflate(R.layout.fragment_add_card, container, false);
+        mRanks = new ArrayList<>();
 
         mDeuces =       (Button) v.findViewById(R.id.deuces_button);
         mTreys =        (Button) v.findViewById(R.id.treys_button);
@@ -80,6 +87,20 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mDiamonds =     (ImageButton) v.findViewById(R.id.diamonds_button);
         mClubs =        (ImageButton) v.findViewById(R.id.clubs_button);
         mSpades =       (ImageButton) v.findViewById(R.id.spades_button);
+
+        mRanks.add(mDeuces);
+        mRanks.add(mTreys);
+        mRanks.add(mFours);
+        mRanks.add(mFives);
+        mRanks.add(mSixes);
+        mRanks.add(mSevens);
+        mRanks.add(mEights);
+        mRanks.add(mNines);
+        mRanks.add(mTens);
+        mRanks.add(mJacks);
+        mRanks.add(mQueens);
+        mRanks.add(mKings);
+        mRanks.add(mAces);
 
         mDeuces.setOnClickListener(this);
         mTreys.setOnClickListener(this);
@@ -124,69 +145,82 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.deuces_button:
                 cardStrength = "2" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.treys_button:
                 cardStrength = "3" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.fours_button:
                 cardStrength = "4" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.fives_button:
                 cardStrength = "5" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.sixes_button:
                 cardStrength = "6" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.sevens_button:
                 cardStrength = "7" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.eights_button:
                 cardStrength = "8" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.nines_button:
                 cardStrength = "9" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.tens_button:
                 cardStrength = "T" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.jacks_button:
                 cardStrength = "J" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.queens_button:
                 cardStrength = "Q" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.kings_button:
                 cardStrength = "K" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
             case R.id.aces_button:
                 cardStrength = "A" + cardSuit;
-                communicator.addCart(cardStrength);
+                communicator.addCard(cardStrength);
                 onDestroyView();
                 break;
+        }
+    }
+
+
+    private void colorRed() {
+        for (Button button : mRanks) {
+            button.setTextColor(getResources().getColor(R.color.redCards));
+        }
+    }
+
+    private void colorBlack() {
+        for (Button button : mRanks) {
+            button.setTextColor(getResources().getColor(R.color.blackCards));
         }
     }
 
@@ -210,20 +244,26 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
             case R.id.clubs_button:
                 cardSuitPower = 0;
                 setPressed(true,false,false,false);
+                colorBlack();
                 break;
             case R.id.diamonds_button:
                 cardSuitPower = 1;
                 setPressed(false,true,false,false);
+                colorRed();
                 break;
             case R.id.hearts_button:
                 cardSuitPower = 2;
                 setPressed(false,false,true,false);
+                colorRed();
                 break;
             case R.id.spades_button:
                 cardSuitPower = 3;
                 setPressed(false,false,false,true);
+                colorBlack();
                 break;
         }
+//        v.getBackground().setColorFilter(Color.parseColor("#424242"), PorterDuff.Mode.MULTIPLY);
+//        v.getBackground().setColorFilter((new LightingColorFilter(0x000000, 0xFFAA0000)));
         return true;
     }
 
@@ -232,5 +272,6 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mDiamonds.setPressed(diamonds);
         mHearts.setPressed(hearts);
         mSpades.setPressed(spades);
+
     }
 }

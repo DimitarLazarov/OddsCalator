@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 public class CardSelectionActivity extends AppCompatActivity {
 
     private Button mDeuces;
@@ -26,10 +28,12 @@ public class CardSelectionActivity extends AppCompatActivity {
     private ImageButton mClubs;
     private ImageButton mSpades;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_selection);
+
 
         mDeuces = (Button) findViewById(R.id.deuces_button);
         mTreys = (Button) findViewById(R.id.treys_button);
@@ -48,6 +52,7 @@ public class CardSelectionActivity extends AppCompatActivity {
         mDiamonds = (ImageButton) findViewById(R.id.diamonds_button);
         mClubs = (ImageButton) findViewById(R.id.clubs_button);
         mSpades = (ImageButton) findViewById(R.id.spades_button);
+
 
         Typeface font = Typeface.createFromAsset(getAssets(), "Helvetica.ttf");
         mDeuces.setTypeface(font);
