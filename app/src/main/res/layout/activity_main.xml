@@ -237,22 +237,34 @@
         android:background="@color/darkGreen"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_reset"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:text="Reset"/>
 
-        <Button
-            android:id="@+id/button_add_player"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:text="Add player"/>
+        <ImageButton
+        android:id="@+id/button_reset"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:src="@drawable/reset"
+        android:background="@color/darkGreen"
+        android:text="Reset"/>
+
+
+        <!--<Button-->
+            <!--android:id="@+id/button_reset"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/white"-->
+            <!--android:text="Reset"/>-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_add_player"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/white"-->
+            <!--android:text="Add player"/>-->
     </LinearLayout>
 </RelativeLayout>

@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBoardCardThree;
     private Button mBoardCardFour;
     private Button mBoardCardFive;
-    private Button mResetButton;
+    private ImageButton mResetButton;
     private Button mAddPlayerButton;
     private TextView mPlayerOneWinOdds;
     private TextView mPlayerTwoWinOdds;
@@ -76,8 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerTwoWinOdds = (TextView) findViewById(R.id.player_two_odds_win);
         mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
         mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
-        mResetButton      = (Button) findViewById(R.id.button_reset);
-        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
+        mResetButton      = (ImageButton) findViewById(R.id.button_reset);
+//        mResetButton      = (Button) findViewById(R.id.button_reset);
+//        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
         mPOneCardOne.setOnClickListener(this);
         mPOneCardTwo.setOnClickListener(this);
