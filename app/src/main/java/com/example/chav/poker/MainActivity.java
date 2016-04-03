@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ver4.poker.Card;
@@ -171,49 +173,78 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void animateTextView(float initialValue, float finalValue, final TextView  textview) {
+
+
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(initialValue, finalValue);
+        valueAnimator.setDuration(500);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+
+                textview.setText(valueAnimator.getAnimatedValue().toString());
+
+            }
+        });
+        valueAnimator.start();
+
+    }
+
     private void assignOdds(long[] wins, long[] ties, double pots) {
-        final double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
+        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
         double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
-        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
-        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
+        double mPlayerOneTieChance     = ties[0] * 100.0 / pots;
+        double mPlayerTwoTieChance     = ties[1] * 100.0 / pots;
+
+
+//        String winings = String.format("%.2f", mPlayerOneWinningChance);
+//        mPlayerOneWinningChance = Float.parseFloat(winings);
+//        float floaat = Float.parseFloat(winings);
+
+        Log.e("taaag", "" + mPlayerOneWinningChance);
+        animateTextView((float)0, (float)mPlayerOneWinningChance, mPlayerOneWinOdds);
+        animateTextView((float)0, (float)mPlayerTwoWinningChance, mPlayerTwoWinOdds);
+        animateTextView((float)0, (float)mPlayerOneTieChance, mPlayerOneTieOdds);
+        animateTextView((float)0, (float)mPlayerTwoTieChance, mPlayerTwoTieOdds);
+
 
 
 //        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
 //        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
 
 
-        ValueAnimator animator = new ValueAnimator();
-        animator.setObjectValues(0, (int) mPlayerOneWinningChance);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mPlayerOneWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-            }
-        });
-        animator.setEvaluator(new TypeEvaluator<Integer>() {
-            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-                return Math.round(startValue + (endValue - startValue) * fraction);
-            }
-        });
-        animator.setDuration(500);
-        animator.start();
-
-        ValueAnimator animator2 = new ValueAnimator();
-        animator2.setObjectValues(0, (int) mPlayerTwoWinningChance);
-        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            public void onAnimationUpdate(ValueAnimator animation) {
-                mPlayerTwoWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-            }
-        });
-        animator2.setEvaluator(new TypeEvaluator<Integer>() {
-            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-                return Math.round(startValue + (endValue - startValue) * fraction);
-            }
-        });
-        animator2.setDuration(500);
-        animator2.start();
-
-        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
-        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
+//        ValueAnimator animator = new ValueAnimator();
+//        animator.setObjectValues(0, (int) mPlayerOneWinningChance);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                mPlayerOneWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
+//            }
+//        });
+//        animator.setEvaluator(new TypeEvaluator<Integer>() {
+//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+//                return Math.round(startValue + (endValue - startValue) * fraction);
+//            }
+//        });
+//        animator.setDuration(500);
+//        animator.start();
+//
+//        ValueAnimator animator2 = new ValueAnimator();
+//        animator2.setObjectValues(0, (int) mPlayerTwoWinningChance);
+//        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                mPlayerTwoWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
+//            }
+//        });
+//        animator2.setEvaluator(new TypeEvaluator<Integer>() {
+//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+//                return Math.round(startValue + (endValue - startValue) * fraction);
+//            }
+//        });
+//        animator2.setDuration(500);
+//        animator2.start();
+//
+//        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
+//        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
 
     @Override
@@ -343,7 +374,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkForCalculations() {
-        Log.e("Errrrr", "" + allBoardCards);
         if (allPlayersCards == 4 && allBoardCards == 0) {
             startCalculate();
             mBoardCardOne.setClickable(true);
