@@ -8,16 +8,16 @@ import android.widget.Button;
 
 public class StartScreenActivity extends AppCompatActivity {
 
-    private Button oddsButton;
-    private Button quizButton;
+    private Button mOddsButton;
+    private Button mQuizButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
 
-        oddsButton = (Button) findViewById(R.id.odds_button);
-        oddsButton.setOnClickListener(new View.OnClickListener() {
+        mOddsButton = (Button) findViewById(R.id.odds_button);
+        mOddsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartScreenActivity.this, MainActivity.class);
@@ -25,6 +25,13 @@ public class StartScreenActivity extends AppCompatActivity {
             }
         });
 
-        quizButton = (Button) findViewById(R.id.quiz_button);
+        mQuizButton = (Button) findViewById(R.id.quiz_button);
+        mQuizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), QuizSelectionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

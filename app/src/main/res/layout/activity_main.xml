@@ -31,7 +31,7 @@
                             tools:context=".CardsAndOddsFragment">
 
                 <Button
-                    android:id="@+id/player_one_card_one"
+                    android:id="@+id/basic_quiz_player_one_card_one"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
@@ -39,14 +39,14 @@
                     />
 
                 <Button
-                    android:id="@+id/player_one_card_two"
+                    android:id="@+id/basic_quiz_player_one_card_two"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_toEndOf="@+id/player_one_card_one"
-                    android:layout_toRightOf="@+id/player_one_card_one"
+                    android:layout_toEndOf="@+id/basic_quiz_player_one_card_one"
+                    android:layout_toRightOf="@+id/basic_quiz_player_one_card_one"
                     android:background="@color/cardColor"
                     android:clickable="false"
                     />
@@ -54,8 +54,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toEndOf="@+id/player_one_card_two"
-                    android:layout_toRightOf="@id/player_one_card_two"
+                    android:layout_toEndOf="@+id/basic_quiz_player_one_card_two"
+                    android:layout_toRightOf="@id/basic_quiz_player_one_card_two"
                     android:orientation="vertical">
 
                     <TextView
@@ -95,14 +95,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/board"
+            android:id="@+id/basic_quiz_board"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
             <Button
-                android:id="@+id/card_one_board"
+                android:id="@+id/basic_quiz_card_one_board"
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -111,7 +111,7 @@
                 android:clickable="false"/>
 
             <Button
-                android:id="@+id/card_two_board"
+                android:id="@+id/basic_quiz_card_two_board"
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -120,7 +120,7 @@
                 android:clickable="false"/>
 
             <Button
-                android:id="@+id/card_three_board"
+                android:id="@+id/basic_quiz_card_three_board"
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -129,7 +129,7 @@
                 android:clickable="false"/>
 
             <Button
-                android:id="@+id/card_four_board"
+                android:id="@+id/basic_quiz_card_four_board"
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -138,7 +138,7 @@
                 android:clickable="false"/>
 
             <Button
-                android:id="@+id/card_five_board"
+                android:id="@+id/basic_quiz_card_five_board"
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -149,7 +149,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/player_two"
+            android:id="@+id/basic_quiz_player_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -161,7 +161,7 @@
                             tools:context=".CardsAndOddsFragment">
 
                 <Button
-                    android:id="@+id/player_two_card_one"
+                    android:id="@+id/basic_quiz_player_two_card_one"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
@@ -171,14 +171,14 @@
                     />
 
                 <Button
-                    android:id="@+id/player_two_card_two"
+                    android:id="@+id/basic_quiz_player_two_card_two"
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_toEndOf="@+id/player_two_card_one"
-                    android:layout_toRightOf="@+id/player_two_card_one"
+                    android:layout_toEndOf="@+id/basic_quiz_player_two_card_one"
+                    android:layout_toRightOf="@+id/basic_quiz_player_two_card_one"
                     android:background="@color/cardColor"
                     android:clickable="false"
                     />
@@ -186,8 +186,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toEndOf="@+id/player_two_card_two"
-                    android:layout_toRightOf="@id/player_two_card_two"
+                    android:layout_toEndOf="@+id/basic_quiz_player_two_card_two"
+                    android:layout_toRightOf="@id/basic_quiz_player_two_card_two"
                     android:orientation="vertical">
 
                     <TextView

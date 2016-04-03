@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/boardColor"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.chav.poker.BasicQuizActivity">
+
+    <LinearLayout
+        android:id="@+id/odds_holder"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="top"
+        android:orientation="vertical"
+        tools:context="com.example.chav.poker.MainActivity">
+
+        <LinearLayout
+            android:id="@+id/basic_quiz_player_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/basic_quiz_player_one_card_holder"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                tools:context=".CardsAndOddsFragment">
+
+                <Button
+                    android:id="@+id/basic_quiz_player_one_card_one"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/cardColor"
+                    />
+
+                <Button
+                    android:id="@+id/basic_quiz_player_one_card_two"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toEndOf="@+id/basic_quiz_player_one_card_one"
+                    android:layout_toRightOf="@+id/basic_quiz_player_one_card_one"
+                    android:background="@color/cardColor"
+                    android:clickable="false"
+                    />
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/basic_quiz_board"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <Button
+                android:id="@+id/basic_quiz_card_one_board"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@color/cardColor"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/basic_quiz_card_two_board"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@color/cardColor"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/basic_quiz_card_three_board"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@color/cardColor"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/basic_quiz_card_four_board"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@color/cardColor"
+                android:clickable="false"/>
+
+            <Button
+                android:id="@+id/basic_quiz_card_five_board"
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/cardColor"
+                android:clickable="false"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/basic_quiz_player_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <RelativeLayout
+                android:id="@+id/basic_quiz_player_two_card_holder"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="30dp"
+                tools:context=".CardsAndOddsFragment">
+
+                <Button
+                    android:id="@+id/basic_quiz_player_two_card_one"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/cardColor"
+                    />
+
+                <Button
+                    android:id="@+id/basic_quiz_player_two_card_two"
+                    android:layout_width="100dp"
+                    android:layout_height="140dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toEndOf="@+id/basic_quiz_player_two_card_one"
+                    android:layout_toRightOf="@+id/basic_quiz_player_two_card_one"
+                    android:background="@color/cardColor"
+                    android:clickable="false"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/odds_holder"
+        android:background="@color/darkGreen"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/button_reset"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@color/darkGreen"
+            android:src="@drawable/reset_small"
+            android:text="Reset"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

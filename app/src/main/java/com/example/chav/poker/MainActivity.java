@@ -3,9 +3,7 @@ package com.example.chav.poker;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,11 +14,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
@@ -65,15 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPOneCardOne      = (Button) findViewById(R.id.player_one_card_one);
-        mPOneCardTwo      = (Button) findViewById(R.id.player_one_card_two);
-        mPTwoCardOne      = (Button) findViewById(R.id.player_two_card_one);
-        mPTwoCardTwo      = (Button) findViewById(R.id.player_two_card_two);
-        mBoardCardOne     = (Button) findViewById(R.id.card_one_board);
-        mBoardCardTwo     = (Button) findViewById(R.id.card_two_board);
-        mBoardCardThree   = (Button) findViewById(R.id.card_three_board);
-        mBoardCardFour    = (Button) findViewById(R.id.card_four_board);
-        mBoardCardFive    = (Button) findViewById(R.id.card_five_board);
+        mPOneCardOne      = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
+        mPOneCardTwo      = (Button) findViewById(R.id.basic_quiz_player_one_card_two);
+        mPTwoCardOne      = (Button) findViewById(R.id.basic_quiz_player_two_card_one);
+        mPTwoCardTwo      = (Button) findViewById(R.id.basic_quiz_player_two_card_two);
+        mBoardCardOne     = (Button) findViewById(R.id.basic_quiz_card_one_board);
+        mBoardCardTwo     = (Button) findViewById(R.id.basic_quiz_card_two_board);
+        mBoardCardThree   = (Button) findViewById(R.id.basic_quiz_card_three_board);
+        mBoardCardFour    = (Button) findViewById(R.id.basic_quiz_card_four_board);
+        mBoardCardFive    = (Button) findViewById(R.id.basic_quiz_card_five_board);
         mPlayerOneWinOdds = (TextView) findViewById(R.id.player_one_odds_win);
         mPlayerTwoWinOdds = (TextView) findViewById(R.id.player_two_odds_win);
         mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
@@ -188,14 +183,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AddCardFragment d = new AddCardFragment();
         FragmentManager fm = getSupportFragmentManager();
         switch(v.getId()) {
-            case R.id.player_one_card_one:
+            case R.id.basic_quiz_player_one_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardOne;
                 nextButtonToClick = mPOneCardTwo;
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
-            case R.id.player_one_card_two:
+            case R.id.basic_quiz_player_one_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPOneCardTwo;
                 nextButtonToClick = new Button(this);
@@ -203,14 +198,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
-            case R.id.player_two_card_one:
+            case R.id.basic_quiz_player_two_card_one:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardOne;
                 nextButtonToClick = mPTwoCardTwo;
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
-            case R.id.player_two_card_two:
+            case R.id.basic_quiz_player_two_card_two:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mPTwoCardTwo;
                 nextButtonToClick = new Button(this);
@@ -218,35 +213,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
-            case R.id.card_one_board:
+            case R.id.basic_quiz_card_one_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardOne;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardTwo;
                 allBoardCards++;
                 break;
-            case R.id.card_two_board:
+            case R.id.basic_quiz_card_two_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardTwo;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardThree;
                 allBoardCards++;
                 break;
-            case R.id.card_three_board:
+            case R.id.basic_quiz_card_three_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardThree;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFour;
                 allBoardCards++;
                 break;
-            case R.id.card_four_board:
+            case R.id.basic_quiz_card_four_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFour;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFive;
                 allBoardCards++;
                 break;
-            case R.id.card_five_board:
+            case R.id.basic_quiz_card_five_board:
                 d.show(fm, "sth");
                 buttonOccuredEvend = mBoardCardFive;
                 nextButtonToClick = new Button(this);
