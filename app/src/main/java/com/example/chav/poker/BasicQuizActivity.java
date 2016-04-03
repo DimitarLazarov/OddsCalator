@@ -16,9 +16,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.Random;
 
 import ver4.poker.Card;
@@ -26,6 +23,9 @@ import ver4.poker.CardSet;
 import ver4.showdown.Enumerator;
 
 public class BasicQuizActivity extends AppCompatActivity {
+
+    private static final int PLAYER_ONE_WIN = 1;
+    private static final int PLAYER_TWO_WIN = 2;
 
     private Button mPlayerOneCardOne;
     private Button mPlayerOneCardTwo;
@@ -46,6 +46,8 @@ public class BasicQuizActivity extends AppCompatActivity {
     private CardSet mDeck;
     private CardSet mBoard;
     private CardSet[] mPlayers;
+
+    private int userChoice;
 
     @Override
 
@@ -78,31 +80,16 @@ public class BasicQuizActivity extends AppCompatActivity {
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userChoice = PLAYER_ONE_WIN;
                 new CalculateOdds().execute(mBoard);
-//                Toast.makeText(v.getContext(), mDeck.size() + "", Toast.LENGTH_SHORT).show();
-                if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
-                    Toast.makeText(v.getContext(), "Good Job!", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(v.getContext(), "Incorrect", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
-                }
-
             }
         });
         mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userChoice = PLAYER_TWO_WIN;
                 new CalculateOdds().execute(mBoard);
-//                Toast.makeText(v.getContext(), mDeck.size() + "", Toast.LENGTH_SHORT).show();
-                if (mPlayerOneWinningChance < mPlayerTwoWinningChance) {
-                    Toast.makeText(v.getContext(), "Good Job!" + mPlayerOneWinningChance, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(v.getContext(), "Incorrect"  + mPlayerOneWinningChance, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
-                }
             }
         });
     }
@@ -211,47 +198,18 @@ public class BasicQuizActivity extends AppCompatActivity {
     }
 
 
-    private void assignOdds(long[] wins, long[] ties, double pots) {
+    private int getWinner(long[] wins, long[] ties, double pots) {
         mPlayerOneWinningChance = wins[0] * 100.0 / pots;
         mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
+        if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
+            return PLAYER_ONE_WIN;
+        }
+
+        return PLAYER_TWO_WIN; //TODO add tie
+
+
 //        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
 //        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
-
-
-//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
-//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
-
-
-//        ValueAnimator animator = new ValueAnimator();
-//        animator.setObjectValues(0, (int) mPlayerOneWinningChance);
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                mPlayerOneWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-//            }
-//        });
-//        animator.setEvaluator(new TypeEvaluator<Integer>() {
-//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-//                return Math.round(startValue + (endValue - startValue) * fraction);
-//            }
-//        });
-//        animator.setDuration(500);
-//        animator.start();
-//
-//        ValueAnimator animator2 = new ValueAnimator();
-//        animator2.setObjectValues(0, (int) mPlayerTwoWinningChance);
-//        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                mPlayerTwoWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-//            }
-//        });
-//        animator2.setEvaluator(new TypeEvaluator<Integer>() {
-//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-//                return Math.round(startValue + (endValue - startValue) * fraction);
-//            }
-//        });
-//        animator2.setDuration(500);
-//        animator2.start();
-
 
 
 //        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
@@ -263,10 +221,17 @@ public class BasicQuizActivity extends AppCompatActivity {
         Enumerator enumerator;
         double pots;
 
+        public CalculateOdds() {
+        }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            assignOdds(enumerator.getWins(), enumerator.getSplits(), pots);
+            if( userChoice == getWinner(enumerator.getWins(), enumerator.getSplits(), pots)) {
+                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
