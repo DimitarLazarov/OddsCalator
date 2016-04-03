@@ -12,9 +12,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.Random;
 
 import ver4.poker.Card;
@@ -34,11 +38,11 @@ public class BasicQuizActivity extends AppCompatActivity {
     private Button mBoardCardFive;
     private RelativeLayout mPlayerOneCards;
     private RelativeLayout mPlayerTwoCards;
+    private ImageButton mReset;
 
     private double mPlayerOneWinningChance;
     private double mPlayerTwoWinningChance;
 
-//    private ArrayList<Card> mDealtCards;
     private CardSet mDeck;
     private CardSet mBoard;
     private CardSet[] mPlayers;
@@ -48,13 +52,6 @@ public class BasicQuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_quiz);
-
-        mDeck = CardSet.shuffledDeck();
-        mPlayers = new CardSet[2];
-        mPlayers[0] = drawCards(2);
-        mPlayers[1] = drawCards(2);
-        Random r = new Random();
-        mBoard = drawCards(r.nextInt(3) + 3);
 
         mPlayerOneCardOne = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
         mPlayerOneCardTwo = (Button) findViewById(R.id.basic_quiz_player_one_card_two);
@@ -66,17 +63,48 @@ public class BasicQuizActivity extends AppCompatActivity {
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
 
-        setBoard(mPlayers, mBoard);
+
+        mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
+        mReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prepareBoard();
+            }
+        });
+
+        prepareBoard();
 
         mPlayerOneCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Card card = mDeck.iterator().next();
-                Toast.makeText(v.getContext(), card.rankOf().toChar() + "      " + card.suitOf().toChar(), Toast.LENGTH_SHORT).show();
+                new CalculateOdds().execute(mBoard);
+//                Toast.makeText(v.getContext(), mDeck.size() + "", Toast.LENGTH_SHORT).show();
+                if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
+                    Toast.makeText(v.getContext(), "Good Job!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(v.getContext(), "Incorrect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
+        mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CalculateOdds().execute(mBoard);
+//                Toast.makeText(v.getContext(), mDeck.size() + "", Toast.LENGTH_SHORT).show();
+                if (mPlayerOneWinningChance < mPlayerTwoWinningChance) {
+                    Toast.makeText(v.getContext(), "Good Job!" + mPlayerOneWinningChance, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(v.getContext(), "Incorrect"  + mPlayerOneWinningChance, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), mPlayerOneWinningChance + " ! " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private CardSet drawCards(int numberOfCards) {
@@ -89,88 +117,74 @@ public class BasicQuizActivity extends AppCompatActivity {
         return cards;
     }
 
+    private void prepareBoard(){
+
+        mDeck = CardSet.shuffledDeck();
+        mPlayers = new CardSet[2];
+        mPlayers[0] = drawCards(2);
+        mPlayers[1] = drawCards(2);
+        Random r = new Random();
+        int rGen = r.nextInt(3) + 3;
+        mBoard = drawCards(rGen);
+        if (rGen >= 3) {
+            mBoardCardFour.setText("");
+            mBoardCardFour.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            mBoardCardFive.setText("");
+            mBoardCardFive.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
+        setBoard(mPlayers, mBoard);
+    }
+
     private void setBoard(CardSet[] players, CardSet board) {
-        int i = 0;
         Card card = null;
+        Card cardTo = null;
+        Object[] x = players[0].toArray();
+        card = (Card) x[0];
+        cardTo = (Card) x[1];
+        setPlayerCard(card,mPlayerOneCardOne);
+        setPlayerCard(cardTo,mPlayerOneCardTwo);
 
-        while (players[0].iterator().hasNext()) {
-            i++;
-            card = players[0].iterator().next();
-            switch (i) {
+        x = players[1].toArray();
+        card = (Card) x[0];
+        cardTo = (Card) x[1];
+        setPlayerCard(card,mPlayerTwoCardOne);
+        setPlayerCard(cardTo,mPlayerTwoCardTwo);
+
+        x = board.toArray();
+        for (int j = 0; j < x.length; j++) {
+            card = (Card) x[j];
+            switch (j) {
+                case 0:
+                    setBoardCard(card, mBoardCardOne);
+                    break;
                 case 1:
-                    Log.d("iterate", "p1.p1");
-                    setPlayerCard(card, mPlayerOneCardOne);
+                    setBoardCard(card, mBoardCardTwo);
                     break;
                 case 2:
-                    Log.d("iterate", "p1.p2");
-                    setPlayerCard(card, mPlayerOneCardTwo);
-                    break;
-                default:
-                    return;
-
-            }
-        }
-
-        while (players[1].iterator().hasNext()) {
-            i++;
-            card = players[1].iterator().next();
-            switch (i) {
-                case 1:
-                    Log.d("iterate", "p2.p1");
-                    setPlayerCard(card, mPlayerOneCardOne);
-                    break;
-                case 2:
-                    Log.d("iterate", "p2.p2");
-                    setPlayerCard(card, mPlayerOneCardTwo);
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        while (board.iterator().hasNext()) {
-            i++;
-            card = players[1].iterator().next();
-            switch (i) {
-                case 1:
-                    setPlayerCard(card, mBoardCardOne);
-                    break;
-                case 2:
-                    setPlayerCard(card, mBoardCardTwo);
+                    setBoardCard(card, mBoardCardThree);
                     break;
                 case 3:
-                    setPlayerCard(card, mBoardCardThree);
+                    setBoardCard(card, mBoardCardFour);
                     break;
                 case 4:
-                    setPlayerCard(card, mBoardCardFour);
+                    setBoardCard(card, mBoardCardFive);
                     break;
-                case 5:
-                    setPlayerCard(card, mBoardCardFive);
-                    break;
-                default:
-                    return;
             }
         }
-
-
-//        mPlayerOneCardOne.setText(players[0].iterator().next().rankOf().toChar());
-//        mPlayerOneCardTwo.setText(players[0].iterator().next().rankOf().toChar());
-//        mPlayerTwoCardOne.setText(players[1].iterator().next().rankOf().toChar());
-//        mPlayerTwoCardTwo.setText(players[1].iterator().next().rankOf().toChar());
-//        mBoardCardOne.setText(board.iterator().next().rankOf().toChar());
-//        mBoardCardTwo.setText(board.iterator().next().rankOf().toChar());
-//        mBoardCardThree.setText(board.iterator().next().rankOf().toChar());
-//        if (board.iterator().hasNext()) {
-//            mBoardCardFour.setText(board.iterator().next().rankOf().toChar());
-//        }
-//        if (board.iterator().hasNext()) {
-//            mBoardCardFive.setText(board.iterator().next().rankOf().toChar());
-//        }
 
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setPlayerCard(Card card, Button button) {
+        String cardRank  = card.rankOf().toChar()+"";
+        button.setText(cardRank);
+
+        if (card.suitOf().toChar() == 'c' || card.suitOf().toChar() == 's') {
+            button.setTextColor(ContextCompat.getColor(this, R.color.blackCards));
+        } else {
+            button.setTextColor(ContextCompat.getColor(this, R.color.redCards));
+        }
+
         button.setTextSize(40);
         Drawable dr = getCardSuit(card.suitOf().toChar());
         button.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, dr);
@@ -179,7 +193,16 @@ public class BasicQuizActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void setBoardCard(Card card, Button button) {
+        String cardRank  = card.rankOf().toChar()+"";
         button.setTextSize(30);
+        button.setText(cardRank);
+
+        if (card.suitOf().toChar() == 'c' || card.suitOf().toChar() == 's') {
+            button.setTextColor(ContextCompat.getColor(this, R.color.blackCards));
+        } else {
+            button.setTextColor(ContextCompat.getColor(this, R.color.redCards));
+        }
+
         Drawable image = getCardSuit(card.suitOf().toChar());
         Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
         Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));

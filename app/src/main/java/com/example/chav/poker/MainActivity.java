@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         animator2.setDuration(500);
         animator2.start();
 
-
-
         mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
         mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
