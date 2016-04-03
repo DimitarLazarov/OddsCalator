@@ -51,11 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView pTwo;
     private CardSet deck;
     private CardSet[] players;
-    private CardSet boardCards = new CardSet();
+    private CardSet boardCards;
     private int playerOccuredEvent;
-    private int allPlayersCards = 0;
-    private int allBoardCards = 0;
-    private ArrayList<Card> dealtCards = new ArrayList<Card>();
+    private int allPlayersCards;
+    private int allBoardCards;
+    private ArrayList<Card> dealtCards;
+    private ArrayList<Button> allButtons;
 
 
     @Override
@@ -77,33 +78,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
         mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
         mResetButton      = (ImageButton) findViewById(R.id.button_reset);
-//        mResetButton      = (Button) findViewById(R.id.button_reset);
 //        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
+
+        allButtons = new ArrayList<Button>();
+        allButtons.add(mPOneCardOne);
+        allButtons.add(mPOneCardTwo);
+        allButtons.add(mPTwoCardOne);
+        allButtons.add(mPTwoCardTwo);
+        allButtons.add(mBoardCardOne);
+        allButtons.add(mBoardCardTwo);
+        allButtons.add(mBoardCardThree);
+        allButtons.add(mBoardCardFour);
+        allButtons.add(mBoardCardFive);
+
 
         mPOneCardOne.setOnClickListener(this);
         mPOneCardTwo.setOnClickListener(this);
-        mPOneCardTwo.setClickable(false);
         mPTwoCardOne.setOnClickListener(this);
         mPTwoCardTwo.setOnClickListener(this);
-        mPTwoCardTwo.setClickable(false);
 
         mBoardCardOne.setOnClickListener(this);
-        mBoardCardOne.setClickable(false);
         mBoardCardTwo.setOnClickListener(this);
-        mBoardCardTwo.setClickable(false);
         mBoardCardThree.setOnClickListener(this);
-        mBoardCardThree.setClickable(false);
         mBoardCardFour.setOnClickListener(this);
-        mBoardCardFour.setClickable(false);
         mBoardCardFive.setOnClickListener(this);
-        mBoardCardFive.setClickable(false);
 
+        resetStates();
 
-
-        deck = CardSet.freshDeck();
-        players = new CardSet[2];
-        players[0] = new CardSet();
-        players[1] = new CardSet();
 //        players[2] = new CardSet();
 //        players[0].add(new Card("Ad"));
 //        players[0].add(new Card("Ac"));
@@ -132,6 +133,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        CardSet cardSet = new CardSet();
 //        Showdown showdown = new Showdown();
 //        Help help = new Help();
+
+        mResetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetStates();
+            }
+        });
+    }
+
+    private void resetStates() {
+
+        resetAllButtonsStates();
+
+        mPOneCardOne.setClickable(true);
+        mPOneCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+
+        mPTwoCardOne.setClickable(true);
+        mPTwoCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+
+        deck = CardSet.freshDeck();
+        players = new CardSet[2];
+        players[0] = new CardSet();
+        players[1] = new CardSet();
+        boardCards = new CardSet();
+        allPlayersCards = 0;
+        allBoardCards = 0;
+        dealtCards = new ArrayList<Card>();
+    }
+
+    private void resetAllButtonsStates() {
+        for(Button button : allButtons) {
+            button.setClickable(false);
+            button.setText("");
+            button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            button.setBackgroundResource(R.color.cardColor);
+        }
     }
 
     private void assignOdds(long[] wins, long[] ties, double pots) {
@@ -306,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkForCalculations() {
+        Log.e("Errrrr", "" + allBoardCards);
         if (allPlayersCards == 4 && allBoardCards == 0) {
             startCalculate();
             mBoardCardOne.setClickable(true);
@@ -337,6 +375,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return image;
     }
+
+
 
 
 
