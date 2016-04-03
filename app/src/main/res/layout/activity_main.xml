@@ -244,7 +244,8 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:layout_weight="1"
-        android:src="@drawable/reset"
+        android:adjustViewBounds="true"
+        android:src="@drawable/reset_small"
         android:background="@color/darkGreen"
         android:text="Reset"/>
 

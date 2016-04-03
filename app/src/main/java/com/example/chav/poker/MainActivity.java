@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int allBoardCards = 0;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
