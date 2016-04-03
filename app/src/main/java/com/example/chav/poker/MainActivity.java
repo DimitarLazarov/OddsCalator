@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 resetStates();
+                resetAllTextViewWithAnimation();
             }
         });
     }
@@ -173,6 +174,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void resetAllTextViewWithAnimation() {
+
+        animateTextView((Float.parseFloat(mPlayerOneWinOdds.getText().toString())), (float)0, mPlayerOneWinOdds);
+        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())), (float)0, mPlayerTwoWinOdds);
+        animateTextView((Float.parseFloat(mPlayerTwoWinOdds.getText().toString())), (float)0, mPlayerOneTieOdds);
+        animateTextView((Float.parseFloat(mPlayerTwoTieOdds.getText().toString())), (float)0, mPlayerTwoTieOdds);
+    }
+
     public void animateTextView(float initialValue, float finalValue, final TextView  textview) {
 
 
@@ -182,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
 
-                textview.setText(valueAnimator.getAnimatedValue().toString());
+                textview.setText(String.format("%.2f", valueAnimator.getAnimatedValue()));
 
             }
         });
@@ -201,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        mPlayerOneWinningChance = Float.parseFloat(winings);
 //        float floaat = Float.parseFloat(winings);
 
-        Log.e("taaag", "" + mPlayerOneWinningChance);
+
         animateTextView((float)0, (float)mPlayerOneWinningChance, mPlayerOneWinOdds);
         animateTextView((float)0, (float)mPlayerTwoWinningChance, mPlayerTwoWinOdds);
         animateTextView((float)0, (float)mPlayerOneTieChance, mPlayerOneTieOdds);
