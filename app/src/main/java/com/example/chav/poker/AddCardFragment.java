@@ -6,10 +6,12 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -214,13 +216,13 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
     private void colorRed() {
         for (Button button : mRanks) {
-            button.setTextColor(getResources().getColor(R.color.redCards));
+            button.setTextColor(ContextCompat.getColor(getContext(), R.color.redCards));
         }
     }
 
     private void colorBlack() {
         for (Button button : mRanks) {
-            button.setTextColor(getResources().getColor(R.color.blackCards));
+            button.setTextColor(ContextCompat.getColor(getContext(), R.color.blackCards));
         }
     }
 
@@ -243,7 +245,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         switch(v.getId()) {
             case R.id.clubs_button:
                 cardSuitPower = 0;
-                setPressed(true,false,false,false);
+                setPressed(true, false, false, false);
                 colorBlack();
                 break;
             case R.id.diamonds_button:
@@ -263,6 +265,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
                 break;
         }
 //        v.getBackground().setColorFilter(Color.parseColor("#424242"), PorterDuff.Mode.MULTIPLY);
+        v.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_OVER);
 //        v.getBackground().setColorFilter((new LightingColorFilter(0x000000, 0xFFAA0000)));
         return true;
     }
