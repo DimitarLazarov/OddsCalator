@@ -25,6 +25,8 @@ import android.widget.TextView;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
 
+import java.util.ArrayList;
+
 import ver4.poker.Card;
 import ver4.poker.CardSet;
 import ver4.showdown.Enumerator;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int playerOccuredEvent;
     private int allPlayersCards = 0;
     private int allBoardCards = 0;
+    private ArrayList<Card> dealtCards = new ArrayList<Card>();
 
 
     @Override
@@ -264,35 +267,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void addCard(String string) {
-
-        buttonOccuredEvend.setClickable(false);
-        nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);
-        nextButtonToClick.setClickable(true);
+    public boolean addCard(String string) {
         Card card = new Card(string);
-        int color = getSuitColor(string.charAt(1));
-        buttonOccuredEvend.setText(string.charAt(0) + "");
-        buttonOccuredEvend.setTextColor(color);
-        buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
-        if (playerOccuredEvent == BOARD_CARD) {
-            boardCards.add(card);
-            buttonOccuredEvend.setTextSize(30);
-            Drawable image = getCardSuit(string.charAt(1));
-            Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
-            Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
-            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
-            buttonOccuredEvend.setPadding(0, 50, 0, 50);
-
+        if (dealtCards.contains(card)) {
+            return false;
         }
         else {
-            players[playerOccuredEvent].add(card);
-            Drawable image = getCardSuit(string.charAt(1));
-            buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-            buttonOccuredEvend.setTextSize(40);
-            buttonOccuredEvend.setPadding(0, 60, 0, 60);
+            buttonOccuredEvend.setClickable(false);
+            nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);
+            nextButtonToClick.setClickable(true);
+            int color = getSuitColor(string.charAt(1));
+            buttonOccuredEvend.setText(string.charAt(0) + "");
+            buttonOccuredEvend.setTextColor(color);
+            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
+            if (playerOccuredEvent == BOARD_CARD) {
+                boardCards.add(card);
+                buttonOccuredEvend.setTextSize(30);
+                Drawable image = getCardSuit(string.charAt(1));
+                Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+                Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
+                buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
+                buttonOccuredEvend.setPadding(0, 50, 0, 50);
+
+            } else {
+                players[playerOccuredEvent].add(card);
+                Drawable image = getCardSuit(string.charAt(1));
+                buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+                buttonOccuredEvend.setTextSize(40);
+                buttonOccuredEvend.setPadding(0, 60, 0, 60);
+            }
+            deck.remove(card);
+            dealtCards.add(card);
+            checkForCalculations();
+            return true;
         }
-        deck.remove(card);
-        checkForCalculations();
 
     }
 

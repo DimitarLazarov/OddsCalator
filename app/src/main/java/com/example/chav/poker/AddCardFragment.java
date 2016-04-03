@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
 
@@ -130,7 +131,6 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         char cardSuit = 'C';
-        String cardStrength = "";
         if(cardSuitPower == 0){
             cardSuit = 'C';
         }
@@ -146,83 +146,58 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.deuces_button:
-                cardStrength = "2" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('2', cardSuit);
                 break;
             case R.id.treys_button:
-                cardStrength = "3" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('3', cardSuit);
                 break;
             case R.id.fours_button:
-                cardStrength = "4" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('4', cardSuit);
                 break;
             case R.id.fives_button:
-                cardStrength = "5" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('5', cardSuit);
                 break;
             case R.id.sixes_button:
-                cardStrength = "6" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('6', cardSuit);
                 break;
             case R.id.sevens_button:
-                cardStrength = "7" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('7', cardSuit);
                 break;
             case R.id.eights_button:
-                cardStrength = "8" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('8', cardSuit);
                 break;
             case R.id.nines_button:
-                cardStrength = "9" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('9', cardSuit);
                 break;
             case R.id.tens_button:
-                cardStrength = "T" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('T', cardSuit);
                 break;
             case R.id.jacks_button:
-                cardStrength = "J" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('J', cardSuit);
                 break;
             case R.id.queens_button:
-                cardStrength = "Q" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('Q', cardSuit);
                 break;
             case R.id.kings_button:
-                cardStrength = "K" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('K', cardSuit);
                 break;
             case R.id.aces_button:
-                cardStrength = "A" + cardSuit;
-                communicator.addCard(cardStrength);
-                onDestroyView();
+                communicateWithActivity('A', cardSuit);
                 break;
         }
     }
 
-
-    private void colorRed() {
-        for (Button button : mRanks) {
-            button.setTextColor(ContextCompat.getColor(getContext(), R.color.redCards));
-        }
+    private void communicateWithActivity(char cardPower, char suitPower) {
+        String cardStrength = "" + cardPower + suitPower;
+        if (communicator.addCard(cardStrength))
+            onDestroyView();
+        else
+            Toast.makeText(getActivity(), "Card Already chosen!", Toast.LENGTH_SHORT).show();
     }
 
-    private void colorBlack() {
+    private void changeColorButtonsText(int color) {
         for (Button button : mRanks) {
-            button.setTextColor(ContextCompat.getColor(getContext(), R.color.blackCards));
+            button.setTextColor(ContextCompat.getColor(getContext(), color));
         }
     }
 
@@ -246,22 +221,22 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
             case R.id.clubs_button:
                 cardSuitPower = 0;
                 setPressed(true, false, false, false);
-                colorBlack();
+                changeColorButtonsText(R.color.blackCards);
                 break;
             case R.id.diamonds_button:
                 cardSuitPower = 1;
                 setPressed(false,true,false,false);
-                colorRed();
+                changeColorButtonsText(R.color.redCards);
                 break;
             case R.id.hearts_button:
                 cardSuitPower = 2;
                 setPressed(false,false,true,false);
-                colorRed();
+                changeColorButtonsText(R.color.redCards);
                 break;
             case R.id.spades_button:
                 cardSuitPower = 3;
                 setPressed(false,false,false,true);
-                colorBlack();
+                changeColorButtonsText(R.color.blackCards);
                 break;
         }
 //        v.getBackground().setColorFilter(Color.parseColor("#424242"), PorterDuff.Mode.MULTIPLY);
