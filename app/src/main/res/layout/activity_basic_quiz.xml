@@ -39,6 +39,7 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
+                    android:clickable="false"
                     android:background="@color/cardColor"
                     />
 
@@ -47,8 +48,6 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_toEndOf="@+id/basic_quiz_player_one_card_one"
                     android:layout_toRightOf="@+id/basic_quiz_player_one_card_one"
                     android:background="@color/cardColor"
@@ -144,8 +143,6 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_toEndOf="@+id/basic_quiz_player_two_card_one"
                     android:layout_toRightOf="@+id/basic_quiz_player_two_card_one"
                     android:background="@color/cardColor"
