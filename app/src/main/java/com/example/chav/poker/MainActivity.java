@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import ver4.poker.Card;
 import ver4.poker.CardSet;
+import ver4.poker.HandEval;
 import ver4.showdown.Enumerator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AddCardCommunicator {
@@ -393,8 +394,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mBoardCardOne.setBackgroundResource(R.drawable.card_plus_sign);
         }
 
-        if (allBoardCards >= 3) {
+        if (allBoardCards >= 3 && allBoardCards <=4) {
             startCalculate();
+        }
+
+        if (allBoardCards == 5) {
+            int handValue0, handValue1;
+            long[] holeHand = new long[players.length];
+            int i = 0;
+            for (CardSet cs : players)
+                holeHand[i++] = HandEval.encode(cs);
+            long board = HandEval.encode(boardCards);
+            handValue0 = HandEval.hand7Eval(board | holeHand[0]);
+            handValue1 = HandEval.hand7Eval(board | holeHand[1]);
+            long wins[] = new long[2];
+            long ties[] = new long[2];
+            ties[0] = 0;
+            ties[1] = 0;
+            double pots = 1;
+
+            if(handValue0 > handValue1) {
+                wins[0] = 1;
+                wins[1] = 0;
+                assignOdds(wins, ties, pots);
+            }
+            else if (handValue0 < handValue1) {
+                wins[0] = 0;
+                wins[1] = 1;
+                assignOdds(wins, ties, pots);
+            }
+            else {
+                wins[0] = 0;
+                wins[1] = 0;
+                ties[0] = 1;
+                ties[1] = 1;
+                assignOdds(wins, ties, pots);
+            }
         }
     }
 
