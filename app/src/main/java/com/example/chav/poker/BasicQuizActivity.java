@@ -64,7 +64,7 @@ public class BasicQuizActivity extends AppCompatActivity {
         mBoardCardThree = (Button) findViewById(R.id.basic_quiz_card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
-
+        
 
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mReset.setOnClickListener(new View.OnClickListener() {
