@@ -211,10 +211,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        float floaat = Float.parseFloat(winings);
 
 
-        animateTextView((float)0, (float)mPlayerOneWinningChance, mPlayerOneWinOdds);
-        animateTextView((float)0, (float)mPlayerTwoWinningChance, mPlayerTwoWinOdds);
-        animateTextView((float)0, (float)mPlayerOneTieChance, mPlayerOneTieOdds);
-        animateTextView((float)0, (float)mPlayerTwoTieChance, mPlayerTwoTieOdds);
+        animateTextView((Float.parseFloat(mPlayerOneWinOdds.getText().toString())),
+                        (float)mPlayerOneWinningChance, mPlayerOneWinOdds);
+        animateTextView((Float.parseFloat(mPlayerTwoWinOdds.getText().toString())),
+                        (float)mPlayerTwoWinningChance, mPlayerTwoWinOdds);
+        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())),
+                        (float)mPlayerOneTieChance, mPlayerOneTieOdds);
+        animateTextView((Float.parseFloat(mPlayerTwoTieOdds.getText().toString())),
+                        (float)mPlayerTwoTieChance, mPlayerTwoTieOdds);
 
 
 
