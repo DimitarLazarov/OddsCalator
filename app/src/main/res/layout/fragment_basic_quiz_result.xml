@@ -4,62 +4,72 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/boardColor"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.example.chav.poker.BasicQuizResultFragment">
 
     <TextView
-        android:layout_marginTop="15dp"
         android:id="@+id/basic_quiz_result_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30sp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="@string/hello_blank_fragment"/>
+        android:text="@string/hello_blank_fragment"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/basic_quiz_points_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_margin="20dp"
         android:layout_below="@+id/basic_quiz_result_text"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:text="@string/hello_blank_fragment"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/basic_quiz_current_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:layout_marginBottom="20dp"
         android:layout_below="@+id/basic_quiz_points_result"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/hello_blank_fragment"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
 
 
-    <ImageButton
-        android:id="@+id/basic_quiz_new_game"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_below="@+id/basic_quiz_current_result"
-        android:src="@drawable/reset_small"
-        android:padding="15dp"
         android:background="@color/darkGreen"
-        />
-
-    <ImageButton
-        android:id="@+id/basic_quiz_next_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/basic_quiz_current_result"
-        android:src="@drawable/next_small"
         android:padding="10dp"
-        android:background="@color/darkGreen"
-        />
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/basic_quiz_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkGreen"
+            android:src="@drawable/cancel_small"
+            />
+
+        <ImageButton
+            android:id="@+id/basic_quiz_new_game"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkGreen"
+            android:src="@drawable/reset_small"
+            />
+
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

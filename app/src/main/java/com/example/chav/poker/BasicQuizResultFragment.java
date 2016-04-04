@@ -3,6 +3,7 @@ package com.example.chav.poker;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -23,8 +24,8 @@ public class BasicQuizResultFragment extends DialogFragment {
     private TextView mResultText;
     private TextView mResultPoints;
     private TextView mCurrentResult;
-    private ImageButton mNextQuestion;
-    private ImageButton mStartAgian;
+    private ImageButton mCancel;
+    private ImageButton mStartAgain;
 
     private String mTitle;
     private String mMessage;
@@ -69,35 +70,34 @@ public class BasicQuizResultFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_basic_quiz_result, container, false);
 
+        getDialog().setCanceledOnTouchOutside(false);
+
         mResultText = (TextView) v.findViewById(R.id.basic_quiz_result_text);
         mResultText.setText(mTitle);
         mResultPoints = (TextView) v.findViewById(R.id.basic_quiz_points_result);
         mResultPoints.setText(mMessage);
         mCurrentResult = (TextView) v.findViewById(R.id.basic_quiz_current_result);
         mCurrentResult.setText(mScore);
-        mNextQuestion = (ImageButton) v.findViewById(R.id.basic_quiz_next_question);
-        mStartAgian = (ImageButton) v.findViewById(R.id.basic_quiz_new_game);
+        mStartAgain = (ImageButton) v.findViewById(R.id.basic_quiz_new_game);
+        mCancel = (ImageButton) v.findViewById(R.id.basic_quiz_cancel);
 
-        if (mTitle.contains("Correct")) {
-            mNextQuestion.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mQuizMessageCallback.onMessageAcknowledged();
-                    getDialog().hide();
-                }
-            });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
 
-        } else {
-            mNextQuestion.setVisibility(View.GONE);
-            mStartAgian.setVisibility(View.VISIBLE);
-            mStartAgian.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mQuizMessageCallback.onMessageAcknowledged();
-                    getDialog().hide();
-                }
-            });
-        }
+        mStartAgain.setVisibility(View.VISIBLE);
+        mStartAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQuizMessageCallback.onMessageAcknowledged();
+                getDialog().hide();
+            }
+        });
 
         return v;
     }

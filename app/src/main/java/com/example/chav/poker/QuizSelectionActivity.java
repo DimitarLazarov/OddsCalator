@@ -9,7 +9,7 @@ import android.widget.Button;
 public class QuizSelectionActivity extends AppCompatActivity {
 
     private Button mBasicQuiz;
-    private Button mAdvancedQuiz;
+    private Button mCram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,14 @@ public class QuizSelectionActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        mAdvancedQuiz = (Button) findViewById(R.id.advanced_quiz);
+        mCram = (Button) findViewById(R.id.cram_cards);
+        mCram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), CramCardsUserActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }

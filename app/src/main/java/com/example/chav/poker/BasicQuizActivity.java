@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -46,6 +46,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private LinearLayout mBoardCards;
     private ImageButton mReset;
     private TextView mScore;
+    private TextView mTimer;
 
 //    private double mPlayerOneWinningChance;
 //    private double mPlayerTwoWinningChance;
@@ -53,8 +54,9 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private CardSet mDeck;
     private CardSet mBoard;
     private CardSet[] mPlayers;
-    private int mCorrectAsnwers;
-
+    private int mCorrectAnswers;
+    private int mTotalAnswers;
+    private CountDownTimer mCountDownTimer;
     private int mUserChoice;
 
     @Override
@@ -77,6 +79,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
+        mTimer = (TextView) findViewById(R.id.basic_quiz_timer);
+
 
         mReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +115,34 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 startCalculate();
             }
         });
+        startTimer();
+
+    }
+
+    private void startTimer() {
+
+        final long[] seconds = new long[1];
+        final long[] miliseconds = new long[1];
+        final long[] microseconds = new long[1];
+
+        mCountDownTimer = new CountDownTimer(20000, 10) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                seconds[0] = millisUntilFinished / 1000;
+                miliseconds[0] = (millisUntilFinished % 100) / 10;
+                microseconds[0] = millisUntilFinished % 10;
+//                mTimer.setText(String.valueOf(millisUntilFinished/1000));
+                mTimer.setText(String.valueOf(seconds[0] + "." + microseconds[0] + microseconds[0]));
+            }
+
+            @Override
+            public void onFinish() {
+                mTimer.setText("0.00");
+                startResultsFragment();
+            }
+        }.start();
+
     }
 
     private void startCalculate() {
@@ -137,20 +169,32 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 wins[0] = 1;
                 wins[1] = 0;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    startWiningFragment();
+                    mCorrectAnswers++;
+                    mTotalAnswers++;
+                    mScore.setText("Score: " + mCorrectAnswers);
+                    prepareBoard();
+//                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    startLosingFragment();
+                    mTotalAnswers++;
+                    prepareBoard();
+//                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
             } else if (handValue0 < handValue1) {
                 wins[0] = 0;
                 wins[1] = 1;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    startWiningFragment();
+                    mCorrectAnswers++;
+                    mTotalAnswers++;
+                    mScore.setText("Score: " + mCorrectAnswers);
+                    prepareBoard();
+//                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    startLosingFragment();
+                    mTotalAnswers++;
+                    prepareBoard();
+//                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -159,10 +203,16 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 ties[0] = 1;
                 ties[1] = 1;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    startWiningFragment();
+                    mCorrectAnswers++;
+                    mTotalAnswers++;
+                    mScore.setText("Score: " + mCorrectAnswers);
+                    prepareBoard();
+//                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    startLosingFragment();
+                    mTotalAnswers++;
+                    prepareBoard();
+//                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -177,6 +227,11 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
             cards.add(card);
         }
         return cards;
+    }
+
+    private void resetResult(){
+        mCorrectAnswers = 0;
+        mScore.setText("Score: 0");
     }
 
     private void prepareBoard(){
@@ -294,7 +349,21 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     @Override
     public void onMessageAcknowledged() {
         prepareBoard();
+        resetResult();
+        startTimer();
     }
+
+    private void startResultsFragment(){
+        BasicQuizResultFragment basicQuizResultFragment = new BasicQuizResultFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("title", "Results");
+        args.putString("message", "Correct: " + mCorrectAnswers);
+        args.putString("score", "Total: "  + mTotalAnswers);
+        basicQuizResultFragment.setArguments(args);
+        basicQuizResultFragment.show(fm, "tagged");
+    }
+
 
     private void startWiningFragment() {
         BasicQuizResultFragment basicQuizResultFragment = new BasicQuizResultFragment();
@@ -348,10 +417,16 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if( mUserChoice == getWinner(enumerator.getWins(), enumerator.getSplits(), pots)) {
-                startWiningFragment();
+                mCorrectAnswers++;
+                mTotalAnswers++;
+                mScore.setText("Score: " + mCorrectAnswers);
+                prepareBoard();
+//                startWiningFragment();
 //                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             } else {
-                startLosingFragment();
+                mTotalAnswers++;
+                prepareBoard();
+//                startLosingFragment();
 //                Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             }
 
@@ -379,5 +454,11 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
             Log.d("asd", "total pots: " + pots);
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mCountDownTimer.cancel();
     }
 }

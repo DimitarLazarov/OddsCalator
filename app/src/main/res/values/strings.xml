@@ -13,4 +13,10 @@
     <string name="basic_quiz">Basic quiz</string>
     <string name="advanced_quiz">Advanced quiz</string>
     <string name="instructions">instructions</string>
+    <string name="cram_cards">Cram Cards</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="create_deck">Create Flashcards</string>
+    <string name="my_cram">My Cramcards</string>
+    <string name="recently_studied">Rcently Studied</string>
 </resources>
