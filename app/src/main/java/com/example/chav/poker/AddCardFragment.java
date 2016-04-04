@@ -90,6 +90,8 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mDiamonds =     (ImageButton) v.findViewById(R.id.diamonds_button);
         mClubs =        (ImageButton) v.findViewById(R.id.clubs_button);
         mSpades =       (ImageButton) v.findViewById(R.id.spades_button);
+        mClubs.setActivated(true);
+        mClubs.setBackgroundResource(R.color.redCards);
 
         mRanks.add(mDeuces);
         mRanks.add(mTreys);
@@ -240,16 +242,23 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
                 break;
         }
 //        v.getBackground().setColorFilter(Color.parseColor("#424242"), PorterDuff.Mode.MULTIPLY);
-        v.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_OVER);
+
+
+       // v.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        v.setBackgroundResource(R.color.redCards);
 //        v.getBackground().setColorFilter((new LightingColorFilter(0x000000, 0xFFAA0000)));
         return true;
     }
 
     public void setPressed(boolean clubs, boolean diamonds, boolean hearts, boolean spades){
-        mClubs.setPressed(clubs);
-        mDiamonds.setPressed(diamonds);
-        mHearts.setPressed(hearts);
-        mSpades.setPressed(spades);
+        mClubs.setActivated(clubs);
+        mClubs.setBackgroundResource(R.color.cardColor);
+        mDiamonds.setActivated(diamonds);
+        mDiamonds.setBackgroundResource(R.color.cardColor);
+        mHearts.setActivated(hearts);
+        mHearts.setBackgroundResource(R.color.cardColor);
+        mSpades.setActivated(spades);
+        mSpades.setBackgroundResource(R.color.cardColor);
 
     }
 }

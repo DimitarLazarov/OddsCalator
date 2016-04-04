@@ -23,6 +23,7 @@ import com.example.chav.poker.communicators.AddCardCommunicator;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import ver4.poker.Card;
 import ver4.poker.CardSet;
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
 
-                textview.setText(String.format("%.2f", valueAnimator.getAnimatedValue()));
+                textview.setText(String.format(Locale.US, "%.2f", valueAnimator.getAnimatedValue()));
 
             }
         });
