@@ -414,10 +414,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void addBoardCard(String card, Button whereToAdd) {
         buttonOccuredEvend.setTextSize(30);
-        Drawable image = getCardSuit(card.charAt(1));
-        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
-        Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
-        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
+        Drawable image = getCardSuitBoard(card.charAt(1));
+        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
         buttonOccuredEvend.setPadding(0, 50, 0, 50);
     }
 
@@ -506,26 +504,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return image;
     }
 
+    public Drawable getCardSuitBoard(char suit) {
+        Drawable image = null;
+        switch (suit) {
+            case 'C':
+                image = ContextCompat.getDrawable(this, R.drawable.image_very_small_board);
+                break;
+            case 'D':
+                image = ContextCompat.getDrawable(this, R.drawable.diamonds_very_small_board);
+                break;
+            case 'H':
+                image = ContextCompat.getDrawable(this, R.drawable.hearts_very_small_board);
+                break;
+            case 'S':
+                image = ContextCompat.getDrawable(this, R.drawable.spade_very_small_board);
+                break;
+        }
+
+        return image;
+    }
+
     public char getCardSuit(Drawable[] suit) {
         char suitOfCard = 'A';
         for (Drawable drawable : suit) {
             if (drawable != null) {
                 Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
                 Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
-                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState()) ||
-                        drawable.getConstantState().equals(resizedImage.getConstantState())) {
+                if (    drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState()) ||
+                        drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small_board).getConstantState())) {
                     suitOfCard = 'C';
                     break;
                 }
-                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.diamonds_very_small).getConstantState())) {
+                if (    drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.diamonds_very_small).getConstantState()) ||
+                        drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.diamonds_very_small_board).getConstantState())) {
                     suitOfCard = 'D';
                     break;
                 }
-                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.hearts_very_small).getConstantState())) {
+                if (    drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.hearts_very_small).getConstantState()) ||
+                        drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.hearts_very_small_board).getConstantState())) {
                     suitOfCard = 'H';
                     break;
                 }
-                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.spade_very_small).getConstantState())) {
+                if (    drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.spade_very_small).getConstantState()) ||
+                        drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.spade_very_small_board).getConstantState())) {
                     suitOfCard = 'S';
                     break;
                 }
