@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:gravity="top"
+        android:layout_alignParentBottom="true"
         android:orientation="vertical"
         tools:context="com.example.chav.poker.MainActivity">
 
@@ -125,7 +125,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="50dp"
                 tools:context=".CardsAndOddsFragment">
 
                 <Button
@@ -159,6 +159,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/odds_holder"
         android:background="@color/darkGreen"
@@ -178,5 +179,15 @@
 
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/odds_holder"
+        android:textColor="@color/white"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:text="Tap the Winner"/>
 
 </RelativeLayout>

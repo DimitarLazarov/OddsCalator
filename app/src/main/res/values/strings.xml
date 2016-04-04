@@ -4,6 +4,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="your_odds">your odds</string>
+    <string name="your_odds">% your odds</string>
     <string name="player_tie_odds">tie odds</string>
+    <string name="tie_odds">% tie odds</string>
+    <string name="title">OddsCalator</string>
+    <string name="oddscalate">OddsCalate</string>
+    <string name="quiz">Quiz</string>
+    <string name="basic_quiz">Basic quiz</string>
+    <string name="advanced_quiz">Advanced quiz</string>
+    <string name="instructions">instructions</string>
 </resources>

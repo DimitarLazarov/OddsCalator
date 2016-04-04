@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,10 @@ import java.util.Random;
 
 import ver4.poker.Card;
 import ver4.poker.CardSet;
+import ver4.poker.HandEval;
 import ver4.showdown.Enumerator;
 
-public class BasicQuizActivity extends AppCompatActivity {
+public class BasicQuizActivity extends AppCompatActivity implements BasicQuizResultFragment.QuizMessageCallback{
 
     private static final int PLAYER_ONE_WIN = 1;
     private static final int PLAYER_TWO_WIN = 2;
@@ -47,7 +49,7 @@ public class BasicQuizActivity extends AppCompatActivity {
     private CardSet mBoard;
     private CardSet[] mPlayers;
 
-    private int userChoice;
+    private int mUserChoice;
 
     @Override
 
@@ -64,7 +66,7 @@ public class BasicQuizActivity extends AppCompatActivity {
         mBoardCardThree = (Button) findViewById(R.id.basic_quiz_card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
-        
+
 
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mReset.setOnClickListener(new View.OnClickListener() {
@@ -80,18 +82,76 @@ public class BasicQuizActivity extends AppCompatActivity {
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userChoice = PLAYER_ONE_WIN;
-                new CalculateOdds().execute(mBoard);
+                mUserChoice = PLAYER_ONE_WIN;
+                startCalculate();
+//                new CalculateOdds().execute(mBoard);
             }
         });
         mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userChoice = PLAYER_TWO_WIN;
-                new CalculateOdds().execute(mBoard);
+                mUserChoice = PLAYER_TWO_WIN;
+                startCalculate();
+//                new CalculateOdds().execute(mBoard);
             }
         });
+    }
+
+    private void startCalculate() {
+        if (mBoard.toArray().length >= 3 && mBoard.toArray().length <=4) {
+            new CalculateOdds().execute(mBoard);
+        }
+
+        if (mBoard.toArray().length == 5) {
+            int handValue0, handValue1;
+            long[] holeHand = new long[mPlayers.length];
+            int i = 0;
+            for (CardSet cs : mPlayers)
+                holeHand[i++] = HandEval.encode(cs);
+            long board = HandEval.encode(mBoard);
+            handValue0 = HandEval.hand7Eval(board | holeHand[0]);
+            handValue1 = HandEval.hand7Eval(board | holeHand[1]);
+            long wins[] = new long[2];
+            long ties[] = new long[2];
+            ties[0] = 0;
+            ties[1] = 0;
+            double pots = 1;
+
+            if (handValue0 > handValue1) {
+                wins[0] = 1;
+                wins[1] = 0;
+                if (mUserChoice == getWinner(wins, ties, pots)) {
+                    startWiningFragment();
+//                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                } else {
+                    startLosingFragment();
+//                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                }
+            } else if (handValue0 < handValue1) {
+                wins[0] = 0;
+                wins[1] = 1;
+                if (mUserChoice == getWinner(wins, ties, pots)) {
+                    startWiningFragment();
+//                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                } else {
+                    startLosingFragment();
+//                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                wins[0] = 0;
+                wins[1] = 0;
+                ties[0] = 1;
+                ties[1] = 1;
+                if (mUserChoice == getWinner(wins, ties, pots)) {
+                    startWiningFragment();
+//                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                } else {
+                    startLosingFragment();
+//                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private CardSet drawCards(int numberOfCards) {
@@ -134,8 +194,8 @@ public class BasicQuizActivity extends AppCompatActivity {
         x = players[1].toArray();
         card = (Card) x[0];
         cardTo = (Card) x[1];
-        setPlayerCard(card,mPlayerTwoCardOne);
-        setPlayerCard(cardTo,mPlayerTwoCardTwo);
+        setPlayerCard(card, mPlayerTwoCardOne);
+        setPlayerCard(cardTo, mPlayerTwoCardTwo);
 
         x = board.toArray();
         for (int j = 0; j < x.length; j++) {
@@ -207,13 +267,57 @@ public class BasicQuizActivity extends AppCompatActivity {
 
         return PLAYER_TWO_WIN; //TODO add tie
 
-
 //        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
 //        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
-
-
 //        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
 //        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
+    }
+
+    @Override
+    public void onMessageAcknowledged() {
+        prepareBoard();
+    }
+
+    private void startWiningFragment() {
+        BasicQuizResultFragment basicQuizResultFragment = new BasicQuizResultFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("title", "Correct!");
+        args.putString("message", "+5 points!");
+        args.putString("score", "250 points!!");
+        basicQuizResultFragment.setArguments(args);
+        basicQuizResultFragment.show(fm, "tagged");
+    }
+
+    private void startLosingFragment() {
+        BasicQuizResultFragment basicQuizResultFragment = new BasicQuizResultFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        Bundle args = new Bundle();
+        args.putString("title", "Incorrect");
+        args.putString("message", "Try Again");
+        args.putString("score", "250 points");
+        basicQuizResultFragment.setArguments(args);
+        basicQuizResultFragment.show(fm, "tagged");
+    }
+
+    public Drawable getCardSuit(char suit) {
+        Drawable image = null;
+        switch (suit) {
+            case 'c':
+                image = ContextCompat.getDrawable(this, R.drawable.image_very_small);
+                break;
+            case 'd':
+                image = ContextCompat.getDrawable(this, R.drawable.diamonds_very_small);
+                break;
+            case 'h':
+                image = ContextCompat.getDrawable(this, R.drawable.hearts_very_small);
+                break;
+            case 's':
+                image = ContextCompat.getDrawable(this, R.drawable.spade_very_small);
+                break;
+        }
+
+        return image;
     }
 
 
@@ -221,17 +325,18 @@ public class BasicQuizActivity extends AppCompatActivity {
         Enumerator enumerator;
         double pots;
 
-        public CalculateOdds() {
-        }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if( userChoice == getWinner(enumerator.getWins(), enumerator.getSplits(), pots)) {
-                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+            if( mUserChoice == getWinner(enumerator.getWins(), enumerator.getSplits(), pots)) {
+                startWiningFragment();
+//                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
+                startLosingFragment();
+//                Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             }
+
         }
 
         @Override
@@ -256,25 +361,5 @@ public class BasicQuizActivity extends AppCompatActivity {
             Log.d("asd", "total pots: " + pots);
             return null;
         }
-    }
-
-    public Drawable getCardSuit(char suit) {
-        Drawable image = null;
-        switch (suit) {
-            case 'c':
-                image = ContextCompat.getDrawable(this, R.drawable.image_very_small);
-                break;
-            case 'd':
-                image = ContextCompat.getDrawable(this, R.drawable.diamonds_very_small);
-                break;
-            case 'h':
-                image = ContextCompat.getDrawable(this, R.drawable.hearts_very_small);
-                break;
-            case 's':
-                image = ContextCompat.getDrawable(this, R.drawable.spade_very_small);
-                break;
-        }
-
-        return image;
     }
 }

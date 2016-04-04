@@ -62,32 +62,45 @@
                         android:id="@+id/player_one_odds_win"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="4"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:hint="p1 odds"
                         android:text="0"
                         android:textColor="@color/white"
-                        android:textSize="40sp"/>
+                        android:textSize="50sp"/>
 
                     <TextView
                         android:id="@+id/player_one_your_odds"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
                         android:text="@string/your_odds"
-                        android:textColor="@color/white"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/player_one_odds_tie"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
                         android:text="0"
-                        android:textColor="@color/white"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="p1 odds"
+                        android:text="@string/tie_odds"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -194,32 +207,44 @@
                         android:id="@+id/player_two_odds_win"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="4"
-                        android:gravity="center"
+                        android:layout_weight="2"
                         android:hint="p1 odds"
                         android:text="0"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="40sp"/>
+                        android:textSize="50sp"/>
 
                     <TextView
                         android:id="@+id/player_two_your_odds"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
                         android:text="@string/your_odds"
-                        android:textColor="@color/white"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/player_two_odds_tie"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
                         android:text="0"
-                        android:textColor="@color/white"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:hint="p1 odds"
+                        android:text="@string/tie_odds"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -239,33 +264,33 @@
 
 
         <ImageButton
-        android:id="@+id/button_reset"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:src="@drawable/reset_small"
-        android:background="@color/darkGreen"
-        android:text="Reset"/>
+            android:id="@+id/button_reset"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@color/darkGreen"
+            android:src="@drawable/reset_small"
+            />
 
 
         <!--<Button-->
-            <!--android:id="@+id/button_reset"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/white"-->
-            <!--android:text="Reset"/>-->
+        <!--android:id="@+id/button_reset"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/white"-->
+        <!--android:text="Reset"/>-->
 
         <!--<Button-->
-            <!--android:id="@+id/button_add_player"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/white"-->
-            <!--android:text="Add player"/>-->
+        <!--android:id="@+id/button_add_player"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_margin="5dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:background="@color/white"-->
+        <!--android:text="Add player"/>-->
     </LinearLayout>
 </RelativeLayout>
