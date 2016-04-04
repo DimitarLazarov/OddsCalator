@@ -80,7 +80,8 @@
                             xmlns:tools="http://schemas.android.com/tools"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            tools:context=".CardsAndOddsFragment">
+                            tools:context=".CardsAndOddsFragment"
+                >
 
                 <Button
                     android:id="@+id/basic_quiz_player_one_card_one"
@@ -117,7 +118,7 @@
                         android:layout_weight="2"
                         android:gravity="center"
                         android:hint="p1 odds"
-                        android:text="0"
+                        android:text="0.00"
                         android:textColor="@color/white"
                         android:textSize="50sp"/>
 
@@ -261,7 +262,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="2"
                         android:hint="p1 odds"
-                        android:text="0"
+                        android:text="0.00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="50sp"/>

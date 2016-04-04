@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -44,6 +45,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private RelativeLayout mPlayerTwoCards;
     private LinearLayout mBoardCards;
     private ImageButton mReset;
+    private TextView mScore;
 
 //    private double mPlayerOneWinningChance;
 //    private double mPlayerTwoWinningChance;
@@ -51,6 +53,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private CardSet mDeck;
     private CardSet mBoard;
     private CardSet[] mPlayers;
+    private int mCorrectAsnwers;
 
     private int mUserChoice;
 
@@ -73,6 +76,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
+        mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
 
         mReset.setOnClickListener(new View.OnClickListener() {
             @Override

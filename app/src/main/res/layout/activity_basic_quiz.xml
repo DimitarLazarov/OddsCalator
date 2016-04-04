@@ -15,7 +15,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
         tools:context="com.example.chav.poker.MainActivity">
@@ -63,6 +62,7 @@
             android:id="@+id/basic_quiz_board"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp">
 
@@ -181,13 +181,28 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/basic_quiz_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_above="@id/odds_holder"
+
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:gravity="center"
         android:text="Tap the Winner"/>
+
+    <TextView
+        android:id="@+id/basic_quiz_score_counter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/odds_holder"
+        android:layout_below="@id/basic_quiz_title"
+        android:textColor="@color/white"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Score: 30"/>
 
 </RelativeLayout>
