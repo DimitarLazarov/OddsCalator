@@ -96,16 +96,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         changeCardListener = new ChangeCardListener();
 
-        mPOneCardOne.setOnClickListener(this);
-        mPOneCardTwo.setOnClickListener(this);
-        mPTwoCardOne.setOnClickListener(this);
-        mPTwoCardTwo.setOnClickListener(this);
-
-        mBoardCardOne.setOnClickListener(this);
-        mBoardCardTwo.setOnClickListener(this);
-        mBoardCardThree.setOnClickListener(this);
-        mBoardCardFour.setOnClickListener(this);
-        mBoardCardFive.setOnClickListener(this);
+//        mPOneCardOne.setOnClickListener(this);
+//        mPOneCardTwo.setOnClickListener(this);
+//        mPTwoCardOne.setOnClickListener(this);
+//        mPTwoCardTwo.setOnClickListener(this);
+//
+//        mBoardCardOne.setOnClickListener(this);
+//        mBoardCardTwo.setOnClickListener(this);
+//        mBoardCardThree.setOnClickListener(this);
+//        mBoardCardFour.setOnClickListener(this);
+//        mBoardCardFive.setOnClickListener(this);
 
         resetStates();
 
@@ -169,8 +169,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void resetAllButtonsStates() {
         for(Button button : allButtons) {
-            button.setClickable(false);
             button.setOnClickListener(this);
+            button.setClickable(false);
             button.setText("");
             button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             button.setBackgroundResource(R.color.cardColor);
@@ -510,7 +510,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         char suitOfCard = 'A';
         for (Drawable drawable : suit) {
             if (drawable != null) {
-                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState())) {
+                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+                Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
+                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState()) ||
+                        drawable.getConstantState().equals(resizedImage.getConstantState())) {
                     suitOfCard = 'C';
                     break;
                 }
