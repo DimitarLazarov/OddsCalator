@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
     private static final int PLAYER_ONE_WIN = 1;
     private static final int PLAYER_TWO_WIN = 2;
+    private static final int TIE = 3;
 
     private Button mPlayerOneCardOne;
     private Button mPlayerOneCardTwo;
@@ -40,10 +42,11 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private Button mBoardCardFive;
     private RelativeLayout mPlayerOneCards;
     private RelativeLayout mPlayerTwoCards;
+    private LinearLayout mBoardCards;
     private ImageButton mReset;
 
-    private double mPlayerOneWinningChance;
-    private double mPlayerTwoWinningChance;
+//    private double mPlayerOneWinningChance;
+//    private double mPlayerTwoWinningChance;
 
     private CardSet mDeck;
     private CardSet mBoard;
@@ -66,9 +69,11 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mBoardCardThree = (Button) findViewById(R.id.basic_quiz_card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
-
-
+        mPlayerOneCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
+        mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
+        mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
+
         mReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +83,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
         prepareBoard();
 
-        mPlayerOneCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,13 +91,20 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 //                new CalculateOdds().execute(mBoard);
             }
         });
-        mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mUserChoice = PLAYER_TWO_WIN;
                 startCalculate();
 //                new CalculateOdds().execute(mBoard);
+            }
+        });
+
+        mBoardCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserChoice = TIE;
+                startCalculate();
             }
         });
     }
@@ -183,38 +194,38 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     }
 
     private void setBoard(CardSet[] players, CardSet board) {
-        Card card = null;
-        Card cardTo = null;
+        Card cardOne = null;
+        Card cardTwo = null;
         Object[] x = players[0].toArray();
-        card = (Card) x[0];
-        cardTo = (Card) x[1];
-        setPlayerCard(card,mPlayerOneCardOne);
-        setPlayerCard(cardTo,mPlayerOneCardTwo);
+        cardOne = (Card) x[0];
+        cardTwo = (Card) x[1];
+        setPlayerCard(cardOne,mPlayerOneCardOne);
+        setPlayerCard(cardTwo,mPlayerOneCardTwo);
 
         x = players[1].toArray();
-        card = (Card) x[0];
-        cardTo = (Card) x[1];
-        setPlayerCard(card, mPlayerTwoCardOne);
-        setPlayerCard(cardTo, mPlayerTwoCardTwo);
+        cardOne = (Card) x[0];
+        cardTwo = (Card) x[1];
+        setPlayerCard(cardOne, mPlayerTwoCardOne);
+        setPlayerCard(cardTwo, mPlayerTwoCardTwo);
 
         x = board.toArray();
         for (int j = 0; j < x.length; j++) {
-            card = (Card) x[j];
+            cardOne = (Card) x[j];
             switch (j) {
                 case 0:
-                    setBoardCard(card, mBoardCardOne);
+                    setBoardCard(cardOne, mBoardCardOne);
                     break;
                 case 1:
-                    setBoardCard(card, mBoardCardTwo);
+                    setBoardCard(cardOne, mBoardCardTwo);
                     break;
                 case 2:
-                    setBoardCard(card, mBoardCardThree);
+                    setBoardCard(cardOne, mBoardCardThree);
                     break;
                 case 3:
-                    setBoardCard(card, mBoardCardFour);
+                    setBoardCard(cardOne, mBoardCardFour);
                     break;
                 case 4:
-                    setBoardCard(card, mBoardCardFive);
+                    setBoardCard(cardOne, mBoardCardFive);
                     break;
             }
         }
@@ -259,16 +270,19 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
 
     private int getWinner(long[] wins, long[] ties, double pots) {
-        mPlayerOneWinningChance = wins[0] * 100.0 / pots;
-        mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
-        if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
-            return PLAYER_ONE_WIN;
-        }
-
-        return PLAYER_TWO_WIN; //TODO add tie
-
+        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
+        double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
 //        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
 //        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
+        if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
+            return PLAYER_ONE_WIN;
+        } else if (mPlayerOneWinningChance < mPlayerTwoWinningChance) {
+            return PLAYER_TWO_WIN;
+        }
+
+        return TIE; //TODO add tie
+
+
 //        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
 //        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
