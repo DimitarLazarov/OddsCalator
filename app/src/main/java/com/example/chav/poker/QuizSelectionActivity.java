@@ -18,7 +18,7 @@ public class QuizSelectionActivity extends AppCompatActivity {
 
         mBasicQuiz = (Button) findViewById(R.id.basic_quiz);
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override 
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), BasicQuizActivity.class);
                 startActivity(i);
