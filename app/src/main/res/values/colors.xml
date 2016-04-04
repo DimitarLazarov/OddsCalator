@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="boardColor">#b2d442</color>
     <color name="cardColor">#f7fedb</color>
+    <color name="buttonPressedColor">#F7FE8C</color>
     <color name="redCards">#de5656</color>
     <color name="blackCards">#424242</color>
     <color name="darkGreen">#8ea92c</color>

@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,6 +48,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     private Button mQueens;
     private Button mKings;
     private Button mAces;
+    private String tag;
     private ImageButton mHearts;
     private ImageButton mDiamonds;
     private ImageButton mClubs;
@@ -91,7 +93,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mClubs =        (ImageButton) v.findViewById(R.id.clubs_button);
         mSpades =       (ImageButton) v.findViewById(R.id.spades_button);
         mClubs.setActivated(true);
-        mClubs.setBackgroundResource(R.color.redCards);
+        mClubs.setBackgroundResource(R.color.buttonPressedColor);
 
         mRanks.add(mDeuces);
         mRanks.add(mTreys);
@@ -129,6 +131,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
         return v;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -191,10 +194,19 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
     private void communicateWithActivity(char cardPower, char suitPower) {
         String cardStrength = "" + cardPower + suitPower;
-        if (communicator.addCard(cardStrength))
-            onDestroyView();
-        else
-            Toast.makeText(getActivity(), "Card Already chosen!", Toast.LENGTH_SHORT).show();
+        tag = getTag();
+        if (tag.equals("addCard")) {
+            if (communicator.addCard(cardStrength))
+                onDestroyView();
+            else
+                Toast.makeText(getActivity(), "Card Already chosen!", Toast.LENGTH_SHORT).show();
+        }
+        else if(tag.equals("replaceCard")) {
+            if (communicator.replaceCard(cardStrength))
+                onDestroyView();
+            else
+                Toast.makeText(getActivity(), "Card Already chosen!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void changeColorButtonsText(int color) {
@@ -222,22 +234,22 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         switch(v.getId()) {
             case R.id.clubs_button:
                 cardSuitPower = 0;
-                setPressed(true, false, false, false);
+                setButtonBackgroundColor(R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor, R.color.cardColor);
                 changeColorButtonsText(R.color.blackCards);
                 break;
             case R.id.diamonds_button:
                 cardSuitPower = 1;
-                setPressed(false,true,false,false);
+                setButtonBackgroundColor(R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor);
                 changeColorButtonsText(R.color.redCards);
                 break;
             case R.id.hearts_button:
                 cardSuitPower = 2;
-                setPressed(false,false,true,false);
+                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor);
                 changeColorButtonsText(R.color.redCards);
                 break;
             case R.id.spades_button:
                 cardSuitPower = 3;
-                setPressed(false,false,false,true);
+                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor);
                 changeColorButtonsText(R.color.blackCards);
                 break;
         }
@@ -245,20 +257,16 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
 
        // v.getBackground().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
-        v.setBackgroundResource(R.color.redCards);
+        //v.setBackgroundResource(R.color.redCards);
 //        v.getBackground().setColorFilter((new LightingColorFilter(0x000000, 0xFFAA0000)));
         return true;
     }
 
-    public void setPressed(boolean clubs, boolean diamonds, boolean hearts, boolean spades){
-        mClubs.setActivated(clubs);
-        mClubs.setBackgroundResource(R.color.cardColor);
-        mDiamonds.setActivated(diamonds);
-        mDiamonds.setBackgroundResource(R.color.cardColor);
-        mHearts.setActivated(hearts);
-        mHearts.setBackgroundResource(R.color.cardColor);
-        mSpades.setActivated(spades);
-        mSpades.setBackgroundResource(R.color.cardColor);
+    public void setButtonBackgroundColor(int clubs, int diamonds, int hearts, int spades){
+        mClubs.setBackgroundResource(clubs);
+        mDiamonds.setBackgroundResource(diamonds);
+        mHearts.setBackgroundResource(hearts);
+        mSpades.setBackgroundResource(spades);
 
     }
 }

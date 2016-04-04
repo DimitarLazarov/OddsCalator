@@ -5,4 +5,5 @@ package com.example.chav.poker.communicators;
  */
 public interface AddCardCommunicator {
     public boolean addCard(String string);
+    public boolean replaceCard(String string);
 }

@@ -1,6 +1,5 @@
 package com.example.chav.poker;
 
-import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -20,8 +19,6 @@ import android.widget.TextView;
 
 import com.example.chav.poker.communicators.AddCardCommunicator;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -60,7 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int allPlayersCards;
     private int allBoardCards;
     private ArrayList<Card> dealtCards;
+    private Card cartToRemove = null;
     private ArrayList<Button> allButtons;
+    private ChangeCardListener changeCardListener;
 
 
     @Override
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         allButtons.add(mBoardCardFour);
         allButtons.add(mBoardCardFive);
 
+        changeCardListener = new ChangeCardListener();
 
         mPOneCardOne.setOnClickListener(this);
         mPOneCardTwo.setOnClickListener(this);
@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void resetAllButtonsStates() {
         for(Button button : allButtons) {
             button.setClickable(false);
+            button.setOnClickListener(this);
             button.setText("");
             button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             button.setBackgroundResource(R.color.cardColor);
@@ -179,8 +180,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void resetAllTextViewWithAnimation() {
 
         animateTextView((Float.parseFloat(mPlayerOneWinOdds.getText().toString())), (float)0, mPlayerOneWinOdds);
-        animateTextView((Float.parseFloat(mPlayerTwoWinOdds.getText().toString())), (float)0, mPlayerOneTieOdds);
-        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())), (float)0, mPlayerTwoWinOdds);
+        animateTextView((Float.parseFloat(mPlayerTwoWinOdds.getText().toString())), (float)0, mPlayerTwoWinOdds);
+        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())), (float)0, mPlayerOneTieOdds);
         animateTextView((Float.parseFloat(mPlayerTwoTieOdds.getText().toString())), (float)0, mPlayerTwoTieOdds);
     }
 
@@ -268,14 +269,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentManager fm = getSupportFragmentManager();
         switch(v.getId()) {
             case R.id.basic_quiz_player_one_card_one:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mPOneCardOne;
                 nextButtonToClick = mPOneCardTwo;
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_player_one_card_two:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mPOneCardTwo;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
@@ -283,14 +284,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_one:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mPTwoCardOne;
                 nextButtonToClick = mPTwoCardTwo;
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_two:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mPTwoCardTwo;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
@@ -298,35 +299,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_card_one_board:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mBoardCardOne;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardTwo;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_two_board:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mBoardCardTwo;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardThree;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_three_board:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mBoardCardThree;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFour;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_four_board:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mBoardCardFour;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFive;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_five_board:
-                d.show(fm, "sth");
+                d.show(fm, "addCard");
                 buttonOccuredEvend = mBoardCardFive;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
@@ -343,34 +344,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public boolean addCard(String string) {
-        Card card = new Card(string);
+    public boolean addCard(String receivedCard) {
+        Card card = new Card(receivedCard);
         if (dealtCards.contains(card)) {
             return false;
         }
         else {
-            buttonOccuredEvend.setClickable(false);
+            buttonOccuredEvend.setOnClickListener(changeCardListener);
             nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);
             nextButtonToClick.setClickable(true);
-            int color = getSuitColor(string.charAt(1));
-            buttonOccuredEvend.setText(string.charAt(0) + "");
+            int color = getSuitColor(receivedCard.charAt(1));
+            buttonOccuredEvend.setText(receivedCard.charAt(0) + "");
             buttonOccuredEvend.setTextColor(color);
             buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
             if (playerOccuredEvent == BOARD_CARD) {
                 boardCards.add(card);
-                buttonOccuredEvend.setTextSize(30);
-                Drawable image = getCardSuit(string.charAt(1));
-                Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
-                Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
-                buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
-                buttonOccuredEvend.setPadding(0, 50, 0, 50);
+                addBoardCard(receivedCard, buttonOccuredEvend);
 
             } else {
                 players[playerOccuredEvent].add(card);
-                Drawable image = getCardSuit(string.charAt(1));
-                buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-                buttonOccuredEvend.setTextSize(40);
-                buttonOccuredEvend.setPadding(0, 60, 0, 60);
+                addPlayerCard(receivedCard, buttonOccuredEvend);
             }
             deck.remove(card);
             dealtCards.add(card);
@@ -378,6 +371,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
 
+    }
+
+    public boolean replaceCard(String receivedCard){
+        Card card = new Card(receivedCard);
+        if (dealtCards.contains(card)) {
+            return false;
+        }
+        else {
+            dealtCards.remove(cartToRemove);
+            deck.remove(card);
+            deck.add(cartToRemove);
+            dealtCards.add(card);
+            int color = getSuitColor(receivedCard.charAt(1));
+            buttonOccuredEvend.setText(receivedCard.charAt(0) + "");
+            buttonOccuredEvend.setTextColor(color);
+            buttonOccuredEvend.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            if (playerOccuredEvent == BOARD_CARD) {
+                boardCards.add(card);
+                addBoardCard(receivedCard, buttonOccuredEvend);
+
+            } else {
+                players[playerOccuredEvent].add(card);
+                addPlayerCard(receivedCard, buttonOccuredEvend);
+            }
+
+            removePreviousCard(cartToRemove);
+            checkForCalculations();
+
+            return true;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void addPlayerCard(String card, Button whereToAdd) {
+        Drawable image = getCardSuit(card.charAt(1));
+        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        buttonOccuredEvend.setTextSize(40);
+        buttonOccuredEvend.setPadding(0, 60, 0, 60);
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public void addBoardCard(String card, Button whereToAdd) {
+        buttonOccuredEvend.setTextSize(30);
+        Drawable image = getCardSuit(card.charAt(1));
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
+        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, resizedImage);
+        buttonOccuredEvend.setPadding(0, 50, 0, 50);
+    }
+
+    public void removePreviousCard(Card card){
+        for(CardSet cardset : players) {
+            if (cardset.contains(card)){
+                cardset.remove(card);
+                return;
+            }
+        }
+        boardCards.remove(card);
     }
 
     private int getSuitColor(char c) {
@@ -455,11 +506,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return image;
     }
 
+    public char getCardSuit(Drawable[] suit) {
+        char suitOfCard = 'A';
+        for (Drawable drawable : suit) {
+            if (drawable != null) {
+                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState())) {
+                    suitOfCard = 'C';
+                    break;
+                }
+                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.diamonds_very_small).getConstantState())) {
+                    suitOfCard = 'D';
+                    break;
+                }
+                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.hearts_very_small).getConstantState())) {
+                    suitOfCard = 'H';
+                    break;
+                }
+                if (drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.spade_very_small).getConstantState())) {
+                    suitOfCard = 'S';
+                    break;
+                }
+            }
+        }
+
+        return suitOfCard;
+    }
+
+    private class ChangeCardListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            AddCardFragment d = new AddCardFragment();
+            FragmentManager fm = getSupportFragmentManager();
+            d.show(fm, "replaceCard");
+            buttonOccuredEvend = (Button)v;
+            Drawable[] drawables = ((Button) v).getCompoundDrawables();
+            switch (v.getId()) {
+                case R.id.basic_quiz_player_one_card_one:
+                case R.id.basic_quiz_player_one_card_two:
+                    playerOccuredEvent = PLAYER_ONE;
+                    break;
+                case R.id.basic_quiz_player_two_card_one:
+                case R.id.basic_quiz_player_two_card_two:
+                    playerOccuredEvent = PLAYER_TWO;
+                    break;
+                default:
+                    playerOccuredEvent = BOARD_CARD;
+
+            }
+            cartToRemove = new Card(((Button)v).getText().toString() + getCardSuit(drawables));
+
+
+        }
+    }
 
 
 
 
-    class CalculateOdds extends AsyncTask<CardSet, Void, Void> {
+
+    private class CalculateOdds extends AsyncTask<CardSet, Void, Void> {
         Enumerator enumerator;
         double pots;
 
