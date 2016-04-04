@@ -178,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void resetAllTextViewWithAnimation() {
 
         animateTextView((Float.parseFloat(mPlayerOneWinOdds.getText().toString())), (float)0, mPlayerOneWinOdds);
-        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())), (float)0, mPlayerTwoWinOdds);
         animateTextView((Float.parseFloat(mPlayerTwoWinOdds.getText().toString())), (float)0, mPlayerOneTieOdds);
+        animateTextView((Float.parseFloat(mPlayerOneTieOdds.getText().toString())), (float)0, mPlayerTwoWinOdds);
         animateTextView((Float.parseFloat(mPlayerTwoTieOdds.getText().toString())), (float)0, mPlayerTwoTieOdds);
     }
 
