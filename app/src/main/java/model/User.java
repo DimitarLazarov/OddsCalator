@@ -1,0 +1,55 @@
+package model;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+
+/**
+ * Created by Mitakaa on 04-Apr-16.
+ */
+public class User {
+
+    private String username;
+    private String password;
+    private String email;
+    private String name;
+    private String lastName;
+
+    private int playedGames;
+    private int bestWinStreak;
+    private int wonGames;
+
+    private HashSet<CramDeck> userDecks;
+
+    public User(String username, String password, String email, String name, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.lastName = lastName;
+        userDecks = new HashSet<CramDeck>();
+    }
+
+    private static final String md5(final String password) {
+        try {
+
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance("MD5");
+            digest.update(password.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++) {
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+}
