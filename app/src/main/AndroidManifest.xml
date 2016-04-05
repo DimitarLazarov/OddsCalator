@@ -17,7 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity android:name=".controller.QuizSelectionActivity">
         </activity>
         <activity android:name=".controller.BasicQuizActivity">
@@ -26,12 +25,9 @@
         </activity>
         <activity android:name=".controller.RegisterActivity">
         </activity>
-=======
-        <activity android:name=".controller.QuizSelectionActivity"></activity>
-        <activity android:name=".controller.BasicQuizActivity"></activity>
-        <activity android:name=".controller.CramCardsUserActivity"></activity>
-        <activity android:name=".controller.CramCardsViewActivity"></activity>
->>>>>>> a79c7506d5a80604b85348893d1f6ee7338108f0
+        <activity android:name=".controller.CramCardsViewActivity">
+
+        </activity>
     </application>
 
 </manifest>

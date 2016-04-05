@@ -11,12 +11,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Database name and version
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "oddsCalatorDatabase";
+    private static final String DATABASE_NAME = "OddsCalatorDatabase";
 
     //Tables names
-    public static final String TABLE_USERS = "users";
-    public static final String TABLE_CRAM_CARDS = "cram cards";
-    public static final String TABLE_CRAM_DECK = "cram deck";
+    public static final String TABLE_USERS = "Users";
+    public static final String TABLE_CRAM_CARDS = "CramCards";
+    public static final String TABLE_CRAM_DECK = "CramDeck";
 
     //Common column names
     public static final String KEY_ID = "_id";
@@ -37,24 +37,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_CRAM_DECK_USER_ID = "Creator";
 
     //Table create statements
-    private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-            + KEY_USER_USERNAME + " VARCHAR(20) NOT NULL UNIQUE,"
-            + KEY_USER_EMAIL + " TEXT UNIQUE,"
+    private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS + " ("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + KEY_USER_USERNAME + " VARCHAR(20) NOT NULL UNIQUE, "
+            + KEY_USER_EMAIL + " TEXT UNIQUE, "
             + KEY_USER_PASSWORD + " TEXT" + ")";
 
-    private static final String CREATE_TABLE_CRAM_CARDS = "CREATE TABLE " + TABLE_CRAM_CARDS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-            + KEY_CRAM_CARD_FRONT + " VARCHAR(100) NOT NULL,"
-            + KEY_CRAM_CARD_BACK + " VARCHAR(100) NOT NULL,"
+    private static final String CREATE_TABLE_CRAM_CARDS = "CREATE TABLE " + TABLE_CRAM_CARDS + " ("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + KEY_CRAM_CARD_FRONT + " VARCHAR(100) NOT NULL, "
+            + KEY_CRAM_CARD_BACK + " VARCHAR(100) NOT NULL, "
             + KEY_CRAM_CARD_DECK_ID + " INTEGER" + " REFERENCES " + TABLE_CRAM_DECK + "("+KEY_ID+")" + ")";
 
 
-    private static final String CREATE_TABLE_CRAM_DECK = "CREATE TABLE " + TABLE_CRAM_DECK
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-            + KEY_CRAM_DECK_TITLE + " VARCHAR(20) NOT NULL,"
-            + KEY_CRAM_DECK_USER_ID + " INTEGER NOT NULL,"
-            + " FOREIGN KEY (" + KEY_CRAM_DECK_USER_ID + ") REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
+    private static final String CREATE_TABLE_CRAM_DECK = "CREATE TABLE " + TABLE_CRAM_DECK + " ("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + KEY_CRAM_DECK_TITLE + " TEXT NOT NULL, "
+            + KEY_CRAM_DECK_USER_ID + " INTEGER REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
+//            + " FOREIGN KEY (" + KEY_CRAM_DECK_USER_ID + ") REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
 
     private static DatabaseHelper instance;
 
