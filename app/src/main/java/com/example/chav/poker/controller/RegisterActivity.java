@@ -50,7 +50,9 @@ public class RegisterActivity extends AppCompatActivity {
                     UsersManager.getInstance(v.getContext()).registerUser(user);
                     SavedSharedPreferences.setUserName(v.getContext(), user.getUsername());
                     Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
+
                 }
 
             }
