@@ -4,19 +4,31 @@ package model;
  * Created by Mitakaa on 04-Apr-16.
  */
 public class CramCard {
-    private String question;
-    private String answer;
+
+    private long mId;
+    private String mQuestion;
+    private String mAnswer;
 
     public CramCard(String question, String answer) {
-        this.question = question;
-        this.answer = answer;
+        this.mQuestion = question;
+        this.mAnswer = answer;
     }
 
     public String getQuestion() {
-        return question;
+        return mQuestion;
     }
 
     public String getAnswer() {
-        return answer;
+        return mAnswer;
     }
+
+    public long getId() {
+        return mId;
+    }
+
+    public void setId(long id) {
+        mId = id;
+    }
+
+
 }

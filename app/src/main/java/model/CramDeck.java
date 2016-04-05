@@ -7,10 +7,12 @@ import java.util.HashSet;
  */
 public class CramDeck {
 
+    private long mId;
     private String mTitle;
     private HashSet<CramCard> mDeckCards;
 
-    public CramDeck(){
+    public CramDeck(String title) {
+        mTitle = title;
         mDeckCards = new HashSet<CramCard>();
     }
 
@@ -25,5 +27,17 @@ public class CramDeck {
 
     public void removeCramCard(CramCard card) {
         mDeckCards.remove(card);
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public long getId() {
+        return mId;
+    }
+
+    public void setId(long id) {
+        mId = id;
     }
 }

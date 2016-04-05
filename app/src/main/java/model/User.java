@@ -9,6 +9,7 @@ import java.util.HashSet;
  */
 public class User {
 
+    private long id;
     private String username;
     private String password;
     private String email;
@@ -24,6 +25,13 @@ public class User {
         this.password = password;
         this.email = email;
         userDecks = new HashSet<CramDeck>();
+    }
+
+    public User(long id, String username, String password, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
     }
 
     private static final String md5(final String password) {
@@ -59,5 +67,13 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

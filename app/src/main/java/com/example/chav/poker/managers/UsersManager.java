@@ -2,6 +2,7 @@ package com.example.chav.poker.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.UserManager;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class UsersManager {
 
     private UsersManager(Context context) {
         mContext = context;
+        dbHelper = DatabaseHelper.getInstance(context);
     }
 
     // Open Database function
@@ -55,29 +57,57 @@ public class UsersManager {
         values.put(DatabaseHelper.KEY_USER_EMAIL, user.getEmail());
 
         open();
-        database
-        long user_id = db.insert(TABLE_USERS, KEY_USER_USERNAME, values);
-        this.mCurrentUser = mUserDAO.addUser(user);
+        long userId = database.insert(DatabaseHelper.TABLE_USERS, DatabaseHelper.KEY_USER_USERNAME, values);
+        user.setId(userId);
+        close();
 
+        this.mCurrentUser = user;
 
-        mAllUsers.add(user);
         Log.d("user", "" + user.getId());
         Log.d("user", "" + user.getUsername());
-        mIsSignedIn = true;
     }
 
-    public long createUser(User user){
-        database = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_USER_USERNAME, user.getUsername());
-        values.put(KEY_USER_FIRST_NAME, user.getFirstName());
-        values.put(KEY_USER_LAST_NAME, user.getLastName());
-        values.put(KEY_USER_PASSWORD, user.getPassword());
-        values.put(KEY_USER_EMAIL, user.getEmail());
+    public User getUser(String user){
+        open();
+        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_USERS + " WHERE " +DatabaseHelper. KEY_USER_USERNAME + " = " + user;
 
-        //insert row
-        long user_id = db.insert(TABLE_USERS, KEY_USER_USERNAME, values);
+        Cursor c = database.rawQuery(selectKey, null);
 
-        return user_id;
+
+        long userId = -1;
+        String name = null;
+        String email = null;
+        String pass = null;
+
+        if (c != null) {
+            c.moveToFirst();
+            userId = c.getColumnIndex(DatabaseHelper.KEY_ID);
+            name = c.getString(1);
+            email = c.getString(2);
+            pass = c.getString(3);
+        }
+        close();
+
+        return new User(userId, name, pass, email);
+
     }
+
+//    public void getUserDeck(){
+//
+//    }
+
+//    public long createUser(User user){
+//        database = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put(KEY_USER_USERNAME, user.getUsername());
+//        values.put(KEY_USER_FIRST_NAME, user.getFirstName());
+//        values.put(KEY_USER_LAST_NAME, user.getLastName());
+//        values.put(KEY_USER_PASSWORD, user.getPassword());
+//        values.put(KEY_USER_EMAIL, user.getEmail());
+//
+//        //insert row
+//        long user_id = db.insert(TABLE_USERS, KEY_USER_USERNAME, values);
+//
+//        return user_id;
+//    }
 }
