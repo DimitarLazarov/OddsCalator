@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cardColor">
+
+    <Button
+        android:background="@color/cardColor"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:drawableEnd="@drawable/next_small"
+        android:textColor="@color/darkGreen"
+        android:id="@+id/view_holder_deck_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

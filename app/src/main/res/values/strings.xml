@@ -16,7 +16,7 @@
     <string name="cram_cards">Cram Cards</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="create_deck">Create Flashcards</string>
-    <string name="my_cram">My Cramcards</string>
+    <string name="create_deck">Create new Cramdeck</string>
+    <string name="my_cram_decks">My Cramdecks</string>
     <string name="recently_studied">Rcently Studied</string>
 </resources>
