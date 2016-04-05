@@ -1,7 +1,9 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.chav.poker.R;
 
 public class CramCardsUserActivity extends AppCompatActivity {
 

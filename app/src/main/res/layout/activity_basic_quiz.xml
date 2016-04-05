@@ -7,7 +7,7 @@
     android:background="@color/boardColor"
     android:orientation="vertical"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chav.poker.BasicQuizActivity">
+    tools:context=".controller.BasicQuizActivity">
 
     <LinearLayout
         android:id="@+id/odds_holder"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        tools:context="com.example.chav.poker.MainActivity">
+        tools:context=".controller.MainActivity">
 
         <LinearLayout
             android:id="@+id/basic_quiz_player_one"
@@ -31,7 +31,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                tools:context=".CardsAndOddsFragment">
+                tools:context=".controller.CardsAndOddsFragment">
 
                 <Button
                     android:id="@+id/basic_quiz_player_one_card_one"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginBottom="50dp"
-                tools:context=".CardsAndOddsFragment">
+                tools:context=".controller.CardsAndOddsFragment">
 
                 <Button
                     android:id="@+id/basic_quiz_player_two_card_one"
@@ -135,6 +135,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
+                    android:clickable="false"
                     android:background="@color/cardColor"
                     />
 

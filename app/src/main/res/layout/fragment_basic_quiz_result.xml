@@ -6,7 +6,7 @@
     android:background="@color/boardColor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.example.chav.poker.BasicQuizResultFragment">
+    tools:context=".controller.BasicQuizResultFragment">
 
     <TextView
         android:id="@+id/basic_quiz_result_text"

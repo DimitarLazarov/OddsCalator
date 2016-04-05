@@ -1,4 +1,4 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 
 import android.os.Bundle;

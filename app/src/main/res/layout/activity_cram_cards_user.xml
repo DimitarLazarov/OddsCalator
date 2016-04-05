@@ -11,7 +11,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chav.poker.CramCardsUserActivity">
+    tools:context=".controller.CramCardsUserActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -30,10 +30,6 @@
         android:textColor="@color/darkGreen"
         android:textSize="20sp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
 
     <Button
         android:id="@+id/user_cram_sets"
@@ -46,9 +42,12 @@
         android:textColor="@color/darkGreen"
         android:textSize="20sp"/>
 
-        -->TODO reycler view which is gone
-
-    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_cram_cards_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    </android.support.v7.widget.RecyclerView>
 
     <Button
         android:id="@+id/user_cram_recent"
@@ -59,5 +58,13 @@
         android:text="@string/recently_studied"
         android:textColor="@color/darkGreen"
         android:textSize="20sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recent_cram_cards_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

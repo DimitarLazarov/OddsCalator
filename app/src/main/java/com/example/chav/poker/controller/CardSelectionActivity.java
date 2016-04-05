@@ -1,10 +1,12 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.chav.poker.R;
 
 import java.util.ArrayList;
 

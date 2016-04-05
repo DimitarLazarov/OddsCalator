@@ -1,4 +1,4 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.chav.poker.R;
 import com.example.chav.poker.communicators.AddCardCommunicator;
 
 import java.util.ArrayList;

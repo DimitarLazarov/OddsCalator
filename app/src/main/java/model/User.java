@@ -12,8 +12,6 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String name;
-    private String lastName;
 
     private int playedGames;
     private int bestWinStreak;
@@ -21,12 +19,10 @@ public class User {
 
     private HashSet<CramDeck> userDecks;
 
-    public User(String username, String password, String email, String name, String lastName) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.name = name;
-        this.lastName = lastName;
         userDecks = new HashSet<CramDeck>();
     }
 
@@ -51,5 +47,17 @@ public class User {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

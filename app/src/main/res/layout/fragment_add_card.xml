@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.chav.poker.AddCardFragment">
+    tools:context=".controller.AddCardFragment">
 
     <TextView
         android:id="@+id/text_select_card"

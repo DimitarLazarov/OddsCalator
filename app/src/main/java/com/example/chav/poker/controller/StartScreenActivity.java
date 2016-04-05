@@ -1,10 +1,12 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.chav.poker.R;
 
 public class StartScreenActivity extends AppCompatActivity {
 

@@ -6,22 +6,24 @@ import java.util.HashSet;
  * Created by Mitakaa on 04-Apr-16.
  */
 public class CramDeck {
-    private HashSet<CramCard> deck;
+
+    private String mTitle;
+    private HashSet<CramCard> mDeckCards;
 
     public CramDeck(){
-        deck = new HashSet<CramCard>();
+        mDeckCards = new HashSet<CramCard>();
     }
 
     public HashSet<CramCard> getCards(){
-        return deck;
+        return mDeckCards;
     }
 
 
     public void addCramCard(CramCard card) {
-        deck.add(card);
+        mDeckCards.add(card);
     }
 
     public void removeCramCard(CramCard card) {
-        deck.remove(card);
+        mDeckCards.remove(card);
     }
 }

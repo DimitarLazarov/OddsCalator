@@ -1,4 +1,4 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 
 import android.app.Activity;
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.chav.poker.R;
 
 
 /**

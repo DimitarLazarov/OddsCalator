@@ -1,4 +1,4 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
@@ -18,6 +18,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.chav.poker.R;
 
 import java.util.Random;
 

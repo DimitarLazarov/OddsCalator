@@ -1,10 +1,12 @@
-package com.example.chav.poker;
+package com.example.chav.poker.controller;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.chav.poker.R;
 
 public class QuizSelectionActivity extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class QuizSelectionActivity extends AppCompatActivity {
 
         mBasicQuiz = (Button) findViewById(R.id.basic_quiz);
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
-            @Override 
+            @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), BasicQuizActivity.class);
                 startActivity(i);
