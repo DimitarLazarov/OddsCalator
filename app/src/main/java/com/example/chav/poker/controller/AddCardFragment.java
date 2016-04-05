@@ -57,6 +57,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     private int cardSuitPower = 0;
     private ArrayList<Button> mRanks;
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
