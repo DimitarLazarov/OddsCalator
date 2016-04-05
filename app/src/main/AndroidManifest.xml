@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.chav.poker"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.chav.poker">
 
     <application
         android:allowBackup="true"
@@ -8,29 +8,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".controller.MainActivity"/>
-        <activity android:name=".controller.CardSelectionActivity"/>
+        <activity android:name=".controller.MainActivity" />
+        <activity android:name=".controller.CardSelectionActivity" />
         <activity android:name=".controller.StartScreenActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controller.QuizSelectionActivity">
-        </activity>
-        <activity android:name=".controller.BasicQuizActivity">
-        </activity>
-        <activity android:name=".controller.CramCardsUserActivity">
-        </activity>
-        <activity android:name=".controller.RegisterActivity">
-        </activity>
-        <activity android:name=".controller.CramCardsViewActivity">
-        </activity>
-        <activity android:name=".controller.CramCardCreateActivity">
-        </activity>
-        <activity android:name=".controller.CreateCramDeckActivity">
-        </activity>
+        <activity android:name=".controller.QuizSelectionActivity"></activity>
+        <activity android:name=".controller.BasicQuizActivity"></activity>
+        <activity android:name=".controller.CramCardsUserActivity"></activity>
+        <activity android:name=".controller.RegisterActivity"></activity>
+        <activity android:name=".controller.CramCardsViewActivity"></activity>
+        <activity android:name=".controller.CramCardCreateActivity"></activity>
+        <activity android:name=".controller.CreateCramDeckActivity"></activity>
+        <activity android:name=".controller.CramModeActivity"></activity>
     </application>
 
 </manifest>
