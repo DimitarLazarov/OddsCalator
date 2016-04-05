@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.adapters.CardAdapter;
+import com.example.chav.poker.managers.CramCardsManager;
+import com.example.chav.poker.managers.CramDecksManager;
+import com.example.chav.poker.managers.UsersManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,14 @@ public class CreateCramDeckActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 CramDeck deck = new CramDeck(mTitleText.getText().toString());
+                CramDecksManager.getInstance(v.getContext()).addDeck(UsersManager.getInstance(v.getContext()).getCurrentUser(), deck);
+//                Toast.makeText(v.getContext(), deck.getTitle(), Toast.LENGTH_SHORT).show();
+                for (CramCard cramCard : mCramCards) {
+                    CramCardsManager.getInstance(v.getContext()).addCard(deck, cramCard);
+//                    Toast.makeText(v.getContext(), cramCard.getQuestion(), Toast.LENGTH_SHORT).show();
+                    //TODO set name of Cram Deck unique and catch SQLiteException
+                }
+                finish();
             }
         });
 
@@ -90,17 +101,17 @@ public class CreateCramDeckActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(this, "hello ", Toast.LENGTH_SHORT).show();
         switch (requestCode) {
             case CARD_REQUEST:
-                Toast.makeText(this, "its me ", Toast.LENGTH_SHORT).show();
-//                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK) {
                     String front = data.getExtras().getString("front");
                     String back = data.getExtras().getString("back");
                     mCramCards.add(new CramCard(front, back));
                     mCardAdapter.notifyDataSetChanged();
                     Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
-//                }
+                }
         }
     }
+
+
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.managers.UsersManager;
@@ -45,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                         && isLegalEMail(email)
                         && isLegalPassword(pass, confirmPass)) {
 
-                    User user = new User(username, email, pass);
+                    User user = new User(username, pass, email);
                     UsersManager.getInstance(v.getContext()).registerUser(user);
                     Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
                     startActivity(i);

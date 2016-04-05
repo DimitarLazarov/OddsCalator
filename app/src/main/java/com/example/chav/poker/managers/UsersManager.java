@@ -127,10 +127,11 @@ public class UsersManager {
         return false;
     }
 
+    public User getCurrentUser() {
+        return mCurrentUser;
+    }
 
-
-
-//    public void getUserDeck(){
+    //    public void getUserDeck(){
 //
 //    }
 

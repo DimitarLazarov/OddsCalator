@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chav.poker.R;
 
@@ -23,12 +24,13 @@ public class CramCardCreateActivity extends AppCompatActivity {
 
         mFront = (EditText) findViewById(R.id.create_cram_card_front);
         mBack = (EditText) findViewById(R.id.create_cram_card_back);
-        mCancel = (Button) findViewById(R.id.create_cram_card_confirm);
-        mConfirm = (Button) findViewById(R.id.create_cram_card_cancel);
+        mCancel = (Button) findViewById(R.id.create_cram_card_cancel);
+        mConfirm = (Button) findViewById(R.id.create_cram_card_confirm);
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!mFront.getText().toString().isEmpty() && !mBack.getText().toString().trim().isEmpty()){
+                if(!mFront.getText().toString().isEmpty() && !mBack.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(v.getContext(), "bla", Toast.LENGTH_SHORT);
                     finishWithResult();
                 }
             }
