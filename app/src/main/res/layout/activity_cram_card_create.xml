@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:background="@color/boardColor"
-    tools:context="com.example.chav.poker.controller.CramCardCreate">
+    tools:context=".controller.CramCardCreateActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

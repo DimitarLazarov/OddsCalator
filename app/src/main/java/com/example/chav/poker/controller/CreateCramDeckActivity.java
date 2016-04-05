@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.adapters.CardAdapter;
@@ -21,12 +22,16 @@ import model.CramDeck;
 
 public class CreateCramDeckActivity extends AppCompatActivity {
 
-    Button mButtonCancel;
-    Button mButtonNext;
-    Button mButtonCreateDeck;
-    RecyclerView mRecyclerCreatedCards;
-    EditText mTitleText;
+    public static final int CARD_REQUEST = 1;
+
+    private Button mButtonCancel;
+    private Button mButtonNext;
+    private Button mButtonCreateDeck;
+    private Button mButtonAddCard;
+    private RecyclerView mRecyclerCreatedCards;
+    private EditText mTitleText;
     private ArrayList<CramCard> mCramCards;
+    private CardAdapter mCardAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
         mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
         mButtonNext = (Button) findViewById(R.id.create_deck_next);
+        mButtonAddCard = (Button) findViewById(R.id.create_deck_add_card);
         mButtonCreateDeck = (Button) findViewById(R.id.create_deck_create_cram_deck);
         mRecyclerCreatedCards = (RecyclerView) findViewById(R.id.create_deck_recycler_add_cram_cards);
         mTitleText = (EditText) findViewById(R.id.create_deck_title_deck);
@@ -56,13 +62,45 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mButtonCreateDeck.setVisibility(View.VISIBLE);
                     mTitleText.setClickable(false);
                     mTitleText.setFocusable(false);
-                    CramDeck deck = new CramDeck(mTitleText.getText().toString());
                     mRecyclerCreatedCards.setVisibility(View.VISIBLE);
-                    CardAdapter adapter = new CardAdapter(mCramCards);
+                    mCardAdapter = new CardAdapter(mCramCards);
                     mRecyclerCreatedCards.setLayoutManager(new LinearLayoutManager(v.getContext()));
-                    mRecyclerCreatedCards.setAdapter(adapter);
+                    mRecyclerCreatedCards.setAdapter(mCardAdapter);
                 }
             }
         });
+
+        mButtonCreateDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CramDeck deck = new CramDeck(mTitleText.getText().toString());
+            }
+        });
+
+        mButtonAddCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), CramCardCreateActivity.class);
+                startActivityForResult(i, CARD_REQUEST);
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this, "hello ", Toast.LENGTH_SHORT).show();
+        switch (requestCode) {
+            case CARD_REQUEST:
+                Toast.makeText(this, "its me ", Toast.LENGTH_SHORT).show();
+//                if (resultCode == RESULT_OK) {
+                    String front = data.getExtras().getString("front");
+                    String back = data.getExtras().getString("back");
+                    mCramCards.add(new CramCard(front, back));
+                    mCardAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
+//                }
+        }
     }
 }

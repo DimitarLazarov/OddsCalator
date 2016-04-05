@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.example.chav.poker.R;
 
-public class CramCardCreate extends AppCompatActivity {
+public class CramCardCreateActivity extends AppCompatActivity {
 
     private EditText mFront;
     private EditText mBack;
@@ -44,8 +44,8 @@ public class CramCardCreate extends AppCompatActivity {
 
     private void finishWithResult(){
         Bundle conData = new Bundle();
-        conData.putString("front_result", mFront.getText().toString());
-        conData.putString("back_result", mBack.getText().toString());
+        conData.putString("front", mFront.getText().toString());
+        conData.putString("back", mBack.getText().toString());
         Intent intent = new Intent();
         intent.putExtras(conData);
         setResult(RESULT_OK, intent);
