@@ -19,4 +19,5 @@
     <string name="create_deck">Create new Cramdeck</string>
     <string name="my_cram_decks">My Cramdecks</string>
     <string name="recently_studied">Rcently Studied</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

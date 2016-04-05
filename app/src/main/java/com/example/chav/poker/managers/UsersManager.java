@@ -71,7 +71,7 @@ public class UsersManager {
 
     public User getUser(String user) {
         open();
-        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_USERS + " WHERE " + DatabaseHelper.KEY_USER_USERNAME + " = " + user;
+        String selectKey = "SELECT * FROM " + DatabaseHelper.TABLE_USERS + " WHERE " + DatabaseHelper.KEY_USER_USERNAME + " = \"" + user + "\"";
 
         Cursor c = database.rawQuery(selectKey, null);
 
@@ -130,6 +130,27 @@ public class UsersManager {
     public User getCurrentUser() {
         return mCurrentUser;
     }
+
+    public void setCurrentUser(User currentUser) {
+        mCurrentUser = currentUser;
+    }
+
+    public void signOut() {
+        mCurrentUser = null;
+    }
+
+//    public User getUser(String username) {
+//
+//        User saveUser = null;
+//
+//        for (User user : getAllUsers()) {
+//            if (user.getEmail().equals(username)) {
+//                saveUser = user;
+//            }
+//        }
+//
+//        return saveUser;
+//    }
 
     //    public void getUserDeck(){
 //

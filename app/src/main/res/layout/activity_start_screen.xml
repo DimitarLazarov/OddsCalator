@@ -75,6 +75,17 @@
             android:textColor="@color/darkGreen"
             android:textSize="20sp"/>
 
+        <Button
+            android:id="@+id/register_sing_out"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/cardColor"
+            android:text="@string/sign_out"
+            android:visibility="gone"
+            android:textColor="@color/darkGreen"
+            android:textSize="20sp"/>
+
     </LinearLayout>
 
 

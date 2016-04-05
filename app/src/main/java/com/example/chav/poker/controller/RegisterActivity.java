@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     User user = new User(username, pass, email);
                     UsersManager.getInstance(v.getContext()).registerUser(user);
+                    SavedSharedPreferences.setUserName(v.getContext(), user.getUsername());
                     Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
                     startActivity(i);
                 }
