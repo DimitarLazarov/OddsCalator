@@ -9,6 +9,7 @@
         android:background="@color/cardColor"
         android:textSize="20dp"
         android:textAllCaps="false"
+        android:clickable="false"
         android:drawableEnd="@drawable/next_small"
         android:textColor="@color/darkGreen"
         android:id="@+id/view_holder_deck_text_view"
