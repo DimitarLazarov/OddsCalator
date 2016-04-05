@@ -1,9 +1,12 @@
 package com.example.chav.poker.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.chav.poker.R;
@@ -18,6 +21,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
 
     private TextView mTitle;
     private RecyclerView mRecyclerViewCards;
+    private Button mCramMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,14 @@ public class CramCardsViewActivity extends AppCompatActivity {
 
         mTitle = (TextView) findViewById(R.id.cram_deck_title);
         mRecyclerViewCards = (RecyclerView) findViewById(R.id.my_cram_cards_recycler);
+        mCramMode = (Button) findViewById(R.id.cram_cards_view_mode_button);
+        mCramMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CramModeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         CramCard card1 = new CramCard("hahah", "da da");
         CramCard card2 = new CramCard("hahah", "da da");

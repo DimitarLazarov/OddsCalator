@@ -38,7 +38,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/cram_mode_button"
+            android:id="@+id/cram_cards_view_mode_button"
             android:text="Cram MODE"
             android:textColor="@color/darkGreen"
             android:layout_width="0dp"
