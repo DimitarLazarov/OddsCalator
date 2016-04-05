@@ -31,14 +31,6 @@ public class StartScreenActivity extends AppCompatActivity {
         mRegisterButton = (Button) findViewById(R.id.register_button);
         mSignOutButton = (Button) findViewById(R.id.register_sing_out);
 
-        if (SavedSharedPreferences.getUsername(this).length() != 0) {
-            User user = UsersManager.getInstance(this).getUser(SavedSharedPreferences.getUsername(this));
-            UsersManager.getInstance(this).setCurrentUser(user);
-            mLoginButton.setVisibility(View.GONE);
-            mRegisterButton.setVisibility(View.GONE);
-            mSignOutButton.setVisibility(View.VISIBLE);
-        }
-
         mOddsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +54,9 @@ public class StartScreenActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
             }
         });
 
@@ -70,6 +64,7 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });
@@ -84,5 +79,22 @@ public class StartScreenActivity extends AppCompatActivity {
                 SavedSharedPreferences.clearUserName(v.getContext());
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkForActiveYser();
+    }
+
+    private void checkForActiveYser(){
+        if (SavedSharedPreferences.getUsername(this).length() != 0) {
+            User user = UsersManager.getInstance(this).getUser(SavedSharedPreferences.getUsername(this));
+            UsersManager.getInstance(this).setCurrentUser(user);
+            mLoginButton.setVisibility(View.GONE);
+            mRegisterButton.setVisibility(View.GONE);
+            mSignOutButton.setVisibility(View.VISIBLE);
+        }
+
     }
 }

@@ -3,8 +3,10 @@ package com.example.chav.poker.managers;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.chav.poker.model_db.DatabaseHelper;
 
@@ -138,6 +140,23 @@ public class UsersManager {
     public void signOut() {
         mCurrentUser = null;
     }
+
+    public boolean login(String username, String password) throws SQLException{
+        open();
+
+        Cursor mCursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USERS + " WHERE username=? AND password=?", new String[]{username,password});
+        if (mCursor != null) {
+            if(mCursor.getCount() > 0)
+            {
+                return true;
+            }
+        }
+
+        mCursor.close();
+        close();
+        return false;
+    }
+
 
 //    public User getUser(String username) {
 //
