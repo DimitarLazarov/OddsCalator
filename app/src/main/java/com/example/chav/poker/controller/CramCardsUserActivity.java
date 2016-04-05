@@ -32,7 +32,8 @@ public class CramCardsUserActivity extends AppCompatActivity {
         mCreateNewDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startActivityNewDeck = new Intent();
+                Intent startActivityNewDeck = new Intent(v.getContext(), CreateCramDeckActivity.class);
+                v.getContext().startActivity(startActivityNewDeck);
             }
         });
         mMyDecks = (Button)findViewById(R.id.user_cram_sets);

@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".controller.CramCardCreate">
         </activity>
+        <activity android:name=".controller.CreateCramDeckActivity">
+        </activity>
     </application>
 
 </manifest>
