@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,12 +27,15 @@ public class CramCardCreateActivity extends AppCompatActivity {
         mBack = (EditText) findViewById(R.id.create_cram_card_back);
         mCancel = (Button) findViewById(R.id.create_cram_card_cancel);
         mConfirm = (Button) findViewById(R.id.create_cram_card_confirm);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!mFront.getText().toString().isEmpty() && !mBack.getText().toString().trim().isEmpty()) {
-                    Toast.makeText(v.getContext(), "bla", Toast.LENGTH_SHORT);
                     finishWithResult();
+                } else {
+                    Toast.makeText(v.getContext(), "Please enter valid values", Toast.LENGTH_SHORT).show();
                 }
             }
         });

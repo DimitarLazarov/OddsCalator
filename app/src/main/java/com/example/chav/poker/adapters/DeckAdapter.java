@@ -59,12 +59,13 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckViewHolder
     }
 
     @Override
-    public void onBindViewHolder(DeckViewHolder holder, int position) {
+    public void onBindViewHolder(DeckViewHolder holder, final int position) {
         holder.mDeckTitle.setText(decks.get(position).getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CramCardsViewActivity.class);
+                intent.putExtra("deck_id", decks.get(position).getId());
                 v.getContext().startActivity(intent);
             }
         });

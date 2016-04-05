@@ -1,11 +1,15 @@
 package com.example.chav.poker.controller;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +46,8 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_cram_deck);
         mCramCards = new ArrayList<>();
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
         mButtonNext = (Button) findViewById(R.id.create_deck_next);
         mButtonAddCard = (Button) findViewById(R.id.create_deck_add_card);
@@ -58,17 +64,24 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         });
 
         mButtonNext.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onClick(View v) {
                 if (mTitleText.getText().toString() != "") {
                     mButtonNext.setVisibility(View.GONE);
                     mButtonCreateDeck.setVisibility(View.VISIBLE);
+                    mButtonAddCard.setVisibility(View.VISIBLE);
+                    mTitleText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                    mTitleText.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.boardColor));
+                    mTitleText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.cardColor));
                     mTitleText.setClickable(false);
                     mTitleText.setFocusable(false);
                     mRecyclerCreatedCards.setVisibility(View.VISIBLE);
                     mCardAdapter = new CardAdapter(mCramCards);
                     mRecyclerCreatedCards.setLayoutManager(new LinearLayoutManager(v.getContext()));
                     mRecyclerCreatedCards.setAdapter(mCardAdapter);
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED);
                 }
             }
         });

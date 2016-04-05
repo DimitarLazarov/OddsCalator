@@ -62,11 +62,11 @@ public class CramCardsManager {
         close();
     }
 
-    public ArrayList<CramCard> getDeckCards(CramDeck decId) {
+    public ArrayList<CramCard> getDeckCards(long decId) {
         ArrayList<CramCard> deckCards = new ArrayList<>();
 //        dbHelper.getReadableDatabase();
         open(); //TODO check if it works
-        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_CRAM_DECK + " WHERE " + DatabaseHelper.KEY_CRAM_CARD_DECK_ID + " = " + decId;
+        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_CRAM_CARDS + " WHERE " + DatabaseHelper.KEY_CRAM_CARD_DECK_ID + " = " + decId;
         Cursor cursor = database.rawQuery(selectKey, null);
         if (cursor.moveToFirst()) {
             do {

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.adapters.CardAdapter;
+import com.example.chav.poker.managers.CramCardsManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class CramCardsViewActivity extends AppCompatActivity {
     private TextView mTitle;
     private RecyclerView mRecyclerViewCards;
     private Button mCramMode;
+    private CardAdapter mCardAdapter;
+    private ArrayList<CramCard> mCramCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +42,31 @@ public class CramCardsViewActivity extends AppCompatActivity {
             }
         });
 
-        CramCard card1 = new CramCard("hahah", "da da");
-        CramCard card2 = new CramCard("hahah", "da da");
-        CramCard card3 = new CramCard("hahah", "da da");
-        CramCard card4 = new CramCard("hahah", "da da");
-        List<CramCard> cards = new ArrayList<>();
-        cards.add(card1);
-        cards.add(card2);
-        cards.add(card3);
-        cards.add(card4);
-        CardAdapter adapter = new CardAdapter(cards);
+//        CramCard card1 = new CramCard("hahah", "da da");
+//        CramCard card2 = new CramCard("hahah", "da da");
+//        CramCard card3 = new CramCard("hahah", "da da");
+//        CramCard card4 = new CramCard("hahah", "da da");
+        mCramCards = new ArrayList<>();
+//        mCramCards.add(card1);
+//        mCramCards.add(card2);
+//        mCramCards.add(card3);
+//        mCramCards.add(card4);
+
+        mCardAdapter = new CardAdapter(mCramCards);
         mRecyclerViewCards.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerViewCards.setAdapter(adapter);
+        mRecyclerViewCards.setAdapter(mCardAdapter);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!mCramCards.isEmpty()) {
+            mCramCards.clear();
+        }
+        long deckId = getIntent().getExtras().getLong("deck_id");
+        mCramCards.addAll(CramCardsManager.getInstance(this).getDeckCards(deckId));
+        mCardAdapter.notifyDataSetChanged();
     }
 }

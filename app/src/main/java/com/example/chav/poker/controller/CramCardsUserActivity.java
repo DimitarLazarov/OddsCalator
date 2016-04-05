@@ -70,8 +70,10 @@ public class CramCardsUserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (!mCramDecks.isEmpty()) {
+            mCramDecks.clear();
+        }
         mViewOfDecks.removeAllViews();
-        mCramDecks.clear();
         mCramDecks.addAll(CramDecksManager.getInstance(this).getUsersCramDecks(UsersManager.getInstance(this).getCurrentUser().getId()));
         mDeckAdapter.notifyDataSetChanged();
     }
