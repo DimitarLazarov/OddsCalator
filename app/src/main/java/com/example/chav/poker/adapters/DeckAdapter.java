@@ -1,5 +1,6 @@
 package com.example.chav.poker.adapters;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.controller.CramCardsViewActivity;
 
 import java.util.List;
 
@@ -51,11 +53,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckViewHolder
 
     @Override
     public DeckViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyvler_view_holder_deck, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_holder_deck, parent, false);
         DeckViewHolder dvh = new DeckViewHolder(v);
         return dvh;
-
-
     }
 
     @Override
@@ -64,7 +64,8 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), CramCardsViewActivity.class);
+                v.getContext().startActivity(intent);
             }
         });
     }
