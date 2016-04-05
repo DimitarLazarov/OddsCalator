@@ -50,7 +50,8 @@ public class StartScreenActivity extends AppCompatActivity {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }

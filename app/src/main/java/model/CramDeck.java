@@ -16,6 +16,11 @@ public class CramDeck {
         mDeckCards = new HashSet<CramCard>();
     }
 
+    public CramDeck(long id, String title) {
+        mId = id;
+        mTitle = title;
+    }
+
     public HashSet<CramCard> getCards(){
         return mDeckCards;
     }

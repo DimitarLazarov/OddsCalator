@@ -38,18 +38,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Table create statements
     private static final String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_USER_USERNAME + " VARCHAR(20) NOT NULL UNIQUE,"
-            + KEY_USER_EMAIL + " TEXT UNIQUE," + KEY_USER_PASSWORD + " TEXT" + ")";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            + KEY_USER_USERNAME + " VARCHAR(20) NOT NULL UNIQUE,"
+            + KEY_USER_EMAIL + " TEXT UNIQUE,"
+            + KEY_USER_PASSWORD + " TEXT" + ")";
 
     private static final String CREATE_TABLE_CRAM_CARDS = "CREATE TABLE " + TABLE_CRAM_CARDS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_CRAM_CARD_FRONT + " VARCHAR(100) NOT NULL,"
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+            + KEY_CRAM_CARD_FRONT + " VARCHAR(100) NOT NULL,"
             + KEY_CRAM_CARD_BACK + " VARCHAR(100) NOT NULL,"
-            + KEY_CRAM_CARD_DECK_ID + " INTEGER" + " REFERENCES " + TABLE_CRAM_DECK + "(" + KEY_ID + ")" + ")";
+            + KEY_CRAM_CARD_DECK_ID + " INTEGER" + " REFERENCES " + TABLE_CRAM_DECK + "("+KEY_ID+")" + ")";
 
-    private static final String CREATE_TABLE_CRAM_DECK = "CREATE TABLE " + TABLE_USERS
+
+    private static final String CREATE_TABLE_CRAM_DECK = "CREATE TABLE " + TABLE_CRAM_DECK
             + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
             + KEY_CRAM_DECK_TITLE + " VARCHAR(20) NOT NULL,"
-            + KEY_CRAM_DECK_USER_ID + " INTEGER" + " REFERENCES " + TABLE_USERS + "(" + KEY_ID + ")" + ")";
+            + KEY_CRAM_DECK_USER_ID + " INTEGER NOT NULL,"
+            + " FOREIGN KEY (" + KEY_CRAM_DECK_USER_ID + ") REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
 
     private static DatabaseHelper instance;
 
@@ -71,8 +76,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
-        db.execSQL(CREATE_TABLE_CRAM_CARDS);
         db.execSQL(CREATE_TABLE_CRAM_DECK);
+        db.execSQL(CREATE_TABLE_CRAM_CARDS);
     }
 
     @Override

@@ -25,6 +25,8 @@
         </activity>
         <activity android:name=".controller.CramCardsUserActivity">
         </activity>
+        <activity android:name=".controller.RegisterActivity">
+        </activity>
     </application>
 
 </manifest>

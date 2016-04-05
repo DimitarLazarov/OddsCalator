@@ -14,6 +14,12 @@ public class CramCard {
         this.mAnswer = answer;
     }
 
+    public CramCard(long id, String question, String answer) {
+        mId = id;
+        mQuestion = question;
+        mAnswer = answer;
+    }
+
     public String getQuestion() {
         return mQuestion;
     }

@@ -4,10 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.UserManager;
 import android.util.Log;
 
 import com.example.chav.poker.model_db.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import model.User;
 
@@ -18,7 +20,7 @@ public class UsersManager {
 
     public static UsersManager instance;
 
-    public static UsersManager getInstance(Context context){
+    public static UsersManager getInstance(Context context) {
         if (instance == null) {
             instance = new UsersManager(context);
         }
@@ -67,12 +69,11 @@ public class UsersManager {
         Log.d("user", "" + user.getUsername());
     }
 
-    public User getUser(String user){
+    public User getUser(String user) {
         open();
-        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_USERS + " WHERE " +DatabaseHelper. KEY_USER_USERNAME + " = " + user;
+        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_USERS + " WHERE " + DatabaseHelper.KEY_USER_USERNAME + " = " + user;
 
         Cursor c = database.rawQuery(selectKey, null);
-
 
         long userId = -1;
         String name = null;
@@ -81,16 +82,53 @@ public class UsersManager {
 
         if (c != null) {
             c.moveToFirst();
-            userId = c.getColumnIndex(DatabaseHelper.KEY_ID);
-            name = c.getString(1);
-            email = c.getString(2);
-            pass = c.getString(3);
+            userId = c.getLong(c.getColumnIndex(DatabaseHelper.KEY_ID));
+            name = c.getString(c.getColumnIndex(DatabaseHelper.KEY_USER_USERNAME));
+            email = c.getString(c.getColumnIndex(DatabaseHelper.KEY_USER_EMAIL));
+            pass = c.getString(c.getColumnIndex(DatabaseHelper.KEY_USER_PASSWORD));
         }
         close();
-
+        c.close();
         return new User(userId, name, pass, email);
 
     }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> allUsers = new ArrayList<>();
+        String selectQuery = " SELECT * FROM " + DatabaseHelper.TABLE_USERS;
+        database = dbHelper.getInstance(mContext).getWritableDatabase();
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        Log.d("chavdar", "we got here");
+        if (cursor.moveToFirst()) {
+            do {
+                long id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.KEY_ID));
+                String username = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_USER_USERNAME));
+                String eMail = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_USER_EMAIL));
+                String password = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_USER_PASSWORD));
+
+                User user = new User(id, username, eMail, password);
+                allUsers.add(user);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return allUsers;
+    }
+
+    public boolean isSignedUp(String userOrMail) {
+
+        for (User user : getAllUsers()) {
+            if (user.getEmail().equals(userOrMail) || user.getEmail().equals(userOrMail)) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+
+
 
 //    public void getUserDeck(){
 //

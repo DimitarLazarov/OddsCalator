@@ -2,10 +2,14 @@ package com.example.chav.poker.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.chav.poker.model_db.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import model.CramDeck;
 import model.User;
@@ -17,7 +21,7 @@ public class CramDecksManager {
 
     public static CramDecksManager instance;
 
-    public static CramDecksManager getInstance(Context context){
+    public static CramDecksManager getInstance(Context context) {
         if (instance == null) {
             instance = new CramDecksManager(context);
         }
@@ -57,5 +61,26 @@ public class CramDecksManager {
         cramDeck.setId(cramDeckId);
         close();
 
+    }
+
+    public ArrayList<CramDeck> getUsersCramDecks(long userId) {
+        ArrayList<CramDeck> usersDecks = new ArrayList<>();
+//        dbHelper.getReadableDatabase();
+        open(); //TODO check if it works
+        String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_CRAM_DECK + " WHERE " + DatabaseHelper.KEY_CRAM_DECK_USER_ID + " = " + userId;
+        Cursor cursor = database.rawQuery(selectKey, null);
+        if (cursor.moveToFirst()) {
+            do {
+                long id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.KEY_ID));
+                String title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.KEY_CRAM_DECK_TITLE));
+
+                CramDeck cramDeck = new CramDeck(id, title);
+                usersDecks.add(cramDeck);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        close();
+
+        return usersDecks;
     }
 }
