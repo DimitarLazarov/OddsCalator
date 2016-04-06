@@ -25,11 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/blackCards"
         android:background="@color/cardColor"
         android:hint="username"
+        android:imeOptions="actionNext"
+        android:inputType="text"
         android:padding="10dp"
-        android:textAlignment="textEnd"
+        android:textColor="@color/blackCards"
         android:textColorHint="@color/darkGreen"/>
 
     <EditText
@@ -37,12 +38,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:textColor="@color/blackCards"
         android:background="@color/cardColor"
         android:hint="email"
+        android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:textAlignment="textEnd"
+        android:textColor="@color/blackCards"
         android:textColorHint="@color/darkGreen"/>
 
     <EditText
@@ -52,10 +53,10 @@
         android:layout_marginBottom="5dp"
         android:background="@color/cardColor"
         android:hint="password"
-        android:textColor="@color/blackCards"
+        android:imeOptions="actionNext"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textAlignment="textEnd"
+        android:textColor="@color/blackCards"
         android:textColorHint="@color/darkGreen"/>
 
     <EditText
@@ -65,10 +66,10 @@
         android:layout_marginBottom="5dp"
         android:background="@color/cardColor"
         android:hint="confirm password"
-        android:textColor="@color/blackCards"
+        android:imeOptions="actionGo"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:textAlignment="textEnd"
+        android:textColor="@color/blackCards"
         android:textColorHint="@color/darkGreen"/>
 
 
