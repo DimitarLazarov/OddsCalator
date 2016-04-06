@@ -1,12 +1,9 @@
 package com.example.chav.poker.controller;
 
-import android.app.Fragment;
-import android.content.Intent;
+import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -26,6 +23,10 @@ public class CramModeActivity extends AppCompatActivity {
     private CramCard mSelectedCard;
     private ArrayList<CramCard> mCards = new ArrayList<>();
     private boolean mPressed = false;
+    private CramCardFrontEndFragment mBackFragment;
+    private CramCardFrontEndFragment mFrontFragment;
+    private FragmentManager manager;
+
 
 
     @Override
@@ -33,6 +34,7 @@ public class CramModeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cram_mode);
 
+        manager = getFragmentManager();
         CramCard card1 = new CramCard("Who are u?", "Player.");
         CramCard card2 = new CramCard("Are u ok?", "Im ok.");
         CramCard card3 = new CramCard("Nice a?", "nice.");
@@ -60,16 +62,17 @@ public class CramModeActivity extends AppCompatActivity {
                 if (mCards.size() == 0) {
                     finish();
                 } else {
+                    cleanOldFragments();
                     int nextCard = mRandomGenerator.nextInt(mCards.size());
                     mSelectedCard = mCards.remove(nextCard);
-                    CramCardFrontEndFragment backFragment = new CramCardFrontEndFragment();
+                    mFrontFragment = new CramCardFrontEndFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("textOfCard", mSelectedCard.getQuestion());
-                    backFragment.setArguments(bundle);
+                    mFrontFragment.setArguments(bundle);
 
-                    getFragmentManager()
+                    manager
                             .beginTransaction()
-                            .add(R.id.cram_mode_frame_layout, backFragment)
+                            .add(R.id.cram_mode_frame_layout, mFrontFragment)
                             .commit();
 
                 }
@@ -80,14 +83,24 @@ public class CramModeActivity extends AppCompatActivity {
 
 
 
-        CramCardFrontEndFragment backFragment = new CramCardFrontEndFragment();
+        mFrontFragment = new CramCardFrontEndFragment();
         Bundle bundle = new Bundle();
         bundle.putString("textOfCard", mSelectedCard.getQuestion());
-        backFragment.setArguments(bundle);
+        mFrontFragment.setArguments(bundle);
 
-        getFragmentManager()
+        manager
                 .beginTransaction()
-                .add(R.id.cram_mode_frame_layout, backFragment)
+                .add(R.id.cram_mode_frame_layout, mFrontFragment)
+                .commit();
+    }
+
+
+    private void cleanOldFragments(){
+        manager .beginTransaction()
+                .remove(mFrontFragment)
+                .commit();
+        manager .beginTransaction()
+                .remove(mBackFragment)
                 .commit();
     }
 
@@ -98,12 +111,12 @@ public class CramModeActivity extends AppCompatActivity {
         // manager's back stack.
         if(!mPressed) {
             mPressed = true;
-            CramCardFrontEndFragment frontFragment = new CramCardFrontEndFragment();
+            mBackFragment = new CramCardFrontEndFragment();
             Bundle bundle = new Bundle();
             bundle.putString("textOfCard", mSelectedCard.getAnswer());
-            frontFragment.setArguments(bundle);
+            mBackFragment.setArguments(bundle);
 
-            getFragmentManager()
+            manager
                     .beginTransaction()
 
                             // Replace the default fragment animations with animator resources
@@ -119,7 +132,7 @@ public class CramModeActivity extends AppCompatActivity {
                             // Replace any fragments currently in the container view with a
                             // fragment representing the next page (indicated by the
                             // just-incremented currentPage variable).
-                    .replace(R.id.cram_mode_frame_layout, frontFragment)
+                    .replace(R.id.cram_mode_frame_layout, mBackFragment)
 
                             // Add this transaction to the back stack, allowing users to press
                             // Back to get to the front of the card.
@@ -130,11 +143,11 @@ public class CramModeActivity extends AppCompatActivity {
         }
         else {
             mPressed = false;
-            CramCardFrontEndFragment backFragment = new CramCardFrontEndFragment();
+            mFrontFragment = new CramCardFrontEndFragment();
             Bundle bundle = new Bundle();
             bundle.putString("textOfCard", mSelectedCard.getQuestion());
-            backFragment.setArguments(bundle);
-            getFragmentManager()
+            mFrontFragment.setArguments(bundle);
+            manager
                     .beginTransaction()
 
                             // Replace the default fragment animations with animator resources
@@ -150,7 +163,7 @@ public class CramModeActivity extends AppCompatActivity {
                             // Replace any fragments currently in the container view with a
                             // fragment representing the next page (indicated by the
                             // just-incremented currentPage variable).
-                    .replace(R.id.cram_mode_frame_layout, backFragment)
+                    .replace(R.id.cram_mode_frame_layout, mFrontFragment)
 
                             // Add this transaction to the back stack, allowing users to press
                             // Back to get to the front of the card.
