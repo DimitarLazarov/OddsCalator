@@ -93,7 +93,8 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                 CramDecksManager.getInstance(v.getContext()).addDeck(UsersManager.getInstance(v.getContext()).getCurrentUser(), deck);
 //                Toast.makeText(v.getContext(), deck.getTitle(), Toast.LENGTH_SHORT).show();
                 for (CramCard cramCard : mCramCards) {
-                    CramCardsManager.getInstance(v.getContext()).addCard(deck, cramCard);
+                    CramCardsManager.getInstance(v.getContext()).addCard(deck.getId(), cramCard);
+//                    CramCardsManager.getInstance(v.getContext()).addCard(deck, cramCard);
 //                    Toast.makeText(v.getContext(), cramCard.getQuestion(), Toast.LENGTH_SHORT).show();
                     //TODO set name of Cram Deck unique and catch SQLiteException
                 }
@@ -121,7 +122,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     String back = data.getExtras().getString("back");
                     mCramCards.add(new CramCard(front, back));
                     mCardAdapter.notifyDataSetChanged();
-                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
                 }
         }
     }

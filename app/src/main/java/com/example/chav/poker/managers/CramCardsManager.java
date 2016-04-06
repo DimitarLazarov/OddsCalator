@@ -62,6 +62,18 @@ public class CramCardsManager {
         close();
     }
 
+    public void addCard(long cramDeckId, CramCard cramCard) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.KEY_CRAM_CARD_DECK_ID, cramDeckId);
+        values.put(DatabaseHelper.KEY_CRAM_CARD_FRONT, cramCard.getQuestion());
+        values.put(DatabaseHelper.KEY_CRAM_CARD_BACK, cramCard.getAnswer());
+
+        open();
+        long cramCardId = database.insert(DatabaseHelper.TABLE_CRAM_CARDS, DatabaseHelper.KEY_CRAM_CARD_FRONT, values);
+        cramCard.setId(cramCardId);
+        close();
+    }
+
     public ArrayList<CramCard> getDeckCards(long decId) {
         ArrayList<CramCard> deckCards = new ArrayList<>();
 //        dbHelper.getReadableDatabase();

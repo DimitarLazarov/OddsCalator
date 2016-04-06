@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.managers.CramCardsManager;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,14 +36,17 @@ public class CramModeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cram_mode);
 
         manager = getFragmentManager();
-        CramCard card1 = new CramCard("Who are u?", "Player.");
-        CramCard card2 = new CramCard("Are u ok?", "Im ok.");
-        CramCard card3 = new CramCard("Nice a?", "nice.");
-        CramCard card4 = new CramCard("Fuck u?", "No no.");
-        mCards.add(card1);
-        mCards.add(card2);
-        mCards.add(card3);
-        mCards.add(card4);
+
+        long deckId = getIntent().getExtras().getLong("deck_id");
+        mCards.addAll(CramCardsManager.getInstance(this).getDeckCards(deckId));
+//        CramCard card1 = new CramCard("Who are u?", "Player.");
+//        CramCard card2 = new CramCard("Are u ok?", "Im ok.");
+//        CramCard card3 = new CramCard("Nice a?", "nice.");
+//        CramCard card4 = new CramCard("Fuck u?", "No no.");
+//        mCards.add(card1);
+//        mCards.add(card2);
+//        mCards.add(card3);
+//        mCards.add(card4);
 
         int nextCard = mRandomGenerator.nextInt(mCards.size());
         mSelectedCard = mCards.remove(nextCard);
@@ -173,4 +177,6 @@ public class CramModeActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+
 }

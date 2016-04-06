@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.adapters.CardAdapter;
@@ -20,9 +21,11 @@ import model.CramCard;
 
 public class CramCardsViewActivity extends AppCompatActivity {
 
+    private static final int CARD_REQUEST = 1;
     private TextView mTitle;
     private RecyclerView mRecyclerViewCards;
     private Button mCramMode;
+    private Button mAddCard;
     private CardAdapter mCardAdapter;
     private ArrayList<CramCard> mCramCards;
 
@@ -38,6 +41,8 @@ public class CramCardsViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CramModeActivity.class);
+                long deckId = getIntent().getExtras().getLong("deck_id");
+                intent.putExtra("deck_id", deckId);
                 startActivity(intent);
             }
         });
@@ -56,7 +61,14 @@ public class CramCardsViewActivity extends AppCompatActivity {
         mRecyclerViewCards.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerViewCards.setAdapter(mCardAdapter);
 
-
+        mAddCard = (Button) findViewById(R.id.add_cram_card_button);
+        mAddCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), CramCardCreateActivity.class);
+                startActivityForResult(i, CARD_REQUEST);
+            }
+        });
     }
 
     @Override
@@ -68,5 +80,24 @@ public class CramCardsViewActivity extends AppCompatActivity {
         long deckId = getIntent().getExtras().getLong("deck_id");
         mCramCards.addAll(CramCardsManager.getInstance(this).getDeckCards(deckId));
         mCardAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case CARD_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    String front = data.getExtras().getString("front");
+                    String back = data.getExtras().getString("back");
+                    long deckId = getIntent().getExtras().getLong("deck_id");
+                    CramCard cramCard = new CramCard(front, back);
+                    mCramCards.add(cramCard);
+                    CramCardsManager.getInstance(this).addCard(deckId, cramCard);
+                    mCardAdapter.notifyDataSetChanged();
+//                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
+                }
+        }
     }
 }
