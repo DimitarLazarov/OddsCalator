@@ -30,6 +30,6 @@ public class SavedSharedPreferences {
     {
         SharedPreferences.Editor editor = getSharedPreference(ctx).edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 }
