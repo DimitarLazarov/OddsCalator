@@ -10,7 +10,7 @@
         android:textSize="20dp"
         android:textAllCaps="false"
         android:clickable="false"
-        android:drawableEnd="@drawable/next_small"
+        android:drawableEnd="@drawable/next_smal_arrow_onlyl"
         android:textColor="@color/darkGreen"
         android:id="@+id/view_holder_deck_text_view"
         android:layout_width="match_parent"
