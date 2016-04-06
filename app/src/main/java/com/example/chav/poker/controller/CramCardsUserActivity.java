@@ -73,6 +73,8 @@ public class CramCardsUserActivity extends AppCompatActivity {
         if (!mCramDecks.isEmpty()) {
             mCramDecks.clear();
         }
+        mMyDecks.setActivated(false);
+        mViewOfDecks.setVisibility(View.GONE);
         mViewOfDecks.removeAllViews();
         mCramDecks.addAll(CramDecksManager.getInstance(this).getUsersCramDecks(UsersManager.getInstance(this).getCurrentUser().getId()));
         mDeckAdapter.notifyDataSetChanged();

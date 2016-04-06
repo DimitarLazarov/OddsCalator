@@ -1,10 +1,17 @@
 package com.example.chav.poker.controller;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
@@ -24,6 +31,11 @@ public class StartScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow();
+            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+        }
 
         mQuizButton = (Button) findViewById(R.id.quiz_button);
         mOddsButton = (Button) findViewById(R.id.odds_button);
@@ -84,10 +96,10 @@ public class StartScreenActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkForActiveYser();
+        checkForActiveUser();
     }
 
-    private void checkForActiveYser(){
+    private void checkForActiveUser(){
         if (SavedSharedPreferences.getUsername(this).length() != 0) {
             User user = UsersManager.getInstance(this).getUser(SavedSharedPreferences.getUsername(this));
             UsersManager.getInstance(this).setCurrentUser(user);
@@ -97,4 +109,5 @@ public class StartScreenActivity extends AppCompatActivity {
         }
 
     }
+
 }

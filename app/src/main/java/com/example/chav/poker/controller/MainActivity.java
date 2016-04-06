@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window w = getWindow();
+            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+        }
 
         mPOneCardOne      = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
         mPOneCardTwo      = (Button) findViewById(R.id.basic_quiz_player_one_card_two);

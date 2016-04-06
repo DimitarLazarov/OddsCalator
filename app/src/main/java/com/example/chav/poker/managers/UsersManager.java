@@ -117,17 +117,6 @@ public class UsersManager {
         return allUsers;
     }
 
-    public boolean isSignedUp(String userOrMail) {
-
-        for (User user : getAllUsers()) {
-            if (user.getEmail().equals(userOrMail) || user.getEmail().equals(userOrMail)) {
-                return true;
-            }
-
-        }
-
-        return false;
-    }
 
     public User getCurrentUser() {
         return mCurrentUser;
@@ -157,6 +146,43 @@ public class UsersManager {
         return false;
     }
 
+    public boolean checkUserEmail(String email) {
+        open();
+        String selectQuery = "SELECT * FROM " + DatabaseHelper.TABLE_USERS
+                + " WHERE " + DatabaseHelper.KEY_USER_EMAIL + " = \"" + email + "\"";
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c != null && c.moveToFirst()) {
+            close();
+            c.close();
+            return true;
+        }
+        else{
+            close();
+            c.close();
+            return false;
+        }
+    }
+
+    public boolean checkUsername(String username) {
+        open();
+        String selectQuery = "SELECT * FROM " + DatabaseHelper.TABLE_USERS
+                + " WHERE " + DatabaseHelper.KEY_USER_USERNAME + " = \"" + username + "\"";
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+
+        if (c != null && c.moveToFirst()) {
+            close();
+            c.close();
+            return true;
+        } else{
+            close();
+            c.close();
+            return false;
+        }
+    }
 
 //    public User getUser(String username) {
 //
