@@ -32,7 +32,8 @@
                 android:layout_height="1dp"
                 android:alpha="0.20"
                 android:id="@+id/view_separator"
-                android:background="@color/darkGreen"/>
+                android:background="@color/darkGreen"
+                />
 
             <TextView
                 android:layout_width="match_parent"
