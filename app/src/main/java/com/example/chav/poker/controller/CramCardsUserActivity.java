@@ -52,12 +52,16 @@ public class CramCardsUserActivity extends AppCompatActivity {
         mMyDecks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mMyDecks.isActivated()) {
-                    mMyDecks.setActivated(false);
-                    mViewOfDecks.setVisibility(View.GONE);
+                if (mCramDecks.size() != 0) {
+                    if (mMyDecks.isActivated()) {
+                        mMyDecks.setActivated(false);
+                        mViewOfDecks.setVisibility(View.GONE);
+                    } else {
+                        mMyDecks.setActivated(true);
+                        mViewOfDecks.setVisibility(View.VISIBLE);
+                    }
                 } else {
-                    mMyDecks.setActivated(true);
-                    mViewOfDecks.setVisibility(View.VISIBLE);
+                    Toast.makeText(CramCardsUserActivity.this, "You have no decks.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
