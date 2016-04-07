@@ -1,5 +1,9 @@
 package com.example.chav.poker.controller;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +13,17 @@ import android.widget.Button;
 
 import com.example.chav.poker.R;
 
-public class QuizSelectionActivity extends AppCompatActivity {
+public class QuizSelectionActivity extends AppCompatActivity implements InstructionsQuizesFragment.QuizSelectionCallback{
 
     private Button mSpeedQuiz;
     private Button mCram;
     private Button mBasicQuiz;
+    private final String mInstructionsBasicQuiz = "Basic poker quiz.\n\nYou have to choose the winner or the one who has more percentage to win " +
+            "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have only 5 seconds to do this. The main " +
+            "goal of this quiz is to make winstreak of winning hands.";
+    private final String mInstructionsSpeedQuiz = "Speed poker quiz.\n\nYou have to choose the winner or the one who has more percentage to win " +
+            "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have 60 secnods. The main goal is " +
+            " to choose as many as possible winning hands.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +37,12 @@ public class QuizSelectionActivity extends AppCompatActivity {
         mSpeedQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), SpeedQuizActivity.class);
-                startActivity(i);
+                InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
+                FragmentManager fm = getFragmentManager();
+                Bundle args = new Bundle();
+                args.putString("message", mInstructionsSpeedQuiz);
+                instructionsFragment.setArguments(args);
+                instructionsFragment.show(fm, "SpeedQuiz");
             }
         });
         mCram = (Button) findViewById(R.id.cram_cards);
@@ -45,11 +59,29 @@ public class QuizSelectionActivity extends AppCompatActivity {
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BasicQuizActivity.class);
-                startActivity(intent);
+                InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
+                FragmentManager fm = getFragmentManager();
+                Bundle args = new Bundle();
+                args.putString("message", mInstructionsBasicQuiz);
+                instructionsFragment.setArguments(args);
+                instructionsFragment.show(fm, "BasicQuiz");
             }
         });
 
 
     }
+
+    @Override
+    public void startBasicQuizGame() {
+        Intent intent = new Intent(QuizSelectionActivity.this, BasicQuizActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void startSpeedQuizGame() {
+        Intent intent = new Intent(QuizSelectionActivity.this, SpeedQuizActivity.class);
+        startActivity(intent);
+    }
+
+
 }
