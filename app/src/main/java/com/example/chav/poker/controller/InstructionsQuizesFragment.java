@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class InstructionsQuizesFragment extends DialogFragment {
     private TextView mMessageToShow;
     private ImageButton mCancel;
     private ImageButton mStartPlay;
+    private CheckBox mCheckBoxInstructions;
 
     private String mMessage;
     private QuizSelectionCallback mQuizSelectionCallback;
@@ -65,6 +67,8 @@ public class InstructionsQuizesFragment extends DialogFragment {
 
         getDialog().setCanceledOnTouchOutside(false);
 
+        mCheckBoxInstructions = (CheckBox) v.findViewById(R.id.check_box_instructions);
+
         mMessageToShow = (TextView) v.findViewById(R.id.quiz_selection_instructions);
         mMessageToShow.setText(mMessage);
 
@@ -82,10 +86,10 @@ public class InstructionsQuizesFragment extends DialogFragment {
             public void onClick(View v) {
                 String tag = getTag();
                 if (tag.equals("BasicQuiz")) {
-                    mQuizSelectionCallback.startBasicQuizGame();
+                    mQuizSelectionCallback.startBasicQuizGame(mCheckBoxInstructions.isChecked());
                 }
                 if (tag.equals("SpeedQuiz")) {
-                    mQuizSelectionCallback.startSpeedQuizGame();
+                    mQuizSelectionCallback.startSpeedQuizGame(mCheckBoxInstructions.isChecked());
                 }
                 onDestroyView();
             }
@@ -96,7 +100,7 @@ public class InstructionsQuizesFragment extends DialogFragment {
 
 
     public interface QuizSelectionCallback {
-        void startBasicQuizGame();
-        void startSpeedQuizGame();
+        void startBasicQuizGame(boolean checkedInstructions);
+        void startSpeedQuizGame(boolean checkedInstructions);
     }
 }

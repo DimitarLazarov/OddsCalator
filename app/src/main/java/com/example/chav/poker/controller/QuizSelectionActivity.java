@@ -18,6 +18,8 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
     private Button mSpeedQuiz;
     private Button mCram;
     private Button mBasicQuiz;
+    private boolean mBasicQuizInstructions = true;
+    private boolean mSpeedQuizInstructions = true;
     private final String mInstructionsBasicQuiz = "Basic poker quiz.\n\nYou have to choose the winner or the one who has more percentage to win " +
             "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have only 5 seconds to do this. The main " +
             "goal of this quiz is to make winstreak of winning hands.";
@@ -37,12 +39,18 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
         mSpeedQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
-                FragmentManager fm = getFragmentManager();
-                Bundle args = new Bundle();
-                args.putString("message", mInstructionsSpeedQuiz);
-                instructionsFragment.setArguments(args);
-                instructionsFragment.show(fm, "SpeedQuiz");
+                if (mSpeedQuizInstructions) {
+                    InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
+                    FragmentManager fm = getFragmentManager();
+                    Bundle args = new Bundle();
+                    args.putString("message", mInstructionsSpeedQuiz);
+                    instructionsFragment.setArguments(args);
+                    instructionsFragment.show(fm, "SpeedQuiz");
+                }
+                else {
+                    Intent intent = new Intent(QuizSelectionActivity.this, SpeedQuizActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         mCram = (Button) findViewById(R.id.cram_cards);
@@ -59,12 +67,18 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
-                FragmentManager fm = getFragmentManager();
-                Bundle args = new Bundle();
-                args.putString("message", mInstructionsBasicQuiz);
-                instructionsFragment.setArguments(args);
-                instructionsFragment.show(fm, "BasicQuiz");
+                if (mBasicQuizInstructions) {
+                    InstructionsQuizesFragment instructionsFragment = new InstructionsQuizesFragment();
+                    FragmentManager fm = getFragmentManager();
+                    Bundle args = new Bundle();
+                    args.putString("message", mInstructionsBasicQuiz);
+                    instructionsFragment.setArguments(args);
+                    instructionsFragment.show(fm, "BasicQuiz");
+                }
+                else {
+                    Intent intent = new Intent(QuizSelectionActivity.this, BasicQuizActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -72,13 +86,15 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
     }
 
     @Override
-    public void startBasicQuizGame() {
+    public void startBasicQuizGame(boolean instructions) {
+        mBasicQuizInstructions = !instructions;
         Intent intent = new Intent(QuizSelectionActivity.this, BasicQuizActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void startSpeedQuizGame() {
+    public void startSpeedQuizGame(boolean instructions) {
+        mSpeedQuizInstructions = !instructions;
         Intent intent = new Intent(QuizSelectionActivity.this, SpeedQuizActivity.class);
         startActivity(intent);
     }
