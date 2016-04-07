@@ -88,7 +88,7 @@
                     android:layout_width="100dp"
                     android:layout_height="140dp"
                     android:layout_margin="5dp"
-                    android:background="@drawable/card_plus_sign"
+                    android:background="@drawable/button"
                     />
 
                 <Button
@@ -100,7 +100,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_toEndOf="@+id/basic_quiz_player_one_card_one"
                     android:layout_toRightOf="@+id/basic_quiz_player_one_card_one"
-                    android:background="@color/cardColor"
+                    android:background="@drawable/button"
                     android:clickable="false"
                     />
 
@@ -140,7 +140,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="0"
+                        android:text="0.00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"/>
@@ -173,7 +173,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:background="@color/cardColor"
+                android:background="@drawable/button"
                 android:clickable="false"/>
 
             <Button
@@ -182,7 +182,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:background="@color/cardColor"
+                android:background="@drawable/button"
                 android:clickable="false"/>
 
             <Button
@@ -191,7 +191,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:background="@color/cardColor"
+                android:background="@drawable/button"
                 android:clickable="false"/>
 
             <Button
@@ -200,7 +200,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:background="@color/cardColor"
+                android:background="@drawable/button"
                 android:clickable="false"/>
 
             <Button
@@ -208,7 +208,7 @@
                 android:layout_width="75dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/cardColor"
+                android:background="@drawable/button"
                 android:clickable="false"/>
 
 
@@ -245,7 +245,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_toEndOf="@+id/basic_quiz_player_two_card_one"
                     android:layout_toRightOf="@+id/basic_quiz_player_two_card_one"
-                    android:background="@color/cardColor"
+                    android:background="@drawable/button"
                     android:clickable="false"
                     />
 
@@ -284,7 +284,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:hint="p1 odds"
-                        android:text="0"
+                        android:text="0.00"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"/>

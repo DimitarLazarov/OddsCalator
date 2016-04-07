@@ -173,10 +173,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         resetAllButtonsStates();
 
         mPOneCardOne.setClickable(true);
-        mPOneCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+        mPOneCardOne.setBackgroundResource(R.drawable.card_back);
 
         mPTwoCardOne.setClickable(true);
-        mPTwoCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+        mPTwoCardOne.setBackgroundResource(R.drawable.button);
 
         deck = CardSet.freshDeck();
         players = new CardSet[2];
