@@ -39,8 +39,8 @@ public class QuizSelectionActivity extends AppCompatActivity {
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), BasicQuizActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(v.getContext(), BasicQuizActivity.class);
+                startActivity(intent);
             }
         });
 

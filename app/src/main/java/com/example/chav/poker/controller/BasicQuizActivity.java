@@ -56,8 +56,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private CardSet mDeck;
     private CardSet mBoard;
     private CardSet[] mPlayers;
-    private int mCorrectAnswers;
-    private int mTotalAnswers;
+    private int mCurrentWiningSreak;
+    private int mBestWinStreak;
     private CountDownTimer mCountDownTimer;
     private int mUserChoice;
 
@@ -122,13 +122,15 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
     }
 
+
+
     private void startTimer() {
 
         final long[] seconds = new long[1];
         final long[] miliseconds = new long[1];
         final long[] microseconds = new long[1];
 
-        mCountDownTimer = new CountDownTimer(20000, 10) {
+        mCountDownTimer = new CountDownTimer(5000, 10) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -141,8 +143,9 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
             @Override
             public void onFinish() {
+                mCurrentWiningSreak = 0;
                 mTimer.setText("0.00");
-                startResultsFragment();
+                startLosingFragment();
             }
         }.start();
 
@@ -172,15 +175,21 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 wins[0] = 1;
                 wins[1] = 0;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    mCorrectAnswers++;
-                    mTotalAnswers++;
-                    mScore.setText("Score: " + mCorrectAnswers);
-                    prepareBoard();
+                    mCurrentWiningSreak++;
+                    mCountDownTimer.cancel();
+                    if (mCurrentWiningSreak > mBestWinStreak) {
+                        mBestWinStreak = mCurrentWiningSreak;
+                    }
+                    startWiningFragment();
+        //            mScore.setText("Score: " + mCorrectAnswers);
+           //         prepareBoard();
 //                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    mTotalAnswers++;
-                    prepareBoard();
+                    mCountDownTimer.cancel();
+                    mCurrentWiningSreak = 0;
+                    startLosingFragment();
+           //         prepareBoard();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
@@ -188,15 +197,20 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 wins[0] = 0;
                 wins[1] = 1;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    mCorrectAnswers++;
-                    mTotalAnswers++;
-                    mScore.setText("Score: " + mCorrectAnswers);
-                    prepareBoard();
+                    mCurrentWiningSreak++;
+                    mCountDownTimer.cancel();
+                    if (mCurrentWiningSreak > mBestWinStreak) {
+                        mBestWinStreak = mCurrentWiningSreak;
+                    }
+                    startWiningFragment();
+        //            mScore.setText("Score: " + mCorrectAnswers);
+          //          prepareBoard();
 //                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    mTotalAnswers++;
-                    prepareBoard();
+                    mCurrentWiningSreak = 0;
+                    mCountDownTimer.cancel();
+                    startLosingFragment();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
@@ -206,15 +220,21 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 ties[0] = 1;
                 ties[1] = 1;
                 if (mUserChoice == getWinner(wins, ties, pots)) {
-                    mCorrectAnswers++;
-                    mTotalAnswers++;
-                    mScore.setText("Score: " + mCorrectAnswers);
-                    prepareBoard();
+                    mCurrentWiningSreak++;
+                    if (mCurrentWiningSreak > mBestWinStreak) {
+                        mBestWinStreak = mCurrentWiningSreak;
+                    }
+                    mCountDownTimer.cancel();
+                //    mScore.setText("Score: " + mCorrectAnswers);
+                    startWiningFragment();
+           //         prepareBoard();
 //                    startWiningFragment();
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
-                    mTotalAnswers++;
-                    prepareBoard();
+                    mCurrentWiningSreak = 0;
+                    startLosingFragment();
+             //       prepareBoard();
+                    mCountDownTimer.cancel();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 }
@@ -233,8 +253,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     }
 
     private void resetResult(){
-        mCorrectAnswers = 0;
-        mScore.setText("Score: 0");
+
     }
 
     private void prepareBoard(){
@@ -351,37 +370,44 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
 
     private void startResultsFragment(){
-        SpeedQuizResultFragment speedQuizResultFragment = new SpeedQuizResultFragment();
-        FragmentManager fm = getSupportFragmentManager();
+        BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
+        basicQuizMessageCallback.setCancelable(false);
+        android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
-        args.putString("title", "Results");
-        args.putString("message", "Correct: " + mCorrectAnswers);
-        args.putString("score", "Total: "  + mTotalAnswers);
-        speedQuizResultFragment.setArguments(args);
-        speedQuizResultFragment.show(fm, "tagged");
+        args.putString("title", "Good job!");
+        args.putString("message", "Current winstreak " + mCurrentWiningSreak);
+        args.putString("score", "Best winstreak: " + mBestWinStreak);
+        basicQuizMessageCallback.setArguments(args);
+        basicQuizMessageCallback.show(fm, "tagged");
     }
 
 
     private void startWiningFragment() {
-        SpeedQuizResultFragment speedQuizResultFragment = new SpeedQuizResultFragment();
-        FragmentManager fm = getSupportFragmentManager();
+        mScore.setText("Best winstreak: " + mBestWinStreak);
+        mCountDownTimer.cancel();
+        BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
+        basicQuizMessageCallback.setCancelable(false);
+        android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
-        args.putString("title", "Correct!");
-        args.putString("message", "+5 points!");
-        args.putString("score", "250 points!!");
-        speedQuizResultFragment.setArguments(args);
-        speedQuizResultFragment.show(fm, "tagged");
+        args.putString("title", "Good job!");
+        args.putString("message", "Current winstreak " + mCurrentWiningSreak);
+        args.putString("score", "Best winstreak " + mBestWinStreak);
+        basicQuizMessageCallback.setArguments(args);
+        basicQuizMessageCallback.show(fm, "tagged");
+
     }
 
     private void startLosingFragment() {
-        SpeedQuizResultFragment speedQuizResultFragment = new SpeedQuizResultFragment();
-        FragmentManager fm = getSupportFragmentManager();
+        mCountDownTimer.cancel();
+        BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
+        basicQuizMessageCallback.setCancelable(false);
+        android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
         args.putString("title", "Incorrect");
-        args.putString("message", "Try Again");
-        args.putString("score", "250 points");
-        speedQuizResultFragment.setArguments(args);
-        speedQuizResultFragment.show(fm, "tagged");
+        args.putString("message", "Current winstreak " + mCurrentWiningSreak);
+        args.putString("score", "Best winstreak " + mBestWinStreak);
+        basicQuizMessageCallback.setArguments(args);
+        basicQuizMessageCallback.show(fm, "tagged");
     }
 
     public Drawable getCardSuit(char suit) {
@@ -426,15 +452,18 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if( mUserChoice == getWinner(enumerator.getWins(), enumerator.getSplits(), pots)) {
-                mCorrectAnswers++;
-                mTotalAnswers++;
-                mScore.setText("Score: " + mCorrectAnswers);
-                prepareBoard();
+                mCurrentWiningSreak++;
+                if (mCurrentWiningSreak > mBestWinStreak) {
+                    mBestWinStreak = mCurrentWiningSreak;
+                }
+                startWiningFragment();
+                //prepareBoard();
 //                startWiningFragment();
 //                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             } else {
-                mTotalAnswers++;
-                prepareBoard();
+                mCurrentWiningSreak = 0;
+                startLosingFragment();
+                //prepareBoard();
 //                startLosingFragment();
 //                Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             }

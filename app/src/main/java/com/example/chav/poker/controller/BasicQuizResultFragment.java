@@ -70,7 +70,7 @@ public class BasicQuizResultFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_speed_quiz_result, container, false);
+        View v = inflater.inflate(R.layout.fragment_basic_quiz_result, container, false);
 
         getDialog().setCanceledOnTouchOutside(false);
 
@@ -102,6 +102,8 @@ public class BasicQuizResultFragment extends DialogFragment {
 
         return v;
     }
+
+
 
     interface BasicQuizMessageCallback{
         void onPlayAgain();
