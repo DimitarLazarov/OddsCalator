@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -69,6 +70,11 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_quizes);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         mPlayerOneCardOne = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
         mPlayerOneCardTwo = (Button) findViewById(R.id.basic_quiz_player_one_card_two);
@@ -136,7 +142,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
         final long[] miliseconds = new long[1];
         final long[] microseconds = new long[1];
 
-        mCountDownTimer = new CountDownTimer(20000, 10) {
+        mCountDownTimer = new CountDownTimer(30000, 10) {
 
             @Override
             public void onTick(long millisUntilFinished) {

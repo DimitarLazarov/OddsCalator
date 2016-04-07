@@ -2,9 +2,12 @@ package com.example.chav.poker.controller;
 
 import android.app.FragmentManager;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -42,6 +45,11 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cram_mode);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mCramModeTitle = (TextView) findViewById(R.id.cram_mode);

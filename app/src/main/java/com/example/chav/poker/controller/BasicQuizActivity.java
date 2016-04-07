@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -66,6 +67,11 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_quizes);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         mPlayerOneCardOne = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
         mPlayerOneCardTwo = (Button) findViewById(R.id.basic_quiz_player_one_card_two);

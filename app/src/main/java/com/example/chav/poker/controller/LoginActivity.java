@@ -32,10 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mUsername = (EditText) findViewById(R.id.login_username);

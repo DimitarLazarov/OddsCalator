@@ -83,7 +83,7 @@ public class BasicQuizResultFragment extends DialogFragment {
         mCurrentResult.setText(mScore);
         mStartAgain = (ImageButton) v.findViewById(R.id.basic_quiz_new_game);
         if (mTitle.equalsIgnoreCase("incorrect")) {
-            mStartAgain.setImageResource(R.drawable.reset_small);
+            mStartAgain.setImageResource(R.drawable.button_reset_two);
         }
         mCancel = (ImageButton) v.findViewById(R.id.basic_quiz_cancel);
 

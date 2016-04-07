@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,9 +57,15 @@ public class CreateCramDeckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cram_deck);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
+
         mCramCards = new ArrayList<>();
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
 //        mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
@@ -105,6 +112,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mTitleText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.cardColor));
                     mTitleText.setClickable(false);
                     mTitleText.setFocusable(false);
+                    mTitleText.setKeyListener(null);
                     mTitleText.setGravity(Gravity.CENTER);
                     mRecyclerCreatedCards.setVisibility(View.VISIBLE);
                     mCardAdapter = new CardAdapter(mCramCards);
@@ -112,8 +120,8 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mRecyclerCreatedCards.setAdapter(mCardAdapter);
                     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
                     itemTouchHelper.attachToRecyclerView(mRecyclerCreatedCards);
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED);
+//                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED);
                 }
                 else {
                     Toast.makeText(CreateCramDeckActivity.this, "Please enter title of deck.", Toast.LENGTH_SHORT).show();

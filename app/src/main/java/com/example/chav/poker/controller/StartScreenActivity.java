@@ -36,10 +36,10 @@ public class StartScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         Typeface myTypefaceHeader = Typeface.createFromAsset(getAssets(), "HelveticaThin.ttf");

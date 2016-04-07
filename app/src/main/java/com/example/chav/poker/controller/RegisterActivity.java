@@ -34,10 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         mUsername = (EditText) findViewById(R.id.register_username);
         mEmail = (EditText) findViewById(R.id.register_email);

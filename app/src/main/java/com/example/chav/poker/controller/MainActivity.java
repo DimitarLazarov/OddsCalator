@@ -70,10 +70,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window w = getWindow();
-            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
+
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mPOneCardOne      = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
         mPOneCardOne.setTypeface(myTypeface);

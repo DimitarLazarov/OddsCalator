@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/darkGreen"
-            android:src="@drawable/cancel_small"
+            android:src="@drawable/button_cancel"
             />
 
         <ImageButton
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/darkGreen"
-            android:src="@drawable/next_new_small"
+            android:src="@drawable/button_confirm"
             />
 
 

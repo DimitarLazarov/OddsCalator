@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,17 +21,22 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
     private Button mBasicQuiz;
     private boolean mBasicQuizInstructions = true;
     private boolean mSpeedQuizInstructions = true;
-    private final String mInstructionsBasicQuiz = "BASIC ODDS QUIZ.\nYou have to choose the winner or the one who has more percentage to win " +
-            "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have only 5 seconds to do this. The main " +
-            "goal of this quiz is to make winstreak of winning hands.";
-    private final String mInstructionsSpeedQuiz = "SPEED ODDS QUIZ.\nYou have to choose the winner or the one who has more percentage to win " +
-            "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have 60 secnods. The main goal is " +
-            " to choose as many as possible winning hands.";
+    private final String mInstructionsBasicQuiz = "ODDS BASIC QUIZ.\nYou have to choose the winner or the one who has better chance to win " +
+            "the hand. You choose with a tap on the player cards for player win and on the board cards for tie. You have only 5 seconds to do this. The main " +
+            "goal of the quiz is to make the longest correct-answer streak.";
+    private final String mInstructionsSpeedQuiz = "ODDS SPEED QUIZ.\nYou have to choose the winner or the one who has better chance to win " +
+            "the hand. You choose with a tap on the player cards for player win and on the board cards for tie. You have 30 seconds. The main goal is " +
+            " to choose as many winning hands as possible.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_selection);
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window w = getWindow();
+//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
+//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
 
