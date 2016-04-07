@@ -2,6 +2,7 @@ package com.example.chav.poker.adapters;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,9 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckViewHolder
 
         public DeckViewHolder(View itemView) {
             super(itemView);
+            Typeface myTypeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "HelveticaRoman.ttf");
             mDeckTitle = (TextView) itemView.findViewById(R.id.view_holder_deck_text_view);
+            mDeckTitle.setTypeface(myTypeface);
         }
     }
 
@@ -66,6 +69,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.DeckViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CramCardsViewActivity.class);
                 intent.putExtra("deck_id", decks.get(position).getId());
+                intent.putExtra("title", decks.get(position).getTitle());
                 v.getContext().startActivity(intent);
             }
         });

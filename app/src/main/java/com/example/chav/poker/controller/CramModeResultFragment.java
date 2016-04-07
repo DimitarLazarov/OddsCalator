@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -74,11 +75,15 @@ public class CramModeResultFragment extends DialogFragment {
 
         getDialog().setCanceledOnTouchOutside(false);
 
+        Typeface myTypeface = Typeface.createFromAsset(v.getContext().getAssets(), "HelveticaRoman.ttf");
         mResultText = (TextView) v.findViewById(R.id.cram_mode_result_text);
+        mResultText.setTypeface(myTypeface);
         mResultText.setText(mTitle);
         mResultPoints = (TextView) v.findViewById(R.id.cram_mode_points_result);
+        mResultPoints.setTypeface(myTypeface);
         mResultPoints.setText(mMessage);
         mCurrentResult = (TextView) v.findViewById(R.id.cram_mode_current_result);
+        mCurrentResult.setTypeface(myTypeface);
         mCurrentResult.setText(mScore);
         mStartAgain = (ImageButton) v.findViewById(R.id.cram_mode_new_game);
         mCancel = (ImageButton) v.findViewById(R.id.cram_mode_cancel);

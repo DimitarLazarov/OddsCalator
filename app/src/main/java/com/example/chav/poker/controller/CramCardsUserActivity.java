@@ -1,6 +1,7 @@
 package com.example.chav.poker.controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,8 +34,11 @@ public class CramCardsUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cram_cards_user);
 
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
+
         mViewOfDecks = (RecyclerView) findViewById(R.id.my_cram_cards_recycler);
         mCreateNewDeck = (Button)findViewById(R.id.user_cram_add_deck);
+        mCreateNewDeck.setTypeface(myTypeface);
         mCreateNewDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +48,7 @@ public class CramCardsUserActivity extends AppCompatActivity {
         });
 
         mMyDecks = (Button)findViewById(R.id.user_cram_sets);
+        mMyDecks.setTypeface(myTypeface);
         mMyDecks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

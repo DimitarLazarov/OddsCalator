@@ -1,6 +1,7 @@
 package com.example.chav.poker.controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
@@ -27,6 +29,8 @@ public class StartScreenActivity extends AppCompatActivity {
     private Button mRegisterButton;
     private Button mSignOutButton;
 
+    private TextView mTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +41,21 @@ public class StartScreenActivity extends AppCompatActivity {
             w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
         }
 
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
+        Typeface myTypefaceHeader = Typeface.createFromAsset(getAssets(), "HelveticaThin.ttf");
+
+        mTitle = (TextView) findViewById(R.id.start_title);
+        mTitle.setTypeface(myTypefaceHeader);
         mQuizButton = (Button) findViewById(R.id.quiz_button);
+        mQuizButton.setTypeface(myTypeface);
         mOddsButton = (Button) findViewById(R.id.odds_button);
+        mOddsButton.setTypeface(myTypeface);
         mLoginButton = (Button) findViewById(R.id.login_button);
+        mLoginButton.setTypeface(myTypeface);
         mRegisterButton = (Button) findViewById(R.id.register_button);
+        mRegisterButton.setTypeface(myTypeface);
         mSignOutButton = (Button) findViewById(R.id.register_sing_out);
+        mSignOutButton.setTypeface(myTypeface);
 
         mOddsButton.setOnClickListener(new View.OnClickListener() {
             @Override

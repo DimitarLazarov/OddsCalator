@@ -3,6 +3,7 @@ package com.example.chav.poker.controller;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -73,20 +74,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Window w = getWindow();
             w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
         }
-
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mPOneCardOne      = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
+        mPOneCardOne.setTypeface(myTypeface);
         mPOneCardTwo      = (Button) findViewById(R.id.basic_quiz_player_one_card_two);
+        mPOneCardTwo.setTypeface(myTypeface);
         mPTwoCardOne      = (Button) findViewById(R.id.basic_quiz_player_two_card_one);
+        mPTwoCardOne.setTypeface(myTypeface);
         mPTwoCardTwo      = (Button) findViewById(R.id.basic_quiz_player_two_card_two);
+        mPTwoCardTwo.setTypeface(myTypeface);
         mBoardCardOne     = (Button) findViewById(R.id.basic_quiz_card_one_board);
+        mBoardCardOne.setTypeface(myTypeface);
         mBoardCardTwo     = (Button) findViewById(R.id.basic_quiz_card_two_board);
+        mBoardCardTwo.setTypeface(myTypeface);
         mBoardCardThree   = (Button) findViewById(R.id.basic_quiz_card_three_board);
+        mBoardCardThree.setTypeface(myTypeface);
         mBoardCardFour    = (Button) findViewById(R.id.basic_quiz_card_four_board);
+        mBoardCardFour.setTypeface(myTypeface);
         mBoardCardFive    = (Button) findViewById(R.id.basic_quiz_card_five_board);
+        mBoardCardFive.setTypeface(myTypeface);
         mPlayerOneWinOdds = (TextView) findViewById(R.id.player_one_odds_win);
+        mPlayerOneWinOdds.setTypeface(myTypeface);
         mPlayerTwoWinOdds = (TextView) findViewById(R.id.player_two_odds_win);
+        mPlayerTwoWinOdds.setTypeface(myTypeface);
         mPlayerOneTieOdds = (TextView) findViewById(R.id.player_one_odds_tie);
+        mPlayerOneTieOdds.setTypeface(myTypeface);
         mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
+        mPlayerTwoTieOdds.setTypeface(myTypeface);
         mResetButton      = (ImageButton) findViewById(R.id.button_reset);
 //        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
