@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mPOneCardTwo;
     private Button mPTwoCardOne;
     private Button mPTwoCardTwo;
-    private Button buttonOccuredEvend;
+    private Button buttonOccurredEvent;
     private Button nextButtonToClick;
     private Button mBoardCardOne;
     private Button mBoardCardTwo;
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPOneCardOne.setBackgroundResource(R.drawable.card_back);
 
         mPTwoCardOne.setClickable(true);
-        mPTwoCardOne.setBackgroundResource(R.drawable.button);
+        mPTwoCardOne.setBackgroundResource(R.drawable.card_back);
 
         deck = CardSet.freshDeck();
         players = new CardSet[2];
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             button.setClickable(false);
             button.setText("");
             button.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            button.setBackgroundResource(R.color.cardColor);
+            button.setBackgroundResource(R.drawable.card_front);
         }
     }
 
@@ -291,14 +291,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.basic_quiz_player_one_card_one:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mPOneCardOne;
+                buttonOccurredEvent = mPOneCardOne;
                 nextButtonToClick = mPOneCardTwo;
                 playerOccuredEvent = PLAYER_ONE;
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_player_one_card_two:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mPOneCardTwo;
+                buttonOccurredEvent = mPOneCardTwo;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
                 playerOccuredEvent = PLAYER_ONE;
@@ -306,14 +306,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.basic_quiz_player_two_card_one:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mPTwoCardOne;
+                buttonOccurredEvent = mPTwoCardOne;
                 nextButtonToClick = mPTwoCardTwo;
                 playerOccuredEvent = PLAYER_TWO;
                 allPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_two:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mPTwoCardTwo;
+                buttonOccurredEvent = mPTwoCardTwo;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
                 playerOccuredEvent = PLAYER_TWO;
@@ -321,35 +321,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.basic_quiz_card_one_board:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mBoardCardOne;
+                buttonOccurredEvent = mBoardCardOne;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardTwo;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_two_board:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mBoardCardTwo;
+                buttonOccurredEvent = mBoardCardTwo;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardThree;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_three_board:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mBoardCardThree;
+                buttonOccurredEvent = mBoardCardThree;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFour;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_four_board:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mBoardCardFour;
+                buttonOccurredEvent = mBoardCardFour;
                 playerOccuredEvent = BOARD_CARD;
                 nextButtonToClick = mBoardCardFive;
                 allBoardCards++;
                 break;
             case R.id.basic_quiz_card_five_board:
                 d.show(fm, "addCard");
-                buttonOccuredEvend = mBoardCardFive;
+                buttonOccurredEvent = mBoardCardFive;
                 nextButtonToClick = new Button(this);
                 nextButtonToClick.setVisibility(View.GONE);
                 mBoardCardFive.setClickable(false);
@@ -371,20 +371,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return false;
         }
         else {
-            buttonOccuredEvend.setOnClickListener(changeCardListener);
-            nextButtonToClick.setBackgroundResource(R.drawable.card_plus_sign);
+            buttonOccurredEvent.setOnClickListener(changeCardListener);
+            nextButtonToClick.setBackgroundResource(R.drawable.card_back);
             nextButtonToClick.setClickable(true);
             int color = getSuitColor(receivedCard.charAt(1));
-            buttonOccuredEvend.setText(receivedCard.charAt(0) + "");
-            buttonOccuredEvend.setTextColor(color);
-            buttonOccuredEvend.setBackgroundResource(R.color.cardColor);
+            buttonOccurredEvent.setText(receivedCard.charAt(0) + "");
+            buttonOccurredEvent.setTextColor(color);
+            buttonOccurredEvent.setBackgroundResource(R.drawable.card_front);
             if (playerOccuredEvent == BOARD_CARD) {
                 boardCards.add(card);
-                addBoardCard(receivedCard, buttonOccuredEvend);
+                addBoardCard(receivedCard, buttonOccurredEvent);
 
             } else {
                 players[playerOccuredEvent].add(card);
-                addPlayerCard(receivedCard, buttonOccuredEvend);
+                addPlayerCard(receivedCard, buttonOccurredEvent);
             }
             deck.remove(card);
             dealtCards.add(card);
@@ -405,16 +405,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             deck.add(cartToRemove);
             dealtCards.add(card);
             int color = getSuitColor(receivedCard.charAt(1));
-            buttonOccuredEvend.setText(receivedCard.charAt(0) + "");
-            buttonOccuredEvend.setTextColor(color);
-            buttonOccuredEvend.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            buttonOccurredEvent.setText(receivedCard.charAt(0) + "");
+            buttonOccurredEvent.setTextColor(color);
+            buttonOccurredEvent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             if (playerOccuredEvent == BOARD_CARD) {
                 boardCards.add(card);
-                addBoardCard(receivedCard, buttonOccuredEvend);
+                addBoardCard(receivedCard, buttonOccurredEvent);
 
             } else {
                 players[playerOccuredEvent].add(card);
-                addPlayerCard(receivedCard, buttonOccuredEvend);
+                addPlayerCard(receivedCard, buttonOccurredEvent);
             }
 
             removePreviousCard(cartToRemove);
@@ -427,17 +427,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void addPlayerCard(String card, Button whereToAdd) {
         Drawable image = getCardSuit(card.charAt(1));
-        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-        buttonOccuredEvend.setTextSize(40);
-        buttonOccuredEvend.setPadding(0, 60, 0, 60);
+        buttonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        buttonOccurredEvent.setTextSize(40);
+        buttonOccurredEvent.setPadding(0, 60, 0, 60);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void addBoardCard(String card, Button whereToAdd) {
-        buttonOccuredEvend.setTextSize(30);
+        buttonOccurredEvent.setTextSize(30);
         Drawable image = getCardSuitBoard(card.charAt(1));
-        buttonOccuredEvend.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-        buttonOccuredEvend.setPadding(0, 50, 0, 50);
+        buttonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        buttonOccurredEvent.setPadding(0, 50, 0, 50);
     }
 
     public void removePreviousCard(Card card){
@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (allPlayersCards == 4 && allBoardCards == 0) {
             startCalculate();
             mBoardCardOne.setClickable(true);
-            mBoardCardOne.setBackgroundResource(R.drawable.card_plus_sign);
+            mBoardCardOne.setBackgroundResource(R.drawable.card_back);
         }
 
         if (allBoardCards >= 3 && allBoardCards <=4) {
@@ -583,7 +583,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             AddCardFragment d = new AddCardFragment();
             FragmentManager fm = getSupportFragmentManager();
             d.show(fm, "replaceCard");
-            buttonOccuredEvend = (Button)v;
+            buttonOccurredEvent = (Button)v;
             Drawable[] drawables = ((Button) v).getCompoundDrawables();
             switch (v.getId()) {
                 case R.id.basic_quiz_player_one_card_one:
@@ -599,8 +599,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             cartToRemove = new Card(((Button)v).getText().toString() + getCardSuit(drawables));
-
-
         }
     }
 
