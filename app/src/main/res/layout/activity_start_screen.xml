@@ -84,7 +84,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@color/cardColor"
+            android:background="@drawable/button"
             android:text="@string/sign_out"
             android:padding="20dp"
             android:visibility="gone"

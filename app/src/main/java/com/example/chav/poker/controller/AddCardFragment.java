@@ -3,16 +3,12 @@ package com.example.chav.poker.controller;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
@@ -54,6 +51,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
     private ImageButton mDiamonds;
     private ImageButton mClubs;
     private ImageButton mSpades;
+    private TextView mSelectText;
     private int cardSuitPower = 0;
     private ArrayList<Button> mRanks;
 
@@ -76,26 +74,43 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
 
         View v = inflater.inflate(R.layout.fragment_add_card, container, false);
         mRanks = new ArrayList<>();
-
+        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "HelveticaRoman.ttf");
+        Typeface myTypefaceHeader = Typeface.createFromAsset(getActivity().getAssets(), "HelveticaThin.ttf");
+        mSelectText = (TextView) v.findViewById(R.id.text_select_card);
+        mSelectText.setTypeface(myTypefaceHeader);
         mDeuces =       (Button) v.findViewById(R.id.deuces_button);
+        mDeuces.setTypeface(myTypeface);
         mTreys =        (Button) v.findViewById(R.id.treys_button);
+        mTreys.setTypeface(myTypeface);
         mFours =        (Button) v.findViewById(R.id.fours_button);
+        mFours.setTypeface(myTypeface);
         mFives =        (Button) v.findViewById(R.id.fives_button);
+        mFives.setTypeface(myTypeface);
         mSixes =        (Button) v.findViewById(R.id.sixes_button);
+        mSixes.setTypeface(myTypeface);
         mSevens =       (Button) v.findViewById(R.id.sevens_button);
+        mSevens.setTypeface(myTypeface);
         mEights =       (Button) v.findViewById(R.id.eights_button);
+        mEights.setTypeface(myTypeface);
         mNines =        (Button) v.findViewById(R.id.nines_button);
+        mNines.setTypeface(myTypeface);
         mTens =         (Button) v.findViewById(R.id.tens_button);
+        mTens.setTypeface(myTypeface);
         mJacks =        (Button) v.findViewById(R.id.jacks_button);
+        mJacks.setTypeface(myTypeface);
         mQueens =       (Button) v.findViewById(R.id.queens_button);
+        mQueens.setTypeface(myTypeface);
         mKings =        (Button) v.findViewById(R.id.kings_button);
+        mKings.setTypeface(myTypeface);
         mAces =         (Button) v.findViewById(R.id.aces_button);
+        mAces.setTypeface(myTypeface);
         mHearts =       (ImageButton) v.findViewById(R.id.hearts_button);
         mDiamonds =     (ImageButton) v.findViewById(R.id.diamonds_button);
         mClubs =        (ImageButton) v.findViewById(R.id.clubs_button);
         mSpades =       (ImageButton) v.findViewById(R.id.spades_button);
-        mClubs.setActivated(true);
-        mClubs.setBackgroundResource(R.color.buttonPressedColor);
+        setActivated(false, false, false, true);
+
+//        mClubs.setBackgroundResource(R.color.buttonPressedColor);
 
         mRanks.add(mDeuces);
         mRanks.add(mTreys);
@@ -127,7 +142,7 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         mHearts.setOnTouchListener(this);
         mDiamonds.setOnTouchListener(this);
         mClubs.setOnTouchListener(this);
-        mClubs.setPressed(true);
+//        mClubs.setPressed(true);
         mSpades.setOnTouchListener(this);
 
 
@@ -236,23 +251,27 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         switch(v.getId()) {
             case R.id.clubs_button:
                 cardSuitPower = 0;
-                setButtonBackgroundColor(R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor, R.color.cardColor);
+//                setButtonBackgroundColor(R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor, R.color.cardColor);
                 changeColorButtonsText(R.color.blackCards);
+                setActivated(false, false, false, true);
                 break;
             case R.id.diamonds_button:
                 cardSuitPower = 1;
-                setButtonBackgroundColor(R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor);
+//                setButtonBackgroundColor(R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor, R.color.cardColor);
                 changeColorButtonsText(R.color.redCards);
+                setActivated(false, true, false, false);
                 break;
             case R.id.hearts_button:
                 cardSuitPower = 2;
-                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor);
+//                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor, R.color.cardColor);
                 changeColorButtonsText(R.color.redCards);
+                setActivated(true, false, false, false);
                 break;
             case R.id.spades_button:
                 cardSuitPower = 3;
-                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor);
+//                setButtonBackgroundColor(R.color.cardColor, R.color.cardColor, R.color.cardColor, R.color.buttonPressedColor);
                 changeColorButtonsText(R.color.blackCards);
+                setActivated(false, false, true, false);
                 break;
         }
 //        v.getBackground().setColorFilter(Color.parseColor("#424242"), PorterDuff.Mode.MULTIPLY);
@@ -262,6 +281,13 @@ public class AddCardFragment extends DialogFragment implements View.OnClickListe
         //v.setBackgroundResource(R.color.redCards);
 //        v.getBackground().setColorFilter((new LightingColorFilter(0x000000, 0xFFAA0000)));
         return true;
+    }
+
+    private void setActivated(boolean hearts, boolean diamonds, boolean spades, boolean clubs) {
+        mHearts.setActivated(hearts);
+        mDiamonds.setActivated(diamonds);
+        mSpades.setActivated(spades);
+        mClubs.setActivated(clubs);
     }
 
     public void setButtonBackgroundColor(int clubs, int diamonds, int hearts, int spades){

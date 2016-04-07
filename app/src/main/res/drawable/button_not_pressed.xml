@@ -4,7 +4,7 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@color/darkGreen"/>
-            <corners android:radius="5dp"/>
+            <corners android:radius="3dp"/>
         </shape>
     </item>
 
@@ -12,7 +12,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/cardColor"/>
             <corners
-                android:radius="5dp"/>
+                android:radius="3dp"/>
         </shape>
     </item>
 
