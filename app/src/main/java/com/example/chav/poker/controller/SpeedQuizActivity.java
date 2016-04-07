@@ -28,7 +28,7 @@ import ver4.poker.CardSet;
 import ver4.poker.HandEval;
 import ver4.showdown.Enumerator;
 
-public class BasicQuizActivity extends AppCompatActivity implements BasicQuizResultFragment.BasicQuizMessageCallback{
+public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizResultFragment.QuizMessageCallback{
 
     private static final int PLAYER_ONE_WIN = 1;
     private static final int PLAYER_TWO_WIN = 2;
@@ -81,7 +81,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
-        mScore.setText("Longest winstreak: 0");
         mTimer = (TextView) findViewById(R.id.basic_quiz_timer);
 
 
@@ -349,6 +348,12 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 //        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
 
+    @Override
+    public void onMessageAcknowledged() {
+        prepareBoard();
+        resetResult();
+        startTimer();
+    }
 
     private void startResultsFragment(){
         SpeedQuizResultFragment speedQuizResultFragment = new SpeedQuizResultFragment();
@@ -402,18 +407,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         }
 
         return image;
-    }
-
-    @Override
-    public void onPlayAgain() {
-        prepareBoard();
-        resetResult();
-        startTimer();
-    }
-
-    @Override
-    public void onCancel() {
-        finish();
     }
 
 

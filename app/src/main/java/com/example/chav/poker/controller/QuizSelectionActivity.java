@@ -10,19 +10,20 @@ import com.example.chav.poker.R;
 
 public class QuizSelectionActivity extends AppCompatActivity {
 
-    private Button mBasicQuiz;
+    private Button mSpeedQuiz;
     private Button mCram;
+    private Button mBasicQuiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_selection);
 
-        mBasicQuiz = (Button) findViewById(R.id.basic_quiz);
-        mBasicQuiz.setOnClickListener(new View.OnClickListener() {
+        mSpeedQuiz = (Button) findViewById(R.id.speed_quiz);
+        mSpeedQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), BasicQuizActivity.class);
+                Intent i = new Intent(v.getContext(), SpeedQuizActivity.class);
                 startActivity(i);
             }
         });
@@ -34,6 +35,15 @@ public class QuizSelectionActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        mBasicQuiz = (Button) findViewById(R.id.basic_quiz);
+        mBasicQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), BasicQuizActivity.class);
+                startActivity(i);
+            }
+        });
+
 
     }
 }

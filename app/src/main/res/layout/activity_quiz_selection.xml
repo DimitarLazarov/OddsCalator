@@ -31,6 +31,17 @@
         android:textSize="20sp"/>
 
     <Button
+        android:id="@+id/speed_quiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:background="@drawable/button"
+        android:text="@string/speed_quiz"
+        android:textColor="@color/darkGreen"
+        android:textSize="20sp"/>
+
+    <Button
         android:id="@+id/cram_cards"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

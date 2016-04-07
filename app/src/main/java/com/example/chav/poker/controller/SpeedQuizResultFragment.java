@@ -3,10 +3,10 @@ package com.example.chav.poker.controller;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +17,11 @@ import android.widget.TextView;
 
 import com.example.chav.poker.R;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BasicQuizResultFragment extends DialogFragment {
-
+public class SpeedQuizResultFragment extends DialogFragment {
 
     private TextView mResultText;
     private TextView mResultPoints;
@@ -32,9 +32,9 @@ public class BasicQuizResultFragment extends DialogFragment {
     private String mTitle;
     private String mMessage;
     private String mScore;
-    private BasicQuizMessageCallback mQuizMessageCallback;
+    private QuizMessageCallback mQuizMessageCallback;
 
-    public BasicQuizResultFragment() {
+    public SpeedQuizResultFragment() {
         // Required empty public constructor
     }
 
@@ -42,7 +42,7 @@ public class BasicQuizResultFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mQuizMessageCallback = (BasicQuizMessageCallback) activity;
+            mQuizMessageCallback = (QuizMessageCallback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement QuizMessageCallback");
         }
@@ -74,20 +74,21 @@ public class BasicQuizResultFragment extends DialogFragment {
 
         getDialog().setCanceledOnTouchOutside(false);
 
-        mResultText = (TextView) v.findViewById(R.id.basic_quiz_result_text);
+        mResultText = (TextView) v.findViewById(R.id.speed_quiz_result_text);
         mResultText.setText(mTitle);
-        mResultPoints = (TextView) v.findViewById(R.id.basic_quiz_current_streak);
+        mResultPoints = (TextView) v.findViewById(R.id.speed_quiz_points_result);
         mResultPoints.setText(mMessage);
-        mCurrentResult = (TextView) v.findViewById(R.id.basic_quiz_longest_streak);
+        mCurrentResult = (TextView) v.findViewById(R.id.speed_quiz_current_result);
         mCurrentResult.setText(mScore);
-        mStartAgain = (ImageButton) v.findViewById(R.id.basic_quiz_new_game);
-        mCancel = (ImageButton) v.findViewById(R.id.basic_quiz_cancel);
+        mStartAgain = (ImageButton) v.findViewById(R.id.speed_quiz_new_game);
+        mCancel = (ImageButton) v.findViewById(R.id.speed_quiz_cancel);
 
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQuizMessageCallback.onCancel();
-                getDialog().hide();
+                Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
 
@@ -95,7 +96,7 @@ public class BasicQuizResultFragment extends DialogFragment {
         mStartAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQuizMessageCallback.onPlayAgain();
+                mQuizMessageCallback.onMessageAcknowledged();
                 getDialog().hide();
             }
         });
@@ -103,8 +104,8 @@ public class BasicQuizResultFragment extends DialogFragment {
         return v;
     }
 
-    interface BasicQuizMessageCallback{
-        void onPlayAgain();
-        void onCancel();
+    interface QuizMessageCallback{
+        void onMessageAcknowledged();
     }
+
 }

@@ -6,7 +6,7 @@
     android:background="@color/boardColor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".controller.BasicQuizResultFragment">
+    tools:context=".controller.SpeedQuizResultFragment">
 
     <TextView
         android:id="@+id/cram_mode_result_text"
