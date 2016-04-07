@@ -12,7 +12,7 @@
         android:id="@+id/quiz_selection_instructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:padding="8dp"
         android:textAlignment="textStart"
         android:layout_marginTop="10dp"
         android:gravity="center"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/darkGreen"
-            android:src="@drawable/next_small"
+            android:src="@drawable/next_new_small"
             />
 
 

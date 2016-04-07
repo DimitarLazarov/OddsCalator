@@ -15,11 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:elegantTextHeight="true"
         android:gravity="center"
         android:text="@string/select_card"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:elegantTextHeight="true"
         android:textSize="40sp"
         />
 

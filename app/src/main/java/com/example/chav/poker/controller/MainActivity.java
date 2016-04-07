@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mResetButton      = (ImageButton) findViewById(R.id.button_reset);
         mBackButton       = (ImageButton) findViewById(R.id.button_back);
         mBackButton.setOnClickListener(this);
-
+        mResetButton.setOnClickListener(this);
 //        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
         allButtons = new ArrayList<Button>();
@@ -162,13 +162,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Showdown showdown = new Showdown();
 //        Help help = new Help();
 
-        mResetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetStates();
-                resetAllTextViewWithAnimation();
-            }
-        });
+//        mResetButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                resetStates();
+//                resetAllTextViewWithAnimation();
+//            }
+//        });
     }
 
     private void resetStates() {
@@ -361,6 +361,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button_back:
                 finish();
+                break;
+            case R.id.button_reset:
+                resetStates();
+                resetAllTextViewWithAnimation();
                 break;
         }
     }

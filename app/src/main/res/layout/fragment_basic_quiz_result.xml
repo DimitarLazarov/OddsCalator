@@ -46,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/basic_quiz_longest_streak"
         android:background="@color/darkGreen"
-        android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/basic_quiz_cancel"
@@ -64,9 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/darkGreen"
-            android:src="@drawable/reset_small"
+            android:src="@drawable/next_new_small"
             />
-
 
 
     </LinearLayout>

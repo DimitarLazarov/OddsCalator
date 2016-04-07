@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/cardColor">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/cardColor"
+              android:orientation="vertical">
 
     <Button
-        android:background="@drawable/card_front"
-        android:textSize="20dp"
-        android:textAllCaps="false"
-        android:clickable="false"
-        android:drawableEnd="@drawable/next_smal_arrow_onlyl"
-        android:textColor="@color/darkGreen"
         android:id="@+id/view_holder_deck_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_front"
+        android:clickable="false"
+        android:drawableEnd="@drawable/next_smal_arrow_onlyl"
+        android:textAllCaps="false"
+        android:textColor="@color/darkGreen"
+        android:textSize="20dp"/>
 
 </LinearLayout>
