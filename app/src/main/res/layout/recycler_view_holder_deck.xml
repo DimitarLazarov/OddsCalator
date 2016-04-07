@@ -6,7 +6,7 @@
     android:background="@color/cardColor">
 
     <Button
-        android:background="@color/cardColor"
+        android:background="@drawable/card_front"
         android:textSize="20dp"
         android:textAllCaps="false"
         android:clickable="false"
