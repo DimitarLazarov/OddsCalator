@@ -20,10 +20,10 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
     private Button mBasicQuiz;
     private boolean mBasicQuizInstructions = true;
     private boolean mSpeedQuizInstructions = true;
-    private final String mInstructionsBasicQuiz = "Basic poker quiz.\n\nYou have to choose the winner or the one who has more percentage to win " +
+    private final String mInstructionsBasicQuiz = "BASIC ODDS QUIZ.\nYou have to choose the winner or the one who has more percentage to win " +
             "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have only 5 seconds to do this. The main " +
             "goal of this quiz is to make winstreak of winning hands.";
-    private final String mInstructionsSpeedQuiz = "Speed poker quiz.\n\nYou have to choose the winner or the one who has more percentage to win " +
+    private final String mInstructionsSpeedQuiz = "SPEED ODDS QUIZ.\nYou have to choose the winner or the one who has more percentage to win " +
             "the hand. You choose with a tap on the player cards for player win and on board cards for tie. You have 60 secnods. The main goal is " +
             " to choose as many as possible winning hands.";
 

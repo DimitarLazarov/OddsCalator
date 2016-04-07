@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBoardCardFour;
     private Button mBoardCardFive;
     private ImageButton mResetButton;
-    private Button mAddPlayerButton;
+    private ImageButton mBackButton;
     private TextView mPlayerOneWinOdds;
     private TextView mPlayerTwoWinOdds;
     private TextView mPlayerOneTieOdds;
@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerTwoTieOdds = (TextView) findViewById(R.id.player_two_odds_tie);
         mPlayerTwoTieOdds.setTypeface(myTypeface);
         mResetButton      = (ImageButton) findViewById(R.id.button_reset);
+        mBackButton       = (ImageButton) findViewById(R.id.button_back);
+        mBackButton.setOnClickListener(this);
+
 //        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
         allButtons = new ArrayList<Button>();
@@ -355,6 +358,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mBoardCardFive.setClickable(false);
                 playerOccuredEvent = BOARD_CARD;
                 allBoardCards++;
+                break;
+            case R.id.button_back:
+                finish();
                 break;
         }
     }

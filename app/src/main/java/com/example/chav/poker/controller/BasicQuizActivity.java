@@ -81,7 +81,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
-        mScore.setText("Longest winstreak: 0");
+        mScore.setText("Winning Streak: 0");
         mTimer = (TextView) findViewById(R.id.basic_quiz_timer);
 
 
@@ -383,15 +383,15 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
 
     private void startWiningFragment() {
-        mScore.setText("Best winstreak: " + mBestWinStreak);
+        mScore.setText("Best streak: " + mBestWinStreak);
         mCountDownTimer.cancel();
         BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
         basicQuizMessageCallback.setCancelable(false);
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
         args.putString("title", "Good job!");
-        args.putString("message", "Current winstreak " + mCurrentWiningSreak);
-        args.putString("score", "Best winstreak " + mBestWinStreak);
+        args.putString("message", "Current streak: " + mCurrentWiningSreak);
+        args.putString("score", "Best streak: " + mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
 
@@ -404,8 +404,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
         args.putString("title", "Incorrect");
-        args.putString("message", "Current winstreak " + mCurrentWiningSreak);
-        args.putString("score", "Best winstreak " + mBestWinStreak);
+        args.putString("message", "Current streak " + mCurrentWiningSreak);
+        args.putString("score", "Longest streak " + mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
     }

@@ -12,7 +12,9 @@
         android:id="@+id/quiz_selection_instructions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:textAlignment="textStart"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/hello_blank_fragment"
         android:textColor="@color/white"
@@ -31,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/check_box_instructions"
+        android:layout_marginTop="5dp"
         android:background="@color/darkGreen"
         android:padding="10dp"
         android:orientation="horizontal">
