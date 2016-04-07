@@ -50,8 +50,10 @@
 
     <FrameLayout
         android:id="@+id/cram_mode_frame_layout"
+        android:scaleType="centerInside"
         android:layout_below="@+id/cram_mode_lin_layout_top"
         android:layout_above="@+id/cram_mode_lin_layout_bottom"
+        android:background="@drawable/main_menu_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
