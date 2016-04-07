@@ -100,6 +100,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
             alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    CramCardsManager.getInstance(getBaseContext()).removeCard(mCramCards.get(viewHolder.getAdapterPosition()).getId());
                     mCramCards.remove(viewHolder.getAdapterPosition());
                     mCardAdapter.notifyDataSetChanged();
                    // mCardAdapter.notifyItemRemoved(viewHolder.getLayoutPosition());

@@ -95,4 +95,10 @@ public class CramCardsManager {
         return deckCards;
 
     }
+
+    public void removeCard(long cramCardID) {
+        open();
+        database.delete(DatabaseHelper.TABLE_CRAM_CARDS, DatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(cramCardID)});
+        close();
+    }
 }

@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -91,6 +92,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mTitleText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.cardColor));
                     mTitleText.setClickable(false);
                     mTitleText.setFocusable(false);
+                    mTitleText.setGravity(Gravity.CENTER);
                     mRecyclerCreatedCards.setVisibility(View.VISIBLE);
                     mCardAdapter = new CardAdapter(mCramCards);
                     mRecyclerCreatedCards.setLayoutManager(new LinearLayoutManager(v.getContext()));
