@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
@@ -38,9 +39,13 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
     public static final int CARD_REQUEST = 1;
 
-    private Button mButtonCancel;
-    private Button mButtonNext;
-    private Button mButtonCreateDeck;
+//    private Button mButtonCancel;
+//    private Button mButtonNext;
+//    private Button mButtonCreateDeck;
+    private ImageButton mButtonCancel;
+    private ImageButton mButtonNext;
+    private ImageButton mButtonCreateDeck;
+
     private Button mButtonAddCard;
     private RecyclerView mRecyclerCreatedCards;
     private EditText mTitleText;
@@ -56,14 +61,22 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
-        mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
-        mButtonCancel.setTypeface(myTypeface);
-        mButtonNext = (Button) findViewById(R.id.create_deck_next);
-        mButtonNext.setTypeface(myTypeface);
+//        mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
+//        mButtonCancel.setTypeface(myTypeface);
+//        mButtonNext = (Button) findViewById(R.id.create_deck_next);
+//        mButtonNext.setTypeface(myTypeface);
         mButtonAddCard = (Button) findViewById(R.id.create_deck_add_card);
         mButtonAddCard.setTypeface(myTypeface);
-        mButtonCreateDeck = (Button) findViewById(R.id.create_deck_create_cram_deck);
-        mButtonCreateDeck.setTypeface(myTypeface);
+//        mButtonCreateDeck = (Button) findViewById(R.id.create_deck_create_cram_deck);
+//        mButtonCreateDeck.setTypeface(myTypeface);
+
+        mButtonCancel = (ImageButton) findViewById(R.id.create_deck_cancel);
+        mButtonNext = (ImageButton) findViewById(R.id.create_deck_next);
+        mButtonCreateDeck = (ImageButton) findViewById(R.id.create_deck_create_cram_deck);
+
+
+
+
         mRecyclerCreatedCards = (RecyclerView) findViewById(R.id.create_deck_recycler_add_cram_cards);
         mTitleText = (EditText) findViewById(R.id.create_deck_title_deck);
         mTitleText.setTypeface(myTypeface);

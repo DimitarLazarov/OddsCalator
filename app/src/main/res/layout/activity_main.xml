@@ -35,38 +35,7 @@
             android:background="@drawable/button_reset"
             android:src="@drawable/button_reset_not_pressed"
             />
-        <!--android:background="@color/darkGreen"-->
 
-
-        <!--<ImageButton-->
-        <!--android:id="@+id/button_reset"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:background="@color/darkGreen"-->
-        <!--android:src="@drawable/reset_small"-->
-        <!--/>-->
-
-
-        <!--<Button-->
-        <!--android:id="@+id/button_reset"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white"-->
-        <!--android:text="Reset"/>-->
-
-        <!--<Button-->
-        <!--android:id="@+id/button_add_player"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_margin="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@color/white"-->
-        <!--android:text="Add player"/>-->
     </LinearLayout>
 
     <LinearLayout
