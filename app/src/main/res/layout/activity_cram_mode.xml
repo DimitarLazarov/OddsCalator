@@ -74,6 +74,9 @@
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:text="Wrong"
+            android:textColor="@color/darkGreen"
+            android:textSize="20dp"
             android:padding="30dp"
             android:layout_weight="1"/>
 
@@ -83,6 +86,9 @@
             android:background="@drawable/button"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
+            android:text="Correct"
+            android:textColor="@color/darkGreen"
+            android:textSize="20dp"
             android:padding="30dp"
             android:layout_weight="1"/>
     </LinearLayout>

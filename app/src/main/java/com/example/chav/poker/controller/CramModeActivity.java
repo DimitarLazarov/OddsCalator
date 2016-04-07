@@ -23,6 +23,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
     private Button mWrongButton;
+    private Button mBackButton;
     private TextView mCramModeTitle;
     private Random mRandomGenerator = new Random();
     private CramCard mSelectedCard;
@@ -65,6 +66,14 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             @Override
             public void onClick(View v) {
                 flipCard();
+            }
+        });
+
+        mBackButton = (Button) findViewById(R.id.cram_mode_button_back);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

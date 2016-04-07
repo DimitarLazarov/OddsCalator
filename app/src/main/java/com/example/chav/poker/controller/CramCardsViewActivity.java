@@ -89,10 +89,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         public boolean onMove(RecyclerView recyclerView,
                               RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                    final int fromPos = viewHolder.getAdapterPosition();
-//                    final int toPos = viewHolder.getAdapterPosition();
-//                    // move item in `fromPos` to `toPos` in adapter.
-            return true;// true if moved, false otherwise
+            return true;
         }
 
         @Override
