@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -49,6 +51,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     private ImageButton mReset;
     private TextView mScore;
     private TextView mTimer;
+    private View mViewOccuredEvent;
 
 //    private double mPlayerOneWinningChance;
 //    private double mPlayerTwoWinningChance;
@@ -97,6 +100,8 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
             @Override
             public void onClick(View v) {
                 mUserChoice = PLAYER_ONE_WIN;
+   //             startAnimationn(mPlayerOneCards);
+                mViewOccuredEvent = mPlayerOneCards;
                 startCalculate();
 //                new CalculateOdds().execute(mBoard);
             }
@@ -105,6 +110,8 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
             @Override
             public void onClick(View v) {
                 mUserChoice = PLAYER_TWO_WIN;
+     //           startAnimationn(mPlayerTwoCards);
+                mViewOccuredEvent = mPlayerTwoCards;
                 startCalculate();
 //                new CalculateOdds().execute(mBoard);
             }
@@ -114,6 +121,8 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
             @Override
             public void onClick(View v) {
                 mUserChoice = TIE;
+       //         startAnimationn(mBoardCards);
+                mViewOccuredEvent = mBoardCards;
                 startCalculate();
             }
         });
@@ -179,6 +188,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
                     mTotalAnswers++;
+                    startAnimationn(mViewOccuredEvent);
                     prepareBoard();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
@@ -195,6 +205,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
                     mTotalAnswers++;
+                    startAnimationn(mViewOccuredEvent);
                     prepareBoard();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
@@ -213,6 +224,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 //                    Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
                 } else {
                     mTotalAnswers++;
+                    startAnimationn(mViewOccuredEvent);
                     prepareBoard();
 //                    startLosingFragment();
 //                    Toast.makeText(getBaseContext(), "Incorrect " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
@@ -366,6 +378,13 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
         speedQuizResultFragment.show(fm, "tagged");
     }
 
+    private void startAnimationn(View v) {
+        //loading xml from anim folder
+        Animation localAnimation = AnimationUtils.loadAnimation(this, R.anim.shake_animation);
+        //You can now apply the animation to a view
+        v.startAnimation(localAnimation);
+    }
+
 
     private void startWiningFragment() {
         SpeedQuizResultFragment speedQuizResultFragment = new SpeedQuizResultFragment();
@@ -426,6 +445,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 //                startWiningFragment();
 //                Toast.makeText(getBaseContext(), "Good job " + mPlayerOneWinningChance + "    " + mPlayerTwoWinningChance, Toast.LENGTH_SHORT).show();
             } else {
+                startAnimationn(mViewOccuredEvent);
                 mTotalAnswers++;
                 prepareBoard();
 //                startLosingFragment();
