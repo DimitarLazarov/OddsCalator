@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.managers.CramCardsManager;
@@ -15,7 +16,7 @@ import java.util.Random;
 
 import model.CramCard;
 
-public class CramModeActivity extends AppCompatActivity {
+public class CramModeActivity extends AppCompatActivity implements CramModeResultFragment.CramModeMessageCallback {
 
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
@@ -23,10 +24,13 @@ public class CramModeActivity extends AppCompatActivity {
     private Random mRandomGenerator = new Random();
     private CramCard mSelectedCard;
     private ArrayList<CramCard> mCards = new ArrayList<>();
+    private ArrayList<CramCard> mUsedCards = new ArrayList<>();
     private boolean mPressed = false;
     private CramCardFrontEndFragment mBackFragment;
     private CramCardFrontEndFragment mFrontFragment;
     private FragmentManager manager;
+    private int mCorrectAnswers;
+    private int mAllCards;
 
 
 
@@ -48,8 +52,6 @@ public class CramModeActivity extends AppCompatActivity {
 //        mCards.add(card3);
 //        mCards.add(card4);
 
-        int nextCard = mRandomGenerator.nextInt(mCards.size());
-        mSelectedCard = mCards.remove(nextCard);
 
         mCardLayout = (FrameLayout) findViewById(R.id.cram_mode_frame_layout);
         mCardLayout.setOnClickListener(new View.OnClickListener() {
@@ -64,38 +66,55 @@ public class CramModeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mCards.size() == 0) {
-                    finish();
+                    mCorrectAnswers++;
+                    startResultsFragment();
                 } else {
+                    mPressed = false;
+                    mCorrectAnswers++;
                     cleanOldFragments();
                     int nextCard = mRandomGenerator.nextInt(mCards.size());
                     mSelectedCard = mCards.remove(nextCard);
-                    mFrontFragment = new CramCardFrontEndFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("textOfCard", mSelectedCard.getQuestion());
-                    mFrontFragment.setArguments(bundle);
-
-                    manager
-                            .beginTransaction()
-                            .add(R.id.cram_mode_frame_layout, mFrontFragment)
-                            .commit();
+                    mUsedCards.add(mSelectedCard);
+                    addFrontFragment();
 
                 }
             }
         });
         mWrongButton = (Button) findViewById(R.id.cram_mode_button_wrong);
+        mWrongButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCards.size() == 0) {
+                    startResultsFragment();
+                } else {
+                    mPressed = false;
+                    cleanOldFragments();
+                    int nextCard = mRandomGenerator.nextInt(mCards.size());
+                    mSelectedCard = mCards.remove(nextCard);
+                    mUsedCards.add(mSelectedCard);
+                    addFrontFragment();
+                }
+            }
+        });
+
+        prepareNewGame();
 
 
 
+    }
 
-        mFrontFragment = new CramCardFrontEndFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("textOfCard", mSelectedCard.getQuestion());
-        mFrontFragment.setArguments(bundle);
-
-        manager
-                .beginTransaction()
-                .add(R.id.cram_mode_frame_layout, mFrontFragment)
-                .commit();
+    private void prepareNewGame() {
+        if(mUsedCards.size() != 0){
+            mCards.addAll(mUsedCards);
+            mUsedCards.clear();
+        }
+        int nextCard = mRandomGenerator.nextInt(mCards.size());
+        mAllCards = mCards.size();
+        mSelectedCard = mCards.remove(nextCard);
+        mUsedCards.add(mSelectedCard);
+        mCorrectAnswers = 0;
+        mBackFragment = new CramCardFrontEndFragment();
+        addFrontFragment();
     }
 
 
@@ -107,6 +126,20 @@ public class CramModeActivity extends AppCompatActivity {
                 .remove(mBackFragment)
                 .commit();
     }
+
+    private void addFrontFragment(){
+        mFrontFragment = new CramCardFrontEndFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("textOfCard", mSelectedCard.getQuestion());
+        mFrontFragment.setArguments(bundle);
+
+        manager
+                .beginTransaction()
+                .add(R.id.cram_mode_frame_layout, mFrontFragment)
+                .commit();
+
+    }
+
 
     private void flipCard() {
 
@@ -178,5 +211,24 @@ public class CramModeActivity extends AppCompatActivity {
         }
     }
 
+    private void startResultsFragment(){
+        CramModeResultFragment cramModeResultFragment = new CramModeResultFragment();
+        Bundle args = new Bundle();
+        args.putString("title", "Results");
+        args.putString("message", "Correct: " + mCorrectAnswers);
+        args.putString("score", "Total: "  + mAllCards);
+        cramModeResultFragment.setArguments(args);
+        cramModeResultFragment.show(manager, "tag");
+    }
 
+
+    @Override
+    public void onPrepareNewGame() {
+        prepareNewGame();
+    }
+
+    @Override
+    public void onCancelCramMode() {
+        finish();
+    }
 }
