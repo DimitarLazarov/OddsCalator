@@ -18,10 +18,19 @@
         android:textColor="@color/white"
         android:textSize="20sp"/>
 
+    <CheckBox
+        android:id="@+id/check_box_instructions"
+        android:layout_width="match_parent"
+        android:text="Don't show anymore"
+        android:textColor="@color/cardColor"
+        android:textSize="15sp"
+        android:layout_below="@id/quiz_selection_instructions"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quiz_selection_instructions"
+        android:layout_below="@+id/check_box_instructions"
         android:background="@color/darkGreen"
         android:padding="10dp"
         android:orientation="horizontal">
