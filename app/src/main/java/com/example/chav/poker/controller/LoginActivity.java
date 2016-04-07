@@ -1,6 +1,7 @@
 package com.example.chav.poker.controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -36,12 +37,18 @@ public class LoginActivity extends AppCompatActivity {
             w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
         }
 
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mUsername = (EditText) findViewById(R.id.login_username);
+        mUsername.setTypeface(myTypeface);
         mPassword = (EditText) findViewById(R.id.login_password);
+        mPassword.setTypeface(myTypeface);
         mSubmit = (Button) findViewById(R.id.login_submit_button);
+        mSubmit.setTypeface(myTypeface);
         mCancel = (Button) findViewById(R.id.login_cancel_button);
+        mCancel.setTypeface(myTypeface);
 
         mUsername.setNextFocusDownId(R.id.login_password);
+        mUsername.setTypeface(myTypeface);
         mUsername.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {

@@ -1,6 +1,7 @@
 package com.example.chav.poker.controller;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,10 @@ public class QuizSelectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_selection);
 
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
+
         mSpeedQuiz = (Button) findViewById(R.id.speed_quiz);
+        mSpeedQuiz.setTypeface(myTypeface);
         mSpeedQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,6 +32,7 @@ public class QuizSelectionActivity extends AppCompatActivity {
             }
         });
         mCram = (Button) findViewById(R.id.cram_cards);
+        mCram.setTypeface(myTypeface);
         mCram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +41,7 @@ public class QuizSelectionActivity extends AppCompatActivity {
             }
         });
         mBasicQuiz = (Button) findViewById(R.id.basic_quiz);
+        mBasicQuiz.setTypeface(myTypeface);
         mBasicQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

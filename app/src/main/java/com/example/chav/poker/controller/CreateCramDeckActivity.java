@@ -2,6 +2,7 @@ package com.example.chav.poker.controller;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -48,12 +49,18 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
+        mButtonCancel.setTypeface(myTypeface);
         mButtonNext = (Button) findViewById(R.id.create_deck_next);
+        mButtonNext.setTypeface(myTypeface);
         mButtonAddCard = (Button) findViewById(R.id.create_deck_add_card);
+        mButtonAddCard.setTypeface(myTypeface);
         mButtonCreateDeck = (Button) findViewById(R.id.create_deck_create_cram_deck);
+        mButtonCreateDeck.setTypeface(myTypeface);
         mRecyclerCreatedCards = (RecyclerView) findViewById(R.id.create_deck_recycler_add_cram_cards);
         mTitleText = (EditText) findViewById(R.id.create_deck_title_deck);
+        mTitleText.setTypeface(myTypeface);
 
         mButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override

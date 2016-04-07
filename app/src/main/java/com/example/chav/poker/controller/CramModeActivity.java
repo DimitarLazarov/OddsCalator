@@ -1,11 +1,13 @@
 package com.example.chav.poker.controller;
 
 import android.app.FragmentManager;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
@@ -21,6 +23,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
     private Button mWrongButton;
+    private TextView mCramModeTitle;
     private Random mRandomGenerator = new Random();
     private CramCard mSelectedCard;
     private ArrayList<CramCard> mCards = new ArrayList<>();
@@ -38,6 +41,10 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cram_mode);
+
+        Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
+        mCramModeTitle = (TextView) findViewById(R.id.cram_mode);
+        mCramModeTitle.setTypeface(myTypeface);
 
         manager = getFragmentManager();
 
@@ -62,6 +69,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
         });
 
         mCorrectButton = (Button) findViewById(R.id.cram_mode_button_correct);
+        mCorrectButton.setTypeface(myTypeface);
         mCorrectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +89,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             }
         });
         mWrongButton = (Button) findViewById(R.id.cram_mode_button_wrong);
+        mWrongButton.setTypeface(myTypeface);
         mWrongButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

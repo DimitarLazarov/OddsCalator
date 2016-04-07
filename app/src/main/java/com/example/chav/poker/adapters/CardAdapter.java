@@ -1,6 +1,7 @@
 package com.example.chav.poker.adapters;
 
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +34,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         public CardViewHolder(View itemView) {
             super(itemView);
+            Typeface myTypeface = Typeface.createFromAsset(itemView.getContext().getAssets(), "HelveticaRoman.ttf");
             mQuestionCard = (TextView) itemView.findViewById(R.id.view_holder_card_question_view);
+            mQuestionCard.setTypeface(myTypeface);
             mAnswerCard = (TextView) itemView.findViewById(R.id.view_holder_card_answer_view);
+            mAnswerCard.setTypeface(myTypeface);
             mSeparator = (View) itemView.findViewById(R.id.view_separator);
         }
     }
