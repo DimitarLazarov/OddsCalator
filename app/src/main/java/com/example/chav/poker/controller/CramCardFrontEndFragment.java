@@ -15,6 +15,7 @@ import com.example.chav.poker.R;
 public class CramCardFrontEndFragment extends Fragment {
 
     private TextView mText;
+    private TextView mQuestionOrAnswer;
 
     public CramCardFrontEndFragment() {
         // Required empty public constructor
@@ -34,6 +35,8 @@ public class CramCardFrontEndFragment extends Fragment {
         Bundle mTextBundle = this.getArguments();
         mText = (TextView) v.findViewById(R.id.cram_card_front_end_text);
         mText.setText(mTextBundle.getString("textOfCard"));
+        mQuestionOrAnswer = (TextView) v.findViewById(R.id.cram_card_question_answer);
+        mQuestionOrAnswer.setText(mTextBundle.getString("cardtype"));
 
         return v;
     }

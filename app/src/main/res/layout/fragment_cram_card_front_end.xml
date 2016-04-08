@@ -5,14 +5,36 @@
     tools:context="com.example.chav.poker.controller.CramCardFrontEndFragment">
 
 
-    <TextView
-        android:id="@+id/cram_card_front_end_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:background="@color/cardColor"
-        android:textColor="@color/darkGreen"
-        android:textSize="30dp"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/cram_card_question_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment"
+            android:background="@color/cardColor"
+            android:alpha="0.5"
+            android:textColor="@color/darkGreen"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/cram_card_front_end_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:text="@string/hello_blank_fragment"
+            android:background="@color/cardColor"
+            android:textColor="@color/darkGreen"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

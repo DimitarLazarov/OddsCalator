@@ -23,6 +23,9 @@ import model.CramCard;
 
 public class CramModeActivity extends AppCompatActivity implements CramModeResultFragment.CramModeMessageCallback {
 
+
+    private final String question = "Question";
+    private final String answer = "Answer";
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
     private Button mWrongButton;
@@ -123,6 +126,8 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             }
         });
 
+        mBackFragment = new CramCardFrontEndFragment();
+        mFrontFragment = new CramCardFrontEndFragment();
         prepareNewGame();
 
 
@@ -130,6 +135,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     }
 
     private void prepareNewGame() {
+        cleanOldFragments();
         if(mUsedCards.size() != 0){
             mCards.addAll(mUsedCards);
             mUsedCards.clear();
@@ -139,7 +145,6 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
         mSelectedCard = mCards.remove(nextCard);
         mUsedCards.add(mSelectedCard);
         mCorrectAnswers = 0;
-        mBackFragment = new CramCardFrontEndFragment();
         addFrontFragment();
     }
 
@@ -157,6 +162,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
         mFrontFragment = new CramCardFrontEndFragment();
         Bundle bundle = new Bundle();
         bundle.putString("textOfCard", mSelectedCard.getQuestion());
+        bundle.putString("cardtype", question);
         mFrontFragment.setArguments(bundle);
 
         manager
@@ -177,6 +183,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             mBackFragment = new CramCardFrontEndFragment();
             Bundle bundle = new Bundle();
             bundle.putString("textOfCard", mSelectedCard.getAnswer());
+            bundle.putString("cardtype", answer);
             mBackFragment.setArguments(bundle);
 
             manager
@@ -209,6 +216,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             mFrontFragment = new CramCardFrontEndFragment();
             Bundle bundle = new Bundle();
             bundle.putString("textOfCard", mSelectedCard.getQuestion());
+            bundle.putString("cardtype", question);
             mFrontFragment.setArguments(bundle);
             manager
                     .beginTransaction()
