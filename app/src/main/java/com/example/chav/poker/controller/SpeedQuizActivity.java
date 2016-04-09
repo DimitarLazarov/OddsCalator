@@ -46,8 +46,13 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     private Button mBoardCardThree;
     private Button mBoardCardFour;
     private Button mBoardCardFive;
-    private RelativeLayout mPlayerOneCards;
-    private RelativeLayout mPlayerTwoCards;
+//    private RelativeLayout mPlayerOneCards;
+//    private RelativeLayout mPlayerTwoCards;
+
+    private LinearLayout mPlayerOneCards;
+    private LinearLayout mPlayerTwoCards;
+
+
     private LinearLayout mBoardCards;
     private ImageButton mReset;
     private TextView mScore;
@@ -69,7 +74,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activities_quizes);
+        setContentView(R.layout.activity_quizes_experimental);
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window w = getWindow();
@@ -85,20 +90,20 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
         mBoardCardThree = (Button) findViewById(R.id.basic_quiz_card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
-        mPlayerOneCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
-        mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
-        mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
+        mPlayerOneCards = (LinearLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
+        mPlayerTwoCards = (LinearLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
+//        mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
         mTimer = (TextView) findViewById(R.id.basic_quiz_timer);
 
 
-        mReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prepareBoard();
-            }
-        });
+//        mReset.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                prepareBoard();
+//            }
+//        });
 
         prepareBoard();
 
