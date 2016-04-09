@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cram_cards_view);
 
+        setStatusBarTranslucent(true);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window w = getWindow();
 //            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
@@ -154,6 +156,14 @@ public class CramCardsViewActivity extends AppCompatActivity {
                     mCardAdapter.notifyDataSetChanged();
 //                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
                 }
+        }
+    }
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 }

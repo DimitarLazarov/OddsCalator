@@ -58,6 +58,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cram_deck);
 
+        setStatusBarTranslucent(true);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window w = getWindow();
 //            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
@@ -205,6 +206,14 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mCardAdapter.notifyDataSetChanged();
 //                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
                 }
+        }
+    }
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 

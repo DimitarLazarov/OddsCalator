@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -44,10 +45,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private Button mBoardCardThree;
     private Button mBoardCardFour;
     private Button mBoardCardFive;
-    private RelativeLayout mPlayerOneCards;
-    private RelativeLayout mPlayerTwoCards;
+    private LinearLayout mPlayerOneCards;
+    private LinearLayout mPlayerTwoCards;
     private LinearLayout mBoardCards;
-    private ImageButton mReset;
+//    private ImageButton mReset;
     private TextView mScore;
     private TextView mTimer;
 
@@ -66,8 +67,9 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activities_quizes);
+        setContentView(R.layout.activity_quizes_experimental);
 
+        setStatusBarTranslucent(true);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window w = getWindow();
 //            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
@@ -82,21 +84,21 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mBoardCardThree = (Button) findViewById(R.id.basic_quiz_card_three_board);
         mBoardCardFour = (Button) findViewById(R.id.basic_quiz_card_four_board);
         mBoardCardFive = (Button) findViewById(R.id.basic_quiz_card_five_board);
-        mPlayerOneCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
-        mPlayerTwoCards = (RelativeLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
-        mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
+        mPlayerOneCards = (LinearLayout) findViewById(R.id.basic_quiz_player_one_card_holder);
+        mPlayerTwoCards = (LinearLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
+//        mReset = (ImageButton) findViewById(R.id.basic_quiz_button_reset);
         mBoardCards = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore = (TextView) findViewById(R.id.basic_quiz_score_counter);
         mScore.setText("Winning Streak: 0");
         mTimer = (TextView) findViewById(R.id.basic_quiz_timer);
 
 
-        mReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prepareBoard();
-            }
-        });
+//        mReset.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                prepareBoard();
+//            }
+//        });
 
         prepareBoard();
 
@@ -504,5 +506,13 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     public void onBackPressed() {
         super.onBackPressed();
         mCountDownTimer.cancel();
+    }
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 }

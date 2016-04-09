@@ -10,5 +10,6 @@
     <color name="blackCards">#424242</color>
     <color name="darkGreen">#8ea92c</color>
     <color name="white">#ffffff</color>
+    <color name="toolbar">#148ea92c</color>
 
 </resources>

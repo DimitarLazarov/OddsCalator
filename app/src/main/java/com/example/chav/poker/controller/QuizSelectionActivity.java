@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.chav.poker.R;
@@ -33,6 +34,7 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_selection);
 
+        setStatusBarTranslucent(true);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window w = getWindow();
 //            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
@@ -103,6 +105,14 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
         mSpeedQuizInstructions = !instructions;
         Intent intent = new Intent(QuizSelectionActivity.this, SpeedQuizActivity.class);
         startActivity(intent);
+    }
+
+    protected void setStatusBarTranslucent(boolean makeTranslucent) {
+        if (makeTranslucent) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
     }
 
 
