@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Build;
+import android.support.annotation.MainThread;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     private CramCardFrontEndFragment mBackFragment;
     private CramCardFrontEndFragment mFrontFragment;
     private FragmentManager manager;
+    private TextView mTextCurrentCard;
     private int mCorrectAnswers;
     private int mAllCards;
 
@@ -74,6 +76,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 //        mCards.add(card3);
 //        mCards.add(card4);
 
+        mTextCurrentCard = (TextView) findViewById(R.id.cram_mode_current_card);
 
         mCardLayout = (FrameLayout) findViewById(R.id.cram_mode_frame_layout);
         mCardLayout.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +142,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
     private void prepareNewGame() {
         cleanOldFragments();
+        mPressed = false;
         if(mUsedCards.size() != 0){
             mCards.addAll(mUsedCards);
             mUsedCards.clear();
@@ -154,9 +158,11 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
     private void cleanOldFragments(){
         manager .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
                 .remove(mFrontFragment)
                 .commit();
         manager .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
                 .remove(mBackFragment)
                 .commit();
     }
@@ -170,9 +176,10 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
         manager
                 .beginTransaction()
+                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                 .add(R.id.cram_mode_frame_layout, mFrontFragment)
                 .commit();
-
+        mTextCurrentCard.setText("Card " + (mAllCards - mCards.size()) + "/" + mAllCards);
     }
 
 
