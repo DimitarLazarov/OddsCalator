@@ -2,6 +2,7 @@ package com.example.chav.poker.controller;
 
 import android.app.FragmentManager;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,8 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
     private Button mWrongButton;
-    private Button mBackButton;
+//    private Button mBackButton;
+    private ImageButton mBackButton;
     private TextView mCramModeTitle;
     private Random mRandomGenerator = new Random();
     private CramCard mSelectedCard;
@@ -80,7 +83,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             }
         });
 
-        mBackButton = (Button) findViewById(R.id.cram_mode_button_back);
+        mBackButton = (ImageButton) findViewById(R.id.cram_mode_button_back);
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

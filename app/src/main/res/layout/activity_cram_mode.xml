@@ -21,33 +21,46 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp">
 
-        <Button
+        <!--<Button-->
+            <!--android:id="@+id/cram_mode_button_back"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:layout_marginEnd="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/cardColor"-->
+            <!--android:padding="30dp"/>-->
+
+        <ImageButton
             android:id="@+id/cram_mode_button_back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/button_next"
             android:layout_weight="1"
-            android:background="@color/cardColor"
+            android:rotation="180"
+            android:background="@drawable/button_reset_background"
             android:padding="30dp"/>
 
         <TextView
             android:id="@+id/cram_mode"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:gravity="center"
             android:text="CRAM MODE"
             android:textColor="@color/cardColor"
             android:textSize="30dp"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:background="@color/cardColor"
-            android:padding="30dp"
-            android:visibility="invisible"/>
+        <!--<Button-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@color/cardColor"-->
+            <!--android:padding="30dp"-->
+            <!--android:visibility="invisible"/>-->
     </LinearLayout>
 
     <LinearLayout
