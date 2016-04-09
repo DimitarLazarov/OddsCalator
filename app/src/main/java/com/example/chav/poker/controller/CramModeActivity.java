@@ -132,10 +132,26 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             }
         });
 
-        mBackFragment = new CramCardFrontEndFragment();
-        mFrontFragment = new CramCardFrontEndFragment();
-        prepareNewGame();
+//        mBackFragment = new CramCardFrontEndFragment();
+//        mFrontFragment = new CramCardFrontEndFragment();
+//        prepareNewGame();
 
+        int nextCard = mRandomGenerator.nextInt(mCards.size());
+        mAllCards = mCards.size();
+        mSelectedCard = mCards.remove(nextCard);
+        mUsedCards.add(mSelectedCard);
+        mCorrectAnswers = 0;
+        mFrontFragment = new CramCardFrontEndFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("textOfCard", mSelectedCard.getQuestion());
+        bundle.putString("cardtype", question);
+        mFrontFragment.setArguments(bundle);
+
+        manager
+                .beginTransaction()
+                .add(R.id.cram_mode_frame_layout, mFrontFragment)
+                .commit();
+        mTextCurrentCard.setText("Card " + (mAllCards - mCards.size()) + "/" + mAllCards);
 
 
     }
@@ -158,11 +174,11 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
     private void cleanOldFragments(){
         manager .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                .setCustomAnimations(0, R.anim.slide_out_left)
                 .remove(mFrontFragment)
                 .commit();
         manager .beginTransaction()
-                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+                .setCustomAnimations(0, R.anim.slide_out_left)
                 .remove(mBackFragment)
                 .commit();
     }
