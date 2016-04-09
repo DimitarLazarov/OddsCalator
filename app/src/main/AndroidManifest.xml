@@ -8,29 +8,43 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".controller.MainActivity"/>
-        <activity android:name=".controller.CardSelectionActivity"/>
-        <activity android:name=".controller.StartScreenActivity">
+        <activity android:name=".controller.MainActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CardSelectionActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.StartScreenActivity"
+            android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".controller.QuizSelectionActivity"/>
-        <activity android:name=".controller.SpeedQuizActivity"/>
-        <activity android:name=".controller.CramCardsUserActivity"/>
-        <activity android:name=".controller.RegisterActivity"/>
-        <activity android:name=".controller.CramCardsViewActivity"/>
-        <activity android:name=".controller.CramCardCreateActivity"/>
-        <activity android:name=".controller.CreateCramDeckActivity"/>
-        <activity android:name=".controller.CramModeActivity"/>
-        <activity android:name=".controller.LoginActivity"/>
-        <activity android:name=".controller.BasicQuizActivity"/>
-        <activity android:name=".controller.ExperimentalActivity">
-        </activity>
-        <activity android:name=".controller.ExperimentalActivity2">
-        </activity>
+        <activity android:name=".controller.QuizSelectionActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.SpeedQuizActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CramCardsUserActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.RegisterActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CramCardsViewActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CramCardCreateActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CreateCramDeckActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.CramModeActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.LoginActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.BasicQuizActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.ExperimentalActivity"
+            android:screenOrientation="sensorPortrait"/>
+        <activity android:name=".controller.ExperimentalActivity2"
+            android:screenOrientation="sensorPortrait"/>
+
     </application>
 
 </manifest>
