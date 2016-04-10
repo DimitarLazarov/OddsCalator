@@ -1,4 +1,4 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.calculator;
 
 
 import android.app.Activity;

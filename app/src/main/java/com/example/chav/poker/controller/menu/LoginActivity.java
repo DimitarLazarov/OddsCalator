@@ -1,21 +1,18 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.menu;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.controller.SavedSharedPreferences;
 import com.example.chav.poker.managers.UsersManager;
 
 import model.User;
@@ -34,10 +31,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mUsername = (EditText) findViewById(R.id.login_username);

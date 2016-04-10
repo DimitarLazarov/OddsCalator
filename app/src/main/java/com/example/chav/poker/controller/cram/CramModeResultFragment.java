@@ -1,12 +1,13 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.cram;
 
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +18,11 @@ import android.widget.TextView;
 
 import com.example.chav.poker.R;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SpeedQuizResultFragment extends DialogFragment {
+public class CramModeResultFragment extends DialogFragment {
+
 
     private TextView mResultText;
     private TextView mResultPoints;
@@ -32,9 +33,9 @@ public class SpeedQuizResultFragment extends DialogFragment {
     private String mTitle;
     private String mMessage;
     private String mScore;
-    private QuizMessageCallback mQuizMessageCallback;
+    private CramModeMessageCallback mCramModeCallback;
 
-    public SpeedQuizResultFragment() {
+    public CramModeResultFragment() {
         // Required empty public constructor
     }
 
@@ -42,9 +43,9 @@ public class SpeedQuizResultFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mQuizMessageCallback = (QuizMessageCallback) activity;
+            mCramModeCallback = (CramModeMessageCallback) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement QuizMessageCallback");
+            throw new ClassCastException(activity.toString() + " must implement CramModeMessageCallback");
         }
     }
 
@@ -70,25 +71,28 @@ public class SpeedQuizResultFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_speed_quiz_result, container, false);
+        View v = inflater.inflate(R.layout.fragment_cram_mode_result, container, false);
 
         getDialog().setCanceledOnTouchOutside(false);
 
-        mResultText = (TextView) v.findViewById(R.id.speed_quiz_result_text);
+        Typeface myTypeface = Typeface.createFromAsset(v.getContext().getAssets(), "HelveticaRoman.ttf");
+        mResultText = (TextView) v.findViewById(R.id.cram_mode_result_text);
+        mResultText.setTypeface(myTypeface);
         mResultText.setText(mTitle);
-        mResultPoints = (TextView) v.findViewById(R.id.speed_quiz_points_result);
+        mResultPoints = (TextView) v.findViewById(R.id.cram_mode_points_result);
+        mResultPoints.setTypeface(myTypeface);
         mResultPoints.setText(mMessage);
-        mCurrentResult = (TextView) v.findViewById(R.id.speed_quiz_current_result);
+        mCurrentResult = (TextView) v.findViewById(R.id.cram_mode_current_result);
+        mCurrentResult.setTypeface(myTypeface);
         mCurrentResult.setText(mScore);
-        mStartAgain = (ImageButton) v.findViewById(R.id.speed_quiz_new_game);
-        mCancel = (ImageButton) v.findViewById(R.id.speed_quiz_cancel);
+        mStartAgain = (ImageButton) v.findViewById(R.id.cram_mode_new_game);
+        mCancel = (ImageButton) v.findViewById(R.id.cram_mode_cancel);
 
         mCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), QuizSelectionActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                mCramModeCallback.onCancelCramMode();
+                getDialog().hide();
             }
         });
 
@@ -96,7 +100,7 @@ public class SpeedQuizResultFragment extends DialogFragment {
         mStartAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQuizMessageCallback.onMessageAcknowledged();
+                mCramModeCallback.onPrepareNewGame();
                 getDialog().hide();
             }
         });
@@ -104,8 +108,11 @@ public class SpeedQuizResultFragment extends DialogFragment {
         return v;
     }
 
-    interface QuizMessageCallback{
-        void onMessageAcknowledged();
+    interface CramModeMessageCallback{
+        void onPrepareNewGame();
+        void onCancelCramMode();
     }
 
 }
+
+

@@ -6,7 +6,7 @@
     android:background="@color/boardColor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".controller.SpeedQuizResultFragment">
+    tools:context=".controller.quiz.SpeedQuizResultFragment">
 
     <TextView
         android:id="@+id/quiz_selection_instructions"

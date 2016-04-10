@@ -1,4 +1,4 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.cram;
 
 import android.content.Intent;
 import android.graphics.Typeface;

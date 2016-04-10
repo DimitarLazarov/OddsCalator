@@ -1,22 +1,18 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.menu;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.controller.SavedSharedPreferences;
+import com.example.chav.poker.controller.calculator.OddsCalatorActivity;
 import com.example.chav.poker.managers.UsersManager;
 
 import model.User;
@@ -37,10 +33,6 @@ public class StartScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.toolbar));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         Typeface myTypefaceHeader = Typeface.createFromAsset(getAssets(), "HelveticaThin.ttf");
@@ -61,7 +53,7 @@ public class StartScreenActivity extends AppCompatActivity {
         mOddsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(StartScreenActivity.this, MainActivity.class);
+                Intent intent = new Intent(StartScreenActivity.this, OddsCalatorActivity.class);
                 startActivity(intent);
             }
         });
@@ -70,7 +62,7 @@ public class StartScreenActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (UsersManager.getInstance(v.getContext()).getCurrentUser() == null) {
-                    Toast.makeText(v.getContext(), "Sign in to access quizes", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "Sign in to access Cards and Quiz", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent = new Intent(v.getContext(), QuizSelectionActivity.class);

@@ -1,4 +1,4 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.quiz;
 
 
 import android.app.Activity;

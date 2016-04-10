@@ -1,21 +1,15 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.cram;
 
 import android.app.FragmentManager;
 import android.graphics.Typeface;
-import android.media.Image;
-import android.os.Build;
-import android.support.annotation.MainThread;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.chav.poker.R;
 import com.example.chav.poker.managers.CramCardsManager;
@@ -134,7 +128,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             }
         });
 
-//        mBackFragment = new CramCardFrontEndFragment();
+        mBackFragment = new CramCardFrontEndFragment();
 //        mFrontFragment = new CramCardFrontEndFragment();
 //        prepareNewGame();
 

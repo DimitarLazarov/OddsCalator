@@ -1,12 +1,8 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.menu;
 
-import android.app.DialogFragment;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +10,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.controller.cram.CramCardsUserActivity;
+import com.example.chav.poker.controller.quiz.BasicQuizActivity;
+import com.example.chav.poker.controller.quiz.InstructionsQuizesFragment;
+import com.example.chav.poker.controller.quiz.SpeedQuizActivity;
 
 public class QuizSelectionActivity extends AppCompatActivity implements InstructionsQuizesFragment.QuizSelectionCallback{
 
@@ -35,10 +35,6 @@ public class QuizSelectionActivity extends AppCompatActivity implements Instruct
         setContentView(R.layout.activity_quiz_selection);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
 

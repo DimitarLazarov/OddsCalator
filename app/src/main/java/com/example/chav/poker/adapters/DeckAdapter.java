@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.chav.poker.R;
-import com.example.chav.poker.controller.CramCardsViewActivity;
+import com.example.chav.poker.controller.cram.CramCardsViewActivity;
 
 import java.util.List;
 

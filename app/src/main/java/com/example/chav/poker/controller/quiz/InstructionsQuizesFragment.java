@@ -1,4 +1,4 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.quiz;
 
 
 import android.app.Activity;
@@ -62,7 +62,6 @@ public class InstructionsQuizesFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_instructions_quizes, container, false);
 
         getDialog().setCanceledOnTouchOutside(false);

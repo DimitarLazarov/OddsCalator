@@ -1,10 +1,8 @@
-package com.example.chav.poker.controller;
+package com.example.chav.poker.controller.calculator;
 
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,17 +28,19 @@ import ver4.poker.CardSet;
 import ver4.poker.HandEval;
 import ver4.showdown.Enumerator;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AddCardCommunicator {
+public class OddsCalatorActivity extends AppCompatActivity implements View.OnClickListener, AddCardCommunicator {
 
     public static final int PLAYER_ONE = 0;
     public static final int PLAYER_TWO = 1;
     public static final int BOARD_CARD = 2;
+    public static final int PLAYER_CARDS = 2;
+
     private Button mPOneCardOne;
     private Button mPOneCardTwo;
     private Button mPTwoCardOne;
     private Button mPTwoCardTwo;
-    private Button buttonOccurredEvent;
-    private Button nextButtonToClick;
+    private Button mButtonOccurredEvent;
+    private Button mNextButtonToClick;
     private Button mBoardCardOne;
     private Button mBoardCardTwo;
     private Button mBoardCardThree;
@@ -53,29 +52,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mPlayerTwoWinOdds;
     private TextView mPlayerOneTieOdds;
     private TextView mPlayerTwoTieOdds;
-    private TextView pTwo;
-    private CardSet deck;
-    private CardSet[] players;
-    private CardSet boardCards;
-    private int playerOccuredEvent;
-    private int allPlayersCards;
-    private int allBoardCards;
-    private ArrayList<Card> dealtCards;
-    private Card cartToRemove = null;
-    private ArrayList<Button> allButtons;
-    private ChangeCardListener changeCardListener;
+    private CardSet mDeck;
+    private CardSet[] mPlayers;
+    private CardSet mBoardCards;
+    private int mPlayerOccuredEvent;
+    private int mAllPlayersCards;
+    private int mAllBoardCards;
+    private ArrayList<Card> mDealtCards;
+    private Card mCartToRemove = null;
+    private ArrayList<Button> mAllButtons;
+    private ChangeCardListener mChangeCardListener;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_experimental);
+        setContentView(R.layout.activity_oddscalator);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mPOneCardOne      = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
@@ -108,70 +102,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBackButton       = (ImageButton) findViewById(R.id.button_back);
         mBackButton.setOnClickListener(this);
         mResetButton.setOnClickListener(this);
-//        mAddPlayerButton  = (Button) findViewById(R.id.button_add_player);
 
-        allButtons = new ArrayList<Button>();
-        allButtons.add(mPOneCardOne);
-        allButtons.add(mPOneCardTwo);
-        allButtons.add(mPTwoCardOne);
-        allButtons.add(mPTwoCardTwo);
-        allButtons.add(mBoardCardOne);
-        allButtons.add(mBoardCardTwo);
-        allButtons.add(mBoardCardThree);
-        allButtons.add(mBoardCardFour);
-        allButtons.add(mBoardCardFive);
+        mAllButtons = new ArrayList<Button>();
+        mAllButtons.add(mPOneCardOne);
+        mAllButtons.add(mPOneCardTwo);
+        mAllButtons.add(mPTwoCardOne);
+        mAllButtons.add(mPTwoCardTwo);
+        mAllButtons.add(mBoardCardOne);
+        mAllButtons.add(mBoardCardTwo);
+        mAllButtons.add(mBoardCardThree);
+        mAllButtons.add(mBoardCardFour);
+        mAllButtons.add(mBoardCardFive);
 
-        changeCardListener = new ChangeCardListener();
-
-//        mPOneCardOne.setOnClickListener(this);
-//        mPOneCardTwo.setOnClickListener(this);
-//        mPTwoCardOne.setOnClickListener(this);
-//        mPTwoCardTwo.setOnClickListener(this);
-//
-//        mBoardCardOne.setOnClickListener(this);
-//        mBoardCardTwo.setOnClickListener(this);
-//        mBoardCardThree.setOnClickListener(this);
-//        mBoardCardFour.setOnClickListener(this);
-//        mBoardCardFive.setOnClickListener(this);
+        mChangeCardListener = new ChangeCardListener();
 
         resetStates();
 
-//        players[2] = new CardSet();
-//        players[0].add(new Card("Ad"));
-//        players[0].add(new Card("Ac"));
-//        players[1].add(new Card("Jd"));
-//        players[1].add(new Card("Jc"));
-//        players[2].add(new Card("Td"));
-//        players[2].add(new Card("Tc"));
-//        deck.remove(new Card("Ad"));
-//        deck.remove(new Card("Ac"));
-//        deck.remove(new Card("Jd"));
-//        deck.remove(new Card("Jc"));
-//        deck.remove(new Card("Td"));
-//        deck.remove(new Card("Tc"));
-
-//        HandEval.HandCategory handCategory = new HandEval.HandCategory();
-//        Enumerator enumerator = new Enumerator()
-//        HandEval.hand6Eval() handEval = new HandEval();
-//        HandEval.ranksMask()
-//        HandEval.hand5Eval()
-//        Card card = new Card();
-//        com.stevebrecher.showdown
-//
-//        UserInput;
-//                Showdown;
-//
-//        CardSet cardSet = new CardSet();
-//        Showdown showdown = new Showdown();
-//        Help help = new Help();
-
-//        mResetButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                resetStates();
-//                resetAllTextViewWithAnimation();
-//            }
-//        });
     }
 
     private void resetStates() {
@@ -184,18 +130,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPTwoCardOne.setClickable(true);
         mPTwoCardOne.setBackgroundResource(R.drawable.card_back);
 
-        deck = CardSet.freshDeck();
-        players = new CardSet[2];
-        players[0] = new CardSet();
-        players[1] = new CardSet();
-        boardCards = new CardSet();
-        allPlayersCards = 0;
-        allBoardCards = 0;
-        dealtCards = new ArrayList<Card>();
+        mDeck = CardSet.freshDeck();
+        mPlayers = new CardSet[PLAYER_CARDS];
+        mPlayers[PLAYER_ONE] = new CardSet();
+        mPlayers[PLAYER_TWO] = new CardSet();
+        mBoardCards = new CardSet();
+        mAllPlayersCards = 0;
+        mAllBoardCards = 0;
+        mDealtCards = new ArrayList<Card>();
     }
 
     private void resetAllButtonsStates() {
-        for(Button button : allButtons) {
+        for(Button button : mAllButtons) {
             button.setOnClickListener(this);
             button.setClickable(false);
             button.setText("");
@@ -214,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void animateTextView(float initialValue, float finalValue, final TextView  textview) {
 
-
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(initialValue, finalValue);
         valueAnimator.setDuration(500);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -230,16 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void assignOdds(long[] wins, long[] ties, double pots) {
-        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
-        double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
-        double mPlayerOneTieChance     = ties[0] * 100.0 / pots;
-        double mPlayerTwoTieChance     = ties[1] * 100.0 / pots;
-
-
-//        String winings = String.format("%.2f", mPlayerOneWinningChance);
-//        mPlayerOneWinningChance = Float.parseFloat(winings);
-//        float floaat = Float.parseFloat(winings);
-
+        double mPlayerOneWinningChance = wins[PLAYER_ONE] * 100.0 / pots;
+        double mPlayerTwoWinningChance = wins[PLAYER_TWO] * 100.0 / pots;
+        double mPlayerOneTieChance     = ties[PLAYER_ONE] * 100.0 / pots;
+        double mPlayerTwoTieChance     = ties[PLAYER_TWO] * 100.0 / pots;
 
         animateTextView((Float.parseFloat(mPlayerOneWinOdds.getText().toString())),
                         (float)mPlayerOneWinningChance, mPlayerOneWinOdds);
@@ -250,44 +189,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         animateTextView((Float.parseFloat(mPlayerTwoTieOdds.getText().toString())),
                         (float)mPlayerTwoTieChance, mPlayerTwoTieOdds);
 
-
-
-//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
-//        mPlayerTwoWinOdds.setText(String.format("%.2f%%", mPlayerTwoWinningChance));
-
-
-//        ValueAnimator animator = new ValueAnimator();
-//        animator.setObjectValues(0, (int) mPlayerOneWinningChance);
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                mPlayerOneWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-//            }
-//        });
-//        animator.setEvaluator(new TypeEvaluator<Integer>() {
-//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-//                return Math.round(startValue + (endValue - startValue) * fraction);
-//            }
-//        });
-//        animator.setDuration(500);
-//        animator.start();
-//
-//        ValueAnimator animator2 = new ValueAnimator();
-//        animator2.setObjectValues(0, (int) mPlayerTwoWinningChance);
-//        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                mPlayerTwoWinOdds.setText(String.valueOf(animation.getAnimatedValue()));
-//            }
-//        });
-//        animator2.setEvaluator(new TypeEvaluator<Integer>() {
-//            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-//                return Math.round(startValue + (endValue - startValue) * fraction);
-//            }
-//        });
-//        animator2.setDuration(500);
-//        animator2.start();
-//
-//        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
-//        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
 
     @Override
@@ -297,70 +198,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()) {
             case R.id.basic_quiz_player_one_card_one:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mPOneCardOne;
-                nextButtonToClick = mPOneCardTwo;
-                playerOccuredEvent = PLAYER_ONE;
-                allPlayersCards++;
+                mButtonOccurredEvent = mPOneCardOne;
+                mNextButtonToClick = mPOneCardTwo;
+                mPlayerOccuredEvent = PLAYER_ONE;
+                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_one_card_two:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mPOneCardTwo;
-                nextButtonToClick = new Button(this);
-                nextButtonToClick.setVisibility(View.GONE);
-                playerOccuredEvent = PLAYER_ONE;
-                allPlayersCards++;
+                mButtonOccurredEvent = mPOneCardTwo;
+                mNextButtonToClick = new Button(this);
+                mNextButtonToClick.setVisibility(View.GONE);
+                mPlayerOccuredEvent = PLAYER_ONE;
+                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_one:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mPTwoCardOne;
-                nextButtonToClick = mPTwoCardTwo;
-                playerOccuredEvent = PLAYER_TWO;
-                allPlayersCards++;
+                mButtonOccurredEvent = mPTwoCardOne;
+                mNextButtonToClick = mPTwoCardTwo;
+                mPlayerOccuredEvent = PLAYER_TWO;
+                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_two:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mPTwoCardTwo;
-                nextButtonToClick = new Button(this);
-                nextButtonToClick.setVisibility(View.GONE);
-                playerOccuredEvent = PLAYER_TWO;
-                allPlayersCards++;
+                mButtonOccurredEvent = mPTwoCardTwo;
+                mNextButtonToClick = new Button(this);
+                mNextButtonToClick.setVisibility(View.GONE);
+                mPlayerOccuredEvent = PLAYER_TWO;
+                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_card_one_board:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mBoardCardOne;
-                playerOccuredEvent = BOARD_CARD;
-                nextButtonToClick = mBoardCardTwo;
-                allBoardCards++;
+                mButtonOccurredEvent = mBoardCardOne;
+                mPlayerOccuredEvent = BOARD_CARD;
+                mNextButtonToClick = mBoardCardTwo;
+                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_two_board:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mBoardCardTwo;
-                playerOccuredEvent = BOARD_CARD;
-                nextButtonToClick = mBoardCardThree;
-                allBoardCards++;
+                mButtonOccurredEvent = mBoardCardTwo;
+                mPlayerOccuredEvent = BOARD_CARD;
+                mNextButtonToClick = mBoardCardThree;
+                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_three_board:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mBoardCardThree;
-                playerOccuredEvent = BOARD_CARD;
-                nextButtonToClick = mBoardCardFour;
-                allBoardCards++;
+                mButtonOccurredEvent = mBoardCardThree;
+                mPlayerOccuredEvent = BOARD_CARD;
+                mNextButtonToClick = mBoardCardFour;
+                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_four_board:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mBoardCardFour;
-                playerOccuredEvent = BOARD_CARD;
-                nextButtonToClick = mBoardCardFive;
-                allBoardCards++;
+                mButtonOccurredEvent = mBoardCardFour;
+                mPlayerOccuredEvent = BOARD_CARD;
+                mNextButtonToClick = mBoardCardFive;
+                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_five_board:
                 d.show(fm, "addCard");
-                buttonOccurredEvent = mBoardCardFive;
-                nextButtonToClick = new Button(this);
-                nextButtonToClick.setVisibility(View.GONE);
+                mButtonOccurredEvent = mBoardCardFive;
+                mNextButtonToClick = new Button(this);
+                mNextButtonToClick.setVisibility(View.GONE);
                 mBoardCardFive.setClickable(false);
-                playerOccuredEvent = BOARD_CARD;
-                allBoardCards++;
+                mPlayerOccuredEvent = BOARD_CARD;
+                mAllBoardCards++;
                 break;
             case R.id.button_back:
                 finish();
@@ -373,34 +274,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void startCalculate(){
-        new CalculateOdds().execute(boardCards, null, null);
+        new CalculateOdds().execute(mBoardCards, null, null);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean addCard(String receivedCard) {
         Card card = new Card(receivedCard);
-        if (dealtCards.contains(card)) {
+        if (mDealtCards.contains(card)) {
             return false;
         }
         else {
-            buttonOccurredEvent.setOnClickListener(changeCardListener);
-            nextButtonToClick.setBackgroundResource(R.drawable.card_back);
-            nextButtonToClick.setClickable(true);
+            mButtonOccurredEvent.setOnClickListener(mChangeCardListener);
+            mNextButtonToClick.setBackgroundResource(R.drawable.card_back);
+            mNextButtonToClick.setClickable(true);
             int color = getSuitColor(receivedCard.charAt(1));
-            buttonOccurredEvent.setText(receivedCard.charAt(0) + "");
-            buttonOccurredEvent.setTextColor(color);
-            buttonOccurredEvent.setBackgroundResource(R.drawable.card_front);
-            if (playerOccuredEvent == BOARD_CARD) {
-                boardCards.add(card);
-                addBoardCard(receivedCard, buttonOccurredEvent);
-
+            mButtonOccurredEvent.setText(receivedCard.charAt(0) + "");
+            mButtonOccurredEvent.setTextColor(color);
+            mButtonOccurredEvent.setBackgroundResource(R.drawable.card_front);
+            if (mPlayerOccuredEvent == BOARD_CARD) {
+                mBoardCards.add(card);
+                addBoardCard(receivedCard, mButtonOccurredEvent);
             } else {
-                players[playerOccuredEvent].add(card);
-                addPlayerCard(receivedCard, buttonOccurredEvent);
+                mPlayers[mPlayerOccuredEvent].add(card);
+                addPlayerCard(receivedCard, mButtonOccurredEvent);
             }
-            deck.remove(card);
-            dealtCards.add(card);
+            mDeck.remove(card);
+            mDealtCards.add(card);
             checkForCalculations();
             return true;
         }
@@ -409,28 +309,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public boolean replaceCard(String receivedCard){
         Card card = new Card(receivedCard);
-        if (dealtCards.contains(card)) {
+        if (mDealtCards.contains(card)) {
             return false;
         }
         else {
-            dealtCards.remove(cartToRemove);
-            deck.remove(card);
-            deck.add(cartToRemove);
-            dealtCards.add(card);
+            mDealtCards.remove(mCartToRemove);
+            mDeck.remove(card);
+            mDeck.add(mCartToRemove);
+            mDealtCards.add(card);
             int color = getSuitColor(receivedCard.charAt(1));
-            buttonOccurredEvent.setText(receivedCard.charAt(0) + "");
-            buttonOccurredEvent.setTextColor(color);
-            buttonOccurredEvent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            if (playerOccuredEvent == BOARD_CARD) {
-                boardCards.add(card);
-                addBoardCard(receivedCard, buttonOccurredEvent);
+            mButtonOccurredEvent.setText(receivedCard.charAt(0) + "");
+            mButtonOccurredEvent.setTextColor(color);
+            mButtonOccurredEvent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            if (mPlayerOccuredEvent == BOARD_CARD) {
+                mBoardCards.add(card);
+                addBoardCard(receivedCard, mButtonOccurredEvent);
 
             } else {
-                players[playerOccuredEvent].add(card);
-                addPlayerCard(receivedCard, buttonOccurredEvent);
+                mPlayers[mPlayerOccuredEvent].add(card);
+                addPlayerCard(receivedCard, mButtonOccurredEvent);
             }
 
-            removePreviousCard(cartToRemove);
+            removePreviousCard(mCartToRemove);
             checkForCalculations();
 
             return true;
@@ -440,27 +340,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void addPlayerCard(String card, Button whereToAdd) {
         Drawable image = getCardSuit(card.charAt(1));
-        buttonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-        buttonOccurredEvent.setTextSize(40);
-        buttonOccurredEvent.setPadding(0, 60, 0, 60);
+        mButtonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        mButtonOccurredEvent.setTextSize(40);
+        mButtonOccurredEvent.setPadding(0, 60, 0, 60);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void addBoardCard(String card, Button whereToAdd) {
-        buttonOccurredEvent.setTextSize(30);
+        mButtonOccurredEvent.setTextSize(30);
         Drawable image = getCardSuitBoard(card.charAt(1));
-        buttonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
-        buttonOccurredEvent.setPadding(0, 50, 0, 50);
+        mButtonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
+        mButtonOccurredEvent.setPadding(0, 50, 0, 50);
     }
 
     public void removePreviousCard(Card card){
-        for(CardSet cardset : players) {
+        for(CardSet cardset : mPlayers) {
             if (cardset.contains(card)){
                 cardset.remove(card);
                 return;
             }
         }
-        boardCards.remove(card);
+        mBoardCards.remove(card);
     }
 
     private int getSuitColor(char c) {
@@ -472,46 +372,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkForCalculations() {
-        if (allPlayersCards == 4 && allBoardCards == 0) {
+        if (mAllPlayersCards == 4 && mAllBoardCards == 0) {
             startCalculate();
             mBoardCardOne.setClickable(true);
             mBoardCardOne.setBackgroundResource(R.drawable.card_back);
         }
 
-        if (allBoardCards >= 3 && allBoardCards <=4) {
+        if (mAllBoardCards >= 3 && mAllBoardCards <=4) {
             startCalculate();
         }
 
-        if (allBoardCards == 5) {
+        if (mAllBoardCards == 5) {
             int handValue0, handValue1;
-            long[] holeHand = new long[players.length];
+            long[] holeHand = new long[mPlayers.length];
             int i = 0;
-            for (CardSet cs : players)
+            for (CardSet cs : mPlayers)
                 holeHand[i++] = HandEval.encode(cs);
-            long board = HandEval.encode(boardCards);
+            long board = HandEval.encode(mBoardCards);
             handValue0 = HandEval.hand7Eval(board | holeHand[0]);
             handValue1 = HandEval.hand7Eval(board | holeHand[1]);
-            long wins[] = new long[2];
-            long ties[] = new long[2];
-            ties[0] = 0;
-            ties[1] = 0;
+            long wins[] = new long[mPlayers.length];
+            long ties[] = new long[mPlayers.length];
+            ties[PLAYER_ONE] = 0;
+            ties[PLAYER_TWO] = 0;
             double pots = 1;
 
             if(handValue0 > handValue1) {
-                wins[0] = 1;
-                wins[1] = 0;
+                wins[PLAYER_ONE] = 1;
+                wins[PLAYER_TWO] = 0;
                 assignOdds(wins, ties, pots);
             }
             else if (handValue0 < handValue1) {
-                wins[0] = 0;
-                wins[1] = 1;
+                wins[PLAYER_ONE] = 0;
+                wins[PLAYER_TWO] = 1;
                 assignOdds(wins, ties, pots);
             }
             else {
-                wins[0] = 0;
-                wins[1] = 0;
-                ties[0] = 1;
-                ties[1] = 1;
+                wins[PLAYER_ONE] = 0;
+                wins[PLAYER_TWO] = 0;
+                ties[PLAYER_ONE] = 1;
+                ties[PLAYER_TWO] = 1;
                 assignOdds(wins, ties, pots);
             }
         }
@@ -562,8 +462,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         char suitOfCard = 'A';
         for (Drawable drawable : suit) {
             if (drawable != null) {
-                Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-                Drawable resizedImage = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 70, 70, true));
                 if (    drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small).getConstantState()) ||
                         drawable.getConstantState().equals(ContextCompat.getDrawable(this, R.drawable.image_very_small_board).getConstantState())) {
                     suitOfCard = 'C';
@@ -596,28 +494,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             AddCardFragment d = new AddCardFragment();
             FragmentManager fm = getSupportFragmentManager();
             d.show(fm, "replaceCard");
-            buttonOccurredEvent = (Button)v;
+            mButtonOccurredEvent = (Button)v;
             Drawable[] drawables = ((Button) v).getCompoundDrawables();
             switch (v.getId()) {
                 case R.id.basic_quiz_player_one_card_one:
                 case R.id.basic_quiz_player_one_card_two:
-                    playerOccuredEvent = PLAYER_ONE;
+                    mPlayerOccuredEvent = PLAYER_ONE;
                     break;
                 case R.id.basic_quiz_player_two_card_one:
                 case R.id.basic_quiz_player_two_card_two:
-                    playerOccuredEvent = PLAYER_TWO;
+                    mPlayerOccuredEvent = PLAYER_TWO;
                     break;
                 default:
-                    playerOccuredEvent = BOARD_CARD;
+                    mPlayerOccuredEvent = BOARD_CARD;
 
             }
-            cartToRemove = new Card(((Button)v).getText().toString() + getCardSuit(drawables));
+            mCartToRemove = new Card(((Button)v).getText().toString() + getCardSuit(drawables));
         }
     }
-
-
-
-
 
     private class CalculateOdds extends AsyncTask<CardSet, Void, Void> {
         Enumerator enumerator;
@@ -631,24 +525,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected Void doInBackground(CardSet... params) {
-            enumerator = new Enumerator(0, 1, deck, players, 0, params[0]);
+            enumerator = new Enumerator(0, 1, mDeck, mPlayers, 0, params[0]);
             enumerator.run();
 
             for (long l : enumerator.getWins()) {
-                Log.d("asd", "" + l);
                 pots += l;
 
-            }
-            for (long l : enumerator.getSplits()) {
-                Log.d("asd", "" + l);
             }
 
             for (double l : enumerator.getPartialPots()) {
-                Log.d("asd", "" + l);
                 pots += l;
             }
 
-            Log.d("asd", "total pots: " + pots);
             return null;
         }
     }
