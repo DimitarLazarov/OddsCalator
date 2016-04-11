@@ -84,4 +84,10 @@ public class CramDecksManager {
 
         return usersDecks;
     }
+
+    public void removeDeck(long cramDeckId) {
+        open();
+        database.delete(DatabaseHelper.TABLE_CRAM_DECK, DatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(cramDeckId)});
+        close();
+    }
 }

@@ -48,7 +48,7 @@ public class CramCardsUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent startActivityNewDeck = new Intent(v.getContext(), CreateCramDeckActivity.class);
-                startActivityNewDeck.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivityNewDeck.setFlags(Intent.FLAG_ACTIVITY_TASK_ON_HOME);
                 startActivity(startActivityNewDeck);
             }
         });
@@ -93,13 +93,19 @@ public class CramCardsUserActivity extends AppCompatActivity {
         @Override
         public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
             //Remove swiped item from list and notify the RecyclerView
+            final CramDeck currentCramDeck = mCramDecks.get(viewHolder.getAdapterPosition());
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CramCardsUserActivity.this);
-            alertDialogBuilder.setMessage("Are you sure you want to delete " + mCramDecks.get(viewHolder.getAdapterPosition()).getTitle() + " deck?");
+            alertDialogBuilder.setMessage("Are you sure you want to delete " + currentCramDeck.getTitle() + " deck?");
             alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    CramCardsManager.getInstance(getBaseContext()).removeCard(mCramDecks.get(viewHolder.getAdapterPosition()).getId());
-                    //TODO delete logic here
+                    CramCardsManager.getInstance(getBaseContext()).removeCard(currentCramDeck.getId());
+                    deleteDeck(currentCramDeck.getId());
+                    mCramDecks.remove(currentCramDeck);
+                    if (mCramDecks.isEmpty()) {
+                        mMyDecks.setActivated(false);
+                    }
                     mDeckAdapter.notifyDataSetChanged();
                 }
             });
@@ -115,6 +121,12 @@ public class CramCardsUserActivity extends AppCompatActivity {
 
         }
     };
+
+    private void deleteDeck(long id) {
+        CramCardsManager.getInstance(this).removeAllDeckCard(id);
+        CramDecksManager.getInstance(this).removeDeck(id);
+        mDeckAdapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onResume() {

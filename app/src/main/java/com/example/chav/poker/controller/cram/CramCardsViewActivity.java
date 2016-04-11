@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.chav.poker.R;
 import com.example.chav.poker.adapters.CardAdapter;
 import com.example.chav.poker.managers.CramCardsManager;
+import com.example.chav.poker.managers.CramDecksManager;
 
 import java.util.ArrayList;
 
@@ -86,26 +87,46 @@ public class CramCardsViewActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-            //Remove swiped item from list and notify the RecyclerView
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CramCardsViewActivity.this);
-            alertDialogBuilder.setMessage("Are you sure you want to delete " + mCramCards.get(viewHolder.getAdapterPosition()).getQuestion() + " ?");
-            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    CramCardsManager.getInstance(getBaseContext()).removeCard(mCramCards.get(viewHolder.getAdapterPosition()).getId());
-                    mCramCards.remove(viewHolder.getAdapterPosition());
-                    mCardAdapter.notifyDataSetChanged();
-                }
-            });
-            alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    mCardAdapter.notifyDataSetChanged();
-                }
-            });
+            if (mCramCards.size() == 1) {
+                alertDialogBuilder.setMessage("Are you sure you want to delete " + mTitle.getText().toString() + " Deck?");
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final long deckId = getIntent().getExtras().getLong("deck_id");
+                        CramDecksManager.getInstance(CramCardsViewActivity.this).removeDeck(deckId);
+                        finish();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCardAdapter.notifyDataSetChanged();
+                    }
+                });
 
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            } else {
+                alertDialogBuilder.setMessage("Are you sure you want to delete " + mCramCards.get(viewHolder.getAdapterPosition()).getQuestion() + " Card?");
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CramCardsManager.getInstance(getBaseContext()).removeCard(mCramCards.get(viewHolder.getAdapterPosition()).getId());
+                        mCramCards.remove(viewHolder.getAdapterPosition());
+                        mCardAdapter.notifyDataSetChanged();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mCardAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
 
         }
     };

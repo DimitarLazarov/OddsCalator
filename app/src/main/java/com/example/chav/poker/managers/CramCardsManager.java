@@ -88,4 +88,10 @@ public class CramCardsManager {
         database.delete(DatabaseHelper.TABLE_CRAM_CARDS, DatabaseHelper.KEY_ID + " = ?", new String[]{Long.toString(cramCardID)});
         close();
     }
+
+    public void removeAllDeckCard(long cramDeckId) {
+        open();
+        database.delete(DatabaseHelper.TABLE_CRAM_CARDS, DatabaseHelper.KEY_CRAM_CARD_DECK_ID + " = ?", new String[]{Long.toString(cramDeckId)});
+        close();
+    }
 }

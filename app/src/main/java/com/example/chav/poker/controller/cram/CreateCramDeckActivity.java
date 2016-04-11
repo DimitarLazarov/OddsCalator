@@ -107,7 +107,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         mButtonCreateDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCramCards.size() > 2) {
+                if (mCramCards.size() > 0) {
                     CramDeck deck = new CramDeck(mTitleText.getText().toString());
                     CramDecksManager.getInstance(v.getContext()).addDeck(UsersManager.getInstance(v.getContext()).getCurrentUser(), deck);
 
@@ -117,7 +117,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(CreateCramDeckActivity.this, "You need at least 3 cards to create deck.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateCramDeckActivity.this, "You need at least one card to create deck.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
