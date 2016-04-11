@@ -1,6 +1,7 @@
 package com.example.chav.poker.controller.quiz;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -8,10 +9,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -42,6 +43,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     public static final int BOARD_CARD_PADDING = 50;
     public static final String BASIC_QUIZ_FRAGMENT_WIN_TITLE = "title";
     public static final String BASIC_QUIZ_FRAGMENT_CURRENT_STREAK = "current_streak";
+    public static final int TIME_DOUBLE_CLICK_PREVENT = 1000;
+    public static final int TIME_VIBRATION = 100;
 
     private Button mPlayerOneCardOne;
     private Button mPlayerOneCardTwo;
@@ -65,12 +68,14 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private CountDownTimer mCountDownTimer;
     private int mUserChoice;
     private long mLastClickTime;
+    private Vibrator mVibe;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizzes);
+        mVibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         setStatusBarTranslucent(true);
 
@@ -95,9 +100,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < TIME_DOUBLE_CLICK_PREVENT){
                     return;
                 }
+                mVibe.vibrate(TIME_VIBRATION);
                 mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = PLAYER_ONE_WIN;
                 startCalculate();
@@ -106,9 +112,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < TIME_DOUBLE_CLICK_PREVENT){
                     return;
                 }
+                mVibe.vibrate(TIME_VIBRATION);
                 mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = PLAYER_TWO_WIN;
                 startCalculate();
@@ -118,9 +125,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mBoardCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                if (SystemClock.elapsedRealtime() - mLastClickTime < TIME_DOUBLE_CLICK_PREVENT){
                     return;
                 }
+                mVibe.vibrate(TIME_VIBRATION);
                 mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = TIE;
                 startCalculate();
@@ -140,7 +148,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
             @Override
             public void onTick(long millisUntilFinished) {
-                seconds[0] = millisUntilFinished / 1000;
+                seconds[0] = millisUntilFinished / TIME_DOUBLE_CLICK_PREVENT;
                 milliseconds[0] = (millisUntilFinished % 100) / 10;
                 microseconds[0] = millisUntilFinished % 10;
                 mTimer.setText(String.valueOf(seconds[0] + "." + microseconds[0] + microseconds[0]));

@@ -1,12 +1,14 @@
 package com.example.chav.poker.controller.quiz;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +44,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     public static final int PLAYER_CARD_PADDING = 60;
     public static final int BOARD_CARD_TEXT_SIZE = 30;
     public static final int BOARD_CARD_PADDING = 50;
+    public static final int TIME_VIBRATION = 100;
 
     private Button mPlayerOneCardOne;
     private Button mPlayerOneCardTwo;
@@ -61,6 +64,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     private TextView mScore;
     private TextView mTimer;
     private View mViewOccurredEvent;
+    private Vibrator mVibe;
 
     private CardSet mDeck;
     private CardSet mBoard;
@@ -70,12 +74,14 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
     private CountDownTimer mCountDownTimer;
     private int mUserChoice;
 
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizzes);
 
+        mVibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         setStatusBarTranslucent(true);
 
         mPlayerOneCardOne   = (Button) findViewById(R.id.basic_quiz_player_one_card_one);
@@ -180,6 +186,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
                 } else {
                     mTotalAnswers++;
                     startAnimation(mViewOccurredEvent);
+                    mVibe.vibrate(TIME_VIBRATION);
                     prepareBoard();
                 }
             } else if (handValue0 < handValue1) {
@@ -193,6 +200,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
                 } else {
                     mTotalAnswers++;
                     startAnimation(mViewOccurredEvent);
+                    mVibe.vibrate(TIME_VIBRATION);
                     prepareBoard();
                 }
             } else {
@@ -208,6 +216,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
                 } else {
                     mTotalAnswers++;
                     startAnimation(mViewOccurredEvent);
+                    mVibe.vibrate(TIME_VIBRATION);
                     prepareBoard();
                 }
             }
@@ -402,6 +411,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
                 prepareBoard();
             } else {
                 startAnimation(mViewOccurredEvent);
+                mVibe.vibrate(TIME_VIBRATION);
                 mTotalAnswers++;
                 prepareBoard();
             }
