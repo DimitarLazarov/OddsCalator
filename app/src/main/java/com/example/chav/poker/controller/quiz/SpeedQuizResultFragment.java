@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ public class SpeedQuizResultFragment extends DialogFragment {
     private TextView mCurrentResult;
     private ImageButton mCancel;
     private ImageButton mStartAgain;
+    private long mLastClickTime = 0;
 
     private String mTitle;
     private String mMessage;
@@ -97,6 +99,10 @@ public class SpeedQuizResultFragment extends DialogFragment {
         mStartAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 mQuizMessageCallback.onMessageAcknowledged();
                 getDialog().hide();
             }

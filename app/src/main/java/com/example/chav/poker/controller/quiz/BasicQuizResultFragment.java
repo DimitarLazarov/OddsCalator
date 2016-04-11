@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ public class BasicQuizResultFragment extends DialogFragment {
     private int mScore;
     private int mBestScore;
     private BasicQuizMessageCallback mQuizMessageCallback;
+    private long mLastClickTime = 0;
 
     public BasicQuizResultFragment() {
         // Required empty public constructor
@@ -122,6 +124,10 @@ public class BasicQuizResultFragment extends DialogFragment {
         mStartAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 mQuizMessageCallback.onPlayAgain();
                 getDialog().hide();
             }

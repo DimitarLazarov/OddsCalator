@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private int mCurrentWiningStreak;
     private CountDownTimer mCountDownTimer;
     private int mUserChoice;
+    private long mLastClickTime;
 
     @Override
 
@@ -93,6 +95,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerOneCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = PLAYER_ONE_WIN;
                 startCalculate();
             }
@@ -100,6 +106,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerTwoCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = PLAYER_TWO_WIN;
                 startCalculate();
             }
@@ -108,6 +118,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mBoardCards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 mUserChoice = TIE;
                 startCalculate();
             }
