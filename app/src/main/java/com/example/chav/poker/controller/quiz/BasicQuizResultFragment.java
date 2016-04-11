@@ -32,8 +32,6 @@ public class BasicQuizResultFragment extends DialogFragment {
     private ImageButton mStartAgain;
 
     private String mTitle;
-    private String mMessage;
-//    private String mScore;
     private int mScore;
     private int mBestScore;
     private BasicQuizMessageCallback mQuizMessageCallback;
@@ -64,9 +62,8 @@ public class BasicQuizResultFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTitle = getArguments().getString("title");
-        mMessage = getArguments().getString("message");
-        mScore = getArguments().getInt("score");
+        mTitle = getArguments().getString(BasicQuizActivity.BASIC_QUIZ_FRAGMENT_WIN_TITLE);
+        mScore = getArguments().getInt(BasicQuizActivity.BASIC_QUIZ_FRAGMENT_CURRENT_STREAK);
 
     }
 
@@ -93,7 +90,7 @@ public class BasicQuizResultFragment extends DialogFragment {
         mResultText.setText(mTitle);
 
         mCurrentStreak = (TextView) v.findViewById(R.id.basic_quiz_current_streak);
-        mCurrentStreak.setText(mMessage);
+        mCurrentStreak.setText("Current Streak: " + mScore);
         mBestStreak = (TextView) v.findViewById(R.id.basic_quiz_longest_streak);
 
 

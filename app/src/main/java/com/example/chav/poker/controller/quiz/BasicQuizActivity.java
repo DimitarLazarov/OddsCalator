@@ -39,6 +39,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     public static final int PLAYER_CARD_PADDING = 60;
     public static final int BOARD_CARD_TEXT_SIZE = 30;
     public static final int BOARD_CARD_PADDING = 50;
+    public static final String BASIC_QUIZ_FRAGMENT_WIN_TITLE = "title";
+    public static final String BASIC_QUIZ_FRAGMENT_CURRENT_STREAK = "current_streak";
 
     private Button mPlayerOneCardOne;
     private Button mPlayerOneCardTwo;
@@ -59,7 +61,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
     private CardSet mBoard;
     private CardSet[] mPlayers;
     private int mCurrentWiningStreak;
-    private int mBestWinStreak;
     private CountDownTimer mCountDownTimer;
     private int mUserChoice;
 
@@ -167,9 +168,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 if (mUserChoice == getWinner(wins, pots)) {
                     mCurrentWiningStreak++;
                     mCountDownTimer.cancel();
-                    if (mCurrentWiningStreak > mBestWinStreak) {
-                        mBestWinStreak = mCurrentWiningStreak;
-                    }
                     startWiningFragment();
                 } else {
                     mCountDownTimer.cancel();
@@ -182,9 +180,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 if (mUserChoice == getWinner(wins, pots)) {
                     mCurrentWiningStreak++;
                     mCountDownTimer.cancel();
-                    if (mCurrentWiningStreak > mBestWinStreak) {
-                        mBestWinStreak = mCurrentWiningStreak;
-                    }
                     startWiningFragment();
                 } else {
                     mCurrentWiningStreak = 0;
@@ -198,9 +193,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 ties[PLAYER_TWO] = 1;
                 if (mUserChoice == getWinner(wins, pots)) {
                     mCurrentWiningStreak++;
-                    if (mCurrentWiningStreak > mBestWinStreak) {
-                        mBestWinStreak = mCurrentWiningStreak;
-                    }
                     mCountDownTimer.cancel();
                     startWiningFragment();
                 } else {
@@ -331,16 +323,15 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
 
     private void startWiningFragment() {
-        mScore.setText("Current Streak: " + mBestWinStreak);
+        mScore.setText("Current Streak: " + mCurrentWiningStreak);
         mCountDownTimer.cancel();
         BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
         basicQuizMessageCallback.setCancelable(false);
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
-        args.putString("title", "Good Job!");
-        args.putString("message", "Current Streak: " + mCurrentWiningStreak);
+        args.putString(BASIC_QUIZ_FRAGMENT_WIN_TITLE, "Good Job!");
+        args.putInt(BASIC_QUIZ_FRAGMENT_CURRENT_STREAK, mCurrentWiningStreak);
 //        args.putString("score", "Best streak: " + mBestWinStreak);
-        args.putInt("score", mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
 
@@ -353,9 +344,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
         args.putString("title", "Incorrect");
-        args.putString("message", "Current Streak: " + mCurrentWiningStreak);
+        args.putInt(BASIC_QUIZ_FRAGMENT_CURRENT_STREAK, mCurrentWiningStreak);
 //        args.putInt("score", "Longest streak " + mBestWinStreak);
-        args.putInt("score", mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
         mScore.setText("Current Streak: 0");
@@ -404,9 +394,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
             super.onPostExecute(aVoid);
             if( mUserChoice == getWinner(enumerator.getWins(), pots)) {
                 mCurrentWiningStreak++;
-                if (mCurrentWiningStreak > mBestWinStreak) {
-                    mBestWinStreak = mCurrentWiningStreak;
-                }
                 startWiningFragment();
             } else {
                 startLosingFragment();

@@ -50,18 +50,6 @@ public class CramCardsManager {
             database.close();
     }
 
-    public void addCard(CramDeck cramDeck, CramCard cramCard) {
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.KEY_CRAM_CARD_DECK_ID, cramDeck.getId());
-        values.put(DatabaseHelper.KEY_CRAM_CARD_FRONT, cramCard.getQuestion());
-        values.put(DatabaseHelper.KEY_CRAM_CARD_BACK, cramCard.getAnswer());
-
-        open();
-        long cramCardId = database.insert(DatabaseHelper.TABLE_CRAM_CARDS, DatabaseHelper.KEY_CRAM_CARD_FRONT, values);
-        cramCard.setId(cramCardId);
-        close();
-    }
-
     public void addCard(long cramDeckId, CramCard cramCard) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.KEY_CRAM_CARD_DECK_ID, cramDeckId);
@@ -76,8 +64,7 @@ public class CramCardsManager {
 
     public ArrayList<CramCard> getDeckCards(long decId) {
         ArrayList<CramCard> deckCards = new ArrayList<>();
-//        dbHelper.getReadableDatabase();
-        open(); //TODO check if it works
+        open();
         String selectKey = "SELECT *FROM " + DatabaseHelper.TABLE_CRAM_CARDS + " WHERE " + DatabaseHelper.KEY_CRAM_CARD_DECK_ID + " = " + decId;
         Cursor cursor = database.rawQuery(selectKey, null);
         if (cursor.moveToFirst()) {
