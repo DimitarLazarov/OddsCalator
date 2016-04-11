@@ -334,7 +334,7 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
             return PLAYER_TWO_WIN;
         }
 
-        return TIE; //TODO add tie
+        return TIE;
 
 
 //        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));

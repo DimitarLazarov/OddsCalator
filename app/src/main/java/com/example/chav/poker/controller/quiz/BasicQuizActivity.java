@@ -358,6 +358,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         args.putInt("score", mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
+        mScore.setText("Current Streak: 0");
+        mCurrentWiningStreak = 0;
     }
 
     public Drawable getCardSuit(char suit) {
@@ -408,7 +410,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 startWiningFragment();
             } else {
                 startLosingFragment();
-                mCurrentWiningStreak = 0;
             }
 
         }
@@ -444,4 +445,5 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
+
 }
