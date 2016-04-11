@@ -204,7 +204,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                     mCountDownTimer.cancel();
                     startWiningFragment();
                 } else {
-                    mCurrentWiningStreak = 0;
                     mCountDownTimer.cancel();
                     startLosingFragment();
                 }
@@ -218,7 +217,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                     mCountDownTimer.cancel();
                     startWiningFragment();
                 } else {
-                    mCurrentWiningStreak = 0;
                     startLosingFragment();
                     mCountDownTimer.cancel();
                 }
@@ -353,7 +351,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         Bundle args = new Bundle();
         args.putString(BASIC_QUIZ_FRAGMENT_WIN_TITLE, "Good Job!");
         args.putInt(BASIC_QUIZ_FRAGMENT_CURRENT_STREAK, mCurrentWiningStreak);
-//        args.putString("score", "Best streak: " + mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
 
@@ -367,7 +364,6 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         Bundle args = new Bundle();
         args.putString("title", "Incorrect");
         args.putInt(BASIC_QUIZ_FRAGMENT_CURRENT_STREAK, mCurrentWiningStreak);
-//        args.putInt("score", "Longest streak " + mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
         mScore.setText("Current Streak: 0");
