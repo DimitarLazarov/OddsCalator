@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN)
                         && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    // Perform action on Enter key press
                     mUsername.clearFocus();
                     mPassword.requestFocus();
                     return true;

@@ -20,8 +20,6 @@ public class CramCardCreateActivity extends AppCompatActivity {
 
     private EditText mFront;
     private EditText mBack;
-//    private Button mCancel;
-//    private Button mConfirm;
     private ImageButton mCancel;
     private ImageButton mConfirm;
 
@@ -31,20 +29,13 @@ public class CramCardCreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cram_card_create);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
+
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mFront = (EditText) findViewById(R.id.create_cram_card_front);
         mFront.setTypeface(myTypeface);
         mBack = (EditText) findViewById(R.id.create_cram_card_back);
         mBack.setTypeface(myTypeface);
-//        mCancel = (Button) findViewById(R.id.create_cram_card_cancel);
-//        mCancel.setTypeface(myTypeface);
-//        mConfirm = (Button) findViewById(R.id.create_cram_card_confirm);
-//        mConfirm.setTypeface(myTypeface);
 
         mCancel = (ImageButton) findViewById(R.id.create_cram_card_cancel);
         mConfirm = (ImageButton) findViewById(R.id.create_cram_card_confirm);

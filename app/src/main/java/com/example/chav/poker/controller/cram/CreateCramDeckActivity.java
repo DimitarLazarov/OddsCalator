@@ -33,9 +33,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
     public static final int CARD_REQUEST = 1;
 
-//    private Button mButtonCancel;
-//    private Button mButtonNext;
-//    private Button mButtonCreateDeck;
     private ImageButton mButtonCancel;
     private ImageButton mButtonNext;
     private ImageButton mButtonCreateDeck;
@@ -52,24 +49,13 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_cram_deck);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         mCramCards = new ArrayList<>();
 
-//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
-//        mButtonCancel = (Button) findViewById(R.id.create_deck_cancel);
-//        mButtonCancel.setTypeface(myTypeface);
-//        mButtonNext = (Button) findViewById(R.id.create_deck_next);
-//        mButtonNext.setTypeface(myTypeface);
         mButtonAddCard = (Button) findViewById(R.id.create_deck_add_card);
         mButtonAddCard.setTypeface(myTypeface);
-//        mButtonCreateDeck = (Button) findViewById(R.id.create_deck_create_cram_deck);
-//        mButtonCreateDeck.setTypeface(myTypeface);
 
         mButtonCancel = (ImageButton) findViewById(R.id.create_deck_cancel);
         mButtonNext = (ImageButton) findViewById(R.id.create_deck_next);
@@ -85,8 +71,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         mButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cancelIntent = new Intent(v.getContext(), CramCardsUserActivity.class);
-                v.getContext().startActivity(cancelIntent);
+                finish();
             }
         });
 
@@ -99,9 +84,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mButtonAddCard.setVisibility(View.VISIBLE);
                     mTitleText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     mTitleText.setBackground(null);
-//                    mTitleText.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.boardColor));
-//                    Drawable background = mTitleText.getBackground();
-//                    background.setAlpha(80);
                     mTitleText.setTextSize(30);
                     mTitleText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.cardColor));
                     mTitleText.setClickable(false);
@@ -114,8 +96,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     mRecyclerCreatedCards.setAdapter(mCardAdapter);
                     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
                     itemTouchHelper.attachToRecyclerView(mRecyclerCreatedCards);
-//                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-//                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MODE_CHANGED);
                 }
                 else {
                     Toast.makeText(CreateCramDeckActivity.this, "Please enter title of deck.", Toast.LENGTH_SHORT).show();
@@ -130,12 +110,9 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                 if (mCramCards.size() > 2) {
                     CramDeck deck = new CramDeck(mTitleText.getText().toString());
                     CramDecksManager.getInstance(v.getContext()).addDeck(UsersManager.getInstance(v.getContext()).getCurrentUser(), deck);
-//                Toast.makeText(v.getContext(), deck.getTitle(), Toast.LENGTH_SHORT).show();
+
                     for (CramCard cramCard : mCramCards) {
                         CramCardsManager.getInstance(v.getContext()).addCard(deck.getId(), cramCard);
-//                    CramCardsManager.getInstance(v.getContext()).addCard(deck, cramCard);
-//                    Toast.makeText(v.getContext(), cramCard.getQuestion(), Toast.LENGTH_SHORT).show();
-                        //TODO set name of Cram Deck unique and catch SQLiteException
                     }
                     finish();
                 }
@@ -163,7 +140,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
         @Override
         public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
-            //Remove swiped item from list and notify the RecyclerView
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CreateCramDeckActivity.this);
             alertDialogBuilder.setMessage("Are u sure delete this?");
             alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -171,7 +147,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     mCramCards.remove(viewHolder.getAdapterPosition());
                     mCardAdapter.notifyDataSetChanged();
-                    // mCardAdapter.notifyItemRemoved(viewHolder.getLayoutPosition());
                 }
             });
             alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -197,7 +172,6 @@ public class CreateCramDeckActivity extends AppCompatActivity {
                     String back = data.getExtras().getString("back");
                     mCramCards.add(new CramCard(front, back));
                     mCardAdapter.notifyDataSetChanged();
-//                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
                 }
         }
     }

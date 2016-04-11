@@ -28,7 +28,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
-        private boolean mShowOrHide = false;
         private TextView mQuestionCard;
         private View mSeparator;
         private TextView mAnswerCard;
@@ -52,19 +51,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
     }
 
-    public static class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-        private final int mVerticalSpaceHeight;
-
-        public VerticalSpaceItemDecoration(int mVerticalSpaceHeight) {
-            this.mVerticalSpaceHeight = mVerticalSpaceHeight;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                                   RecyclerView.State state) {
-            outRect.bottom = mVerticalSpaceHeight;
-        }
-    }
 
     @Override
     public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

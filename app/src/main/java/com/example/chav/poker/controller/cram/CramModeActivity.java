@@ -27,7 +27,6 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
     private FrameLayout mCardLayout;
     private Button mCorrectButton;
     private Button mWrongButton;
-//    private Button mBackButton;
     private ImageButton mBackButton;
     private TextView mCramModeTitle;
     private Random mRandomGenerator = new Random();
@@ -50,10 +49,6 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
         setContentView(R.layout.activity_cram_mode);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mCramModeTitle = (TextView) findViewById(R.id.cram_mode);
@@ -63,14 +58,6 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
         long deckId = getIntent().getExtras().getLong("deck_id");
         mCards.addAll(CramCardsManager.getInstance(this).getDeckCards(deckId));
-//        CramCard card1 = new CramCard("Who are u?", "Player.");
-//        CramCard card2 = new CramCard("Are u ok?", "Im ok.");
-//        CramCard card3 = new CramCard("Nice a?", "nice.");
-//        CramCard card4 = new CramCard("Fuck u?", "No no.");
-//        mCards.add(card1);
-//        mCards.add(card2);
-//        mCards.add(card3);
-//        mCards.add(card4);
 
         mTextCurrentCard = (TextView) findViewById(R.id.cram_mode_current_card);
 
@@ -129,8 +116,6 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
         });
 
         mBackFragment = new CramCardFrontEndFragment();
-//        mFrontFragment = new CramCardFrontEndFragment();
-//        prepareNewGame();
 
         int nextCard = mRandomGenerator.nextInt(mCards.size());
         mAllCards = mCards.size();

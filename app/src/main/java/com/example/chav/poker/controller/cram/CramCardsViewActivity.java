@@ -38,10 +38,6 @@ public class CramCardsViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cram_cards_view);
 
         setStatusBarTranslucent(true);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            Window w = getWindow();
-//            w.setStatusBarColor(ContextCompat.getColor(this, R.color.darkGreen));
-//        }
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
 
@@ -62,16 +58,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        CramCard card1 = new CramCard("hahah", "da da");
-//        CramCard card2 = new CramCard("hahah", "da da");
-//        CramCard card3 = new CramCard("hahah", "da da");
-//        CramCard card4 = new CramCard("hahah", "da da");
         mCramCards = new ArrayList<>();
-//        mCramCards.add(card1);
-//        mCramCards.add(card2);
-//        mCramCards.add(card3);
-//        mCramCards.add(card4);
 
         mCardAdapter = new CardAdapter(mCramCards);
         mRecyclerViewCards.setLayoutManager(new LinearLayoutManager(this));
@@ -108,7 +95,6 @@ public class CramCardsViewActivity extends AppCompatActivity {
                     CramCardsManager.getInstance(getBaseContext()).removeCard(mCramCards.get(viewHolder.getAdapterPosition()).getId());
                     mCramCards.remove(viewHolder.getAdapterPosition());
                     mCardAdapter.notifyDataSetChanged();
-                   // mCardAdapter.notifyItemRemoved(viewHolder.getLayoutPosition());
                 }
             });
             alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -149,7 +135,6 @@ public class CramCardsViewActivity extends AppCompatActivity {
                     mCramCards.add(cramCard);
                     CramCardsManager.getInstance(this).addCard(deckId, cramCard);
                     mCardAdapter.notifyDataSetChanged();
-//                    Toast.makeText(this, front + back, Toast.LENGTH_SHORT).show();
                 }
         }
     }

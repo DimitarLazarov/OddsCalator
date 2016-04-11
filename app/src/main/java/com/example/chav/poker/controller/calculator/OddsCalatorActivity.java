@@ -201,7 +201,6 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
                 mButtonOccurredEvent = mPOneCardOne;
                 mNextButtonToClick = mPOneCardTwo;
                 mPlayerOccuredEvent = PLAYER_ONE;
-                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_one_card_two:
                 d.show(fm, "addCard");
@@ -209,14 +208,12 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
                 mNextButtonToClick = new Button(this);
                 mNextButtonToClick.setVisibility(View.GONE);
                 mPlayerOccuredEvent = PLAYER_ONE;
-                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_one:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mPTwoCardOne;
                 mNextButtonToClick = mPTwoCardTwo;
                 mPlayerOccuredEvent = PLAYER_TWO;
-                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_player_two_card_two:
                 d.show(fm, "addCard");
@@ -224,44 +221,37 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
                 mNextButtonToClick = new Button(this);
                 mNextButtonToClick.setVisibility(View.GONE);
                 mPlayerOccuredEvent = PLAYER_TWO;
-                mAllPlayersCards++;
                 break;
             case R.id.basic_quiz_card_one_board:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mBoardCardOne;
                 mPlayerOccuredEvent = BOARD_CARD;
                 mNextButtonToClick = mBoardCardTwo;
-                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_two_board:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mBoardCardTwo;
                 mPlayerOccuredEvent = BOARD_CARD;
                 mNextButtonToClick = mBoardCardThree;
-                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_three_board:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mBoardCardThree;
                 mPlayerOccuredEvent = BOARD_CARD;
                 mNextButtonToClick = mBoardCardFour;
-                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_four_board:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mBoardCardFour;
                 mPlayerOccuredEvent = BOARD_CARD;
                 mNextButtonToClick = mBoardCardFive;
-                mAllBoardCards++;
                 break;
             case R.id.basic_quiz_card_five_board:
                 d.show(fm, "addCard");
                 mButtonOccurredEvent = mBoardCardFive;
                 mNextButtonToClick = new Button(this);
                 mNextButtonToClick.setVisibility(View.GONE);
-                mBoardCardFive.setClickable(false);
                 mPlayerOccuredEvent = BOARD_CARD;
-                mAllBoardCards++;
                 break;
             case R.id.button_back:
                 finish();
@@ -294,9 +284,11 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
             mButtonOccurredEvent.setBackgroundResource(R.drawable.card_front);
             if (mPlayerOccuredEvent == BOARD_CARD) {
                 mBoardCards.add(card);
+                mAllBoardCards++;
                 addBoardCard(receivedCard, mButtonOccurredEvent);
             } else {
                 mPlayers[mPlayerOccuredEvent].add(card);
+                mAllPlayersCards++;
                 addPlayerCard(receivedCard, mButtonOccurredEvent);
             }
             mDeck.remove(card);
