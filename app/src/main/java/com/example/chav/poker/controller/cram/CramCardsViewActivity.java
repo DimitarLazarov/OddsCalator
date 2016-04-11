@@ -94,6 +94,7 @@ public class CramCardsViewActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         final long deckId = getIntent().getExtras().getLong("deck_id");
+                        CramCardsManager.getInstance(getBaseContext()).removeCard(mCramCards.get(viewHolder.getAdapterPosition()).getId());
                         CramDecksManager.getInstance(CramCardsViewActivity.this).removeDeck(deckId);
                         finish();
                     }
