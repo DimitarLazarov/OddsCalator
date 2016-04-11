@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -66,7 +67,18 @@ public class CreateCramDeckActivity extends AppCompatActivity {
 
         mRecyclerCreatedCards = (RecyclerView) findViewById(R.id.create_deck_recycler_add_cram_cards);
         mTitleText = (EditText) findViewById(R.id.create_deck_title_deck);
-        mTitleText.setTypeface(myTypeface);
+        mTitleText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on Enter key press
+                    generateAddCardView();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mButtonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,28 +90,7 @@ public class CreateCramDeckActivity extends AppCompatActivity {
         mButtonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mTitleText.getText().toString().isEmpty()) {
-                    mButtonNext.setVisibility(View.GONE);
-                    mButtonCreateDeck.setVisibility(View.VISIBLE);
-                    mButtonAddCard.setVisibility(View.VISIBLE);
-                    mTitleText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    mTitleText.setBackground(null);
-                    mTitleText.setTextSize(30);
-                    mTitleText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.cardColor));
-                    mTitleText.setClickable(false);
-                    mTitleText.setFocusable(false);
-                    mTitleText.setKeyListener(null);
-                    mTitleText.setGravity(Gravity.CENTER);
-                    mRecyclerCreatedCards.setVisibility(View.VISIBLE);
-                    mCardAdapter = new CardAdapter(mCramCards);
-                    mRecyclerCreatedCards.setLayoutManager(new LinearLayoutManager(v.getContext()));
-                    mRecyclerCreatedCards.setAdapter(mCardAdapter);
-                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-                    itemTouchHelper.attachToRecyclerView(mRecyclerCreatedCards);
-                }
-                else {
-                    Toast.makeText(CreateCramDeckActivity.this, "Please enter title of deck.", Toast.LENGTH_SHORT).show();
-                }
+                generateAddCardView();
             }
         });
 
@@ -130,6 +121,31 @@ public class CreateCramDeckActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void generateAddCardView() {
+        if (!mTitleText.getText().toString().isEmpty()) {
+            mButtonNext.setVisibility(View.GONE);
+            mButtonCreateDeck.setVisibility(View.VISIBLE);
+            mButtonAddCard.setVisibility(View.VISIBLE);
+            mTitleText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            mTitleText.setBackground(null);
+            mTitleText.setTextSize(30);
+            mTitleText.setTextColor(ContextCompat.getColor(this, R.color.cardColor));
+            mTitleText.setClickable(false);
+            mTitleText.setFocusable(false);
+            mTitleText.setKeyListener(null);
+            mTitleText.setGravity(Gravity.CENTER);
+            mRecyclerCreatedCards.setVisibility(View.VISIBLE);
+            mCardAdapter = new CardAdapter(mCramCards);
+            mRecyclerCreatedCards.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerCreatedCards.setAdapter(mCardAdapter);
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+            itemTouchHelper.attachToRecyclerView(mRecyclerCreatedCards);
+        }
+        else {
+            Toast.makeText(CreateCramDeckActivity.this, "Please enter title of deck.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

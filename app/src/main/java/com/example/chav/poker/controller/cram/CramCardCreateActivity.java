@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,8 +35,38 @@ public class CramCardCreateActivity extends AppCompatActivity {
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "HelveticaRoman.ttf");
         mFront = (EditText) findViewById(R.id.create_cram_card_front);
         mFront.setTypeface(myTypeface);
+        mFront.setNextFocusDownId(R.id.create_cram_card_back);
+        mFront.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on Enter key press
+                    mFront.clearFocus();
+                    mBack.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
         mBack = (EditText) findViewById(R.id.create_cram_card_back);
         mBack.setTypeface(myTypeface);
+        mBack.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on Enter key press
+                    if(!mFront.getText().toString().isEmpty() && !mBack.getText().toString().trim().isEmpty()) {
+                        finishWithResult();
+                    } else {
+                        Toast.makeText(v.getContext(), "Please enter valid values", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
 
         mCancel = (ImageButton) findViewById(R.id.create_cram_card_cancel);
         mConfirm = (ImageButton) findViewById(R.id.create_cram_card_confirm);
