@@ -84,7 +84,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         mPlayerTwoCards     = (LinearLayout) findViewById(R.id.basic_quiz_player_two_card_holder);
         mBoardCards         = (LinearLayout) findViewById(R.id.basic_quiz_board);
         mScore              = (TextView) findViewById(R.id.basic_quiz_score_counter);
-        mScore.setText("Winning Streak: 0");
+        mScore.setText("Current Streak: 0");
         mTimer              = (TextView) findViewById(R.id.basic_quiz_timer);
 
         prepareBoard();
@@ -331,15 +331,16 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
 
 
     private void startWiningFragment() {
-        mScore.setText("Best streak: " + mBestWinStreak);
+        mScore.setText("Current Streak: " + mBestWinStreak);
         mCountDownTimer.cancel();
         BasicQuizResultFragment basicQuizMessageCallback = new BasicQuizResultFragment();
         basicQuizMessageCallback.setCancelable(false);
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
-        args.putString("title", "Good job!");
-        args.putString("message", "Current streak: " + mCurrentWiningStreak);
-        args.putString("score", "Best streak: " + mBestWinStreak);
+        args.putString("title", "Good Job!");
+        args.putString("message", "Current Streak: " + mCurrentWiningStreak);
+//        args.putString("score", "Best streak: " + mBestWinStreak);
+        args.putInt("score", mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
 
@@ -352,8 +353,9 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
         args.putString("title", "Incorrect");
-        args.putString("message", "Current streak " + mCurrentWiningStreak);
-        args.putString("score", "Longest streak " + mBestWinStreak);
+        args.putString("message", "Current Streak: " + mCurrentWiningStreak);
+//        args.putInt("score", "Longest streak " + mBestWinStreak);
+        args.putInt("score", mBestWinStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");
     }
@@ -405,8 +407,8 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
                 }
                 startWiningFragment();
             } else {
-                mCurrentWiningStreak = 0;
                 startLosingFragment();
+                mCurrentWiningStreak = 0;
             }
 
         }

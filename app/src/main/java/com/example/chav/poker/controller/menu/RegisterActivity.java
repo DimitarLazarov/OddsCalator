@@ -165,10 +165,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isLegalEMail(String eMail){
 
-//        if (!eMail.contains("@") || !eMail.contains(".") || eMail.trim().length() < 8) {
-//            mEmail.setError("incorrect email entry");
-//            return false;
-//        }
 
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         if(!pattern.matcher(eMail).matches()){

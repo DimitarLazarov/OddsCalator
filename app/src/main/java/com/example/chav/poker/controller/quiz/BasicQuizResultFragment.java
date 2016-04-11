@@ -4,11 +4,9 @@ package com.example.chav.poker.controller.quiz;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.chav.poker.R;
+import com.example.chav.poker.controller.SavedSharedPreferences;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,15 +23,19 @@ import com.example.chav.poker.R;
 public class BasicQuizResultFragment extends DialogFragment {
 
 
+    public static final String INCORRECT = "incorrect";
+
     private TextView mResultText;
-    private TextView mResultPoints;
-    private TextView mCurrentResult;
+    private TextView mCurrentStreak;
+    private TextView mBestStreak;
     private ImageButton mCancel;
     private ImageButton mStartAgain;
 
     private String mTitle;
     private String mMessage;
-    private String mScore;
+//    private String mScore;
+    private int mScore;
+    private int mBestScore;
     private BasicQuizMessageCallback mQuizMessageCallback;
 
     public BasicQuizResultFragment() {
@@ -63,8 +66,18 @@ public class BasicQuizResultFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         mTitle = getArguments().getString("title");
         mMessage = getArguments().getString("message");
-        mScore = getArguments().getString("score");
+        mScore = getArguments().getInt("score");
 
+    }
+
+    private boolean checkNewBestResult(int score) {
+        mBestScore = SavedSharedPreferences.getBestScore(getActivity());
+        if (score > mBestScore) {
+            SavedSharedPreferences.setBestScore(getActivity().getBaseContext(), score);
+            mBestScore = score;
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -74,16 +87,29 @@ public class BasicQuizResultFragment extends DialogFragment {
         View v = inflater.inflate(R.layout.fragment_basic_quiz_result, container, false);
 
         getDialog().setCanceledOnTouchOutside(false);
+        mBestScore = SavedSharedPreferences.getBestScore(getActivity());
 
         mResultText = (TextView) v.findViewById(R.id.basic_quiz_result_text);
         mResultText.setText(mTitle);
-        mResultPoints = (TextView) v.findViewById(R.id.basic_quiz_current_streak);
-        mResultPoints.setText(mMessage);
-        mCurrentResult = (TextView) v.findViewById(R.id.basic_quiz_longest_streak);
-        mCurrentResult.setText(mScore);
+
+        mCurrentStreak = (TextView) v.findViewById(R.id.basic_quiz_current_streak);
+        mCurrentStreak.setText(mMessage);
+        mBestStreak = (TextView) v.findViewById(R.id.basic_quiz_longest_streak);
+
+
+
         mStartAgain = (ImageButton) v.findViewById(R.id.basic_quiz_new_game);
-        if (mTitle.equalsIgnoreCase("incorrect")) {
+        if (mTitle.equalsIgnoreCase(INCORRECT)) {
             mStartAgain.setImageResource(R.drawable.button_reset_two);
+            if(checkNewBestResult(mScore)){
+                mBestStreak.setText("New Best Streak: " + mBestScore);
+            } else {
+                mBestStreak.setText("Best Streak: " + mBestScore);
+            }
+
+        } else {
+
+            mBestStreak.setText("Best Streak: " + mBestScore);
         }
         mCancel = (ImageButton) v.findViewById(R.id.basic_quiz_cancel);
 
@@ -106,8 +132,6 @@ public class BasicQuizResultFragment extends DialogFragment {
 
         return v;
     }
-
-
 
     interface BasicQuizMessageCallback{
         void onPlayAgain();

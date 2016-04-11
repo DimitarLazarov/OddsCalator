@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.example.chav.poker.model_db.DatabaseHelper;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,28 @@ public class UsersManager {
         return instance;
     }
 
+    private static String md5(String password) {
+        try {
+
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(password.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < messageDigest.length; i++) {
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
@@ -41,23 +65,21 @@ public class UsersManager {
         dbHelper = DatabaseHelper.getInstance(context);
     }
 
-    // Open Database function
     public void open() {
         // Allow database to be in writable mode
         database = dbHelper.getWritableDatabase();
     }
 
-    // Close Database function
     public void close() {
         if (database != null)
             database.close();
     }
 
     public void registerUser(User user) {
-
+        String gryptPass = md5(user.getPassword());
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.KEY_USER_USERNAME, user.getUsername());
-        values.put(DatabaseHelper.KEY_USER_PASSWORD, user.getPassword());
+        values.put(DatabaseHelper.KEY_USER_PASSWORD, gryptPass);
         values.put(DatabaseHelper.KEY_USER_EMAIL, user.getEmail());
 
         open();
@@ -67,8 +89,6 @@ public class UsersManager {
 
         this.mCurrentUser = user;
 
-        Log.d("user", "" + user.getId());
-        Log.d("user", "" + user.getUsername());
     }
 
     public User getUser(String user) {
@@ -100,7 +120,6 @@ public class UsersManager {
         String selectQuery = " SELECT * FROM " + DatabaseHelper.TABLE_USERS;
         database = dbHelper.getInstance(mContext).getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
-        Log.d("chavdar", "we got here");
         if (cursor.moveToFirst()) {
             do {
                 long id = cursor.getLong(cursor.getColumnIndex(DatabaseHelper.KEY_ID));
@@ -132,8 +151,8 @@ public class UsersManager {
 
     public boolean login(String username, String password) throws SQLException{
         open();
-
-        Cursor mCursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USERS + " WHERE username=? AND password=?", new String[]{username,password});
+        String cryptPass = md5(password);
+        Cursor mCursor = database.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_USERS + " WHERE username=? AND password=?", new String[]{username,cryptPass});
         if (mCursor != null) {
             if(mCursor.getCount() > 0)
             {
@@ -172,7 +191,6 @@ public class UsersManager {
 
         Cursor c = database.rawQuery(selectQuery, null);
 
-
         if (c != null && c.moveToFirst()) {
             close();
             c.close();
@@ -184,35 +202,4 @@ public class UsersManager {
         }
     }
 
-//    public User getUser(String username) {
-//
-//        User saveUser = null;
-//
-//        for (User user : getAllUsers()) {
-//            if (user.getEmail().equals(username)) {
-//                saveUser = user;
-//            }
-//        }
-//
-//        return saveUser;
-//    }
-
-    //    public void getUserDeck(){
-//
-//    }
-
-//    public long createUser(User user){
-//        database = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(KEY_USER_USERNAME, user.getUsername());
-//        values.put(KEY_USER_FIRST_NAME, user.getFirstName());
-//        values.put(KEY_USER_LAST_NAME, user.getLastName());
-//        values.put(KEY_USER_PASSWORD, user.getPassword());
-//        values.put(KEY_USER_EMAIL, user.getEmail());
-//
-//        //insert row
-//        long user_id = db.insert(TABLE_USERS, KEY_USER_USERNAME, values);
-//
-//        return user_id;
-//    }
 }
