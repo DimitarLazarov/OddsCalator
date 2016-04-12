@@ -247,12 +247,10 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
         Random r = new Random();
         int rGen = r.nextInt(3) + 3;
         mBoard = drawCards(rGen);
-        if (rGen >= 3) {
-            mBoardCardFour.setText("");
-            mBoardCardFour.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            mBoardCardFive.setText("");
-            mBoardCardFive.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        }
+        mBoardCardFour.setText("");
+        mBoardCardFour.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        mBoardCardFive.setText("");
+        mBoardCardFive.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         setBoard(mPlayers, mBoard);
     }
 
@@ -333,10 +331,8 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
 
 
     private int getWinner(long[] wins, long[] ties, double pots) {
-        double mPlayerOneWinningChance = wins[0] * 100.0 / pots;
-        double mPlayerTwoWinningChance = wins[1] * 100.0 / pots;
-//        double mPlayerOneTieChance = ties[0] * 100.0 / pots;
-//        double mPlayerTwoTieChance = ties[1] * 100.0 / pots;
+        double mPlayerOneWinningChance = wins[PLAYER_ONE] * 100.0 / pots;
+        double mPlayerTwoWinningChance = wins[PLAYER_TWO] * 100.0 / pots;
         if (mPlayerOneWinningChance > mPlayerTwoWinningChance) {
             return PLAYER_ONE_WIN;
         } else if (mPlayerOneWinningChance < mPlayerTwoWinningChance) {
@@ -346,8 +342,6 @@ public class SpeedQuizActivity extends AppCompatActivity implements SpeedQuizRes
         return TIE;
 
 
-//        mPlayerOneTieOdds.setText(String.format("%.2f%%", mPlayerOneTieChance));
-//        mPlayerTwoTieOdds.setText(String.format("%.2f%%", mPlayerTwoTieChance));
     }
 
     @Override

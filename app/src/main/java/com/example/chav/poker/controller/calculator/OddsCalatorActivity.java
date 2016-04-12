@@ -285,11 +285,11 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
             if (mPlayerOccuredEvent == BOARD_CARD) {
                 mBoardCards.add(card);
                 mAllBoardCards++;
-                addBoardCard(receivedCard, mButtonOccurredEvent);
+                addBoardCard(receivedCard);
             } else {
                 mPlayers[mPlayerOccuredEvent].add(card);
                 mAllPlayersCards++;
-                addPlayerCard(receivedCard, mButtonOccurredEvent);
+                addPlayerCard(receivedCard);
             }
             mDeck.remove(card);
             mDealtCards.add(card);
@@ -315,11 +315,11 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
             mButtonOccurredEvent.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             if (mPlayerOccuredEvent == BOARD_CARD) {
                 mBoardCards.add(card);
-                addBoardCard(receivedCard, mButtonOccurredEvent);
+                addBoardCard(receivedCard);
 
             } else {
                 mPlayers[mPlayerOccuredEvent].add(card);
-                addPlayerCard(receivedCard, mButtonOccurredEvent);
+                addPlayerCard(receivedCard);
             }
 
             removePreviousCard(mCartToRemove);
@@ -330,7 +330,7 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void addPlayerCard(String card, Button whereToAdd) {
+    public void addPlayerCard(String card) {
         Drawable image = getCardSuit(card.charAt(1));
         mButtonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
         mButtonOccurredEvent.setTextSize(40);
@@ -338,7 +338,7 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void addBoardCard(String card, Button whereToAdd) {
+    public void addBoardCard(String card) {
         mButtonOccurredEvent.setTextSize(30);
         Drawable image = getCardSuitBoard(card.charAt(1));
         mButtonOccurredEvent.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, image);
@@ -370,7 +370,7 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
             mBoardCardOne.setBackgroundResource(R.drawable.card_back);
         }
 
-        if (mAllBoardCards >= 3 && mAllBoardCards <=4) {
+        if (mAllBoardCards >= 3 && mAllBoardCards <= 4) {
             startCalculate();
         }
 
@@ -381,8 +381,8 @@ public class OddsCalatorActivity extends AppCompatActivity implements View.OnCli
             for (CardSet cs : mPlayers)
                 holeHand[i++] = HandEval.encode(cs);
             long board = HandEval.encode(mBoardCards);
-            handValue0 = HandEval.hand7Eval(board | holeHand[0]);
-            handValue1 = HandEval.hand7Eval(board | holeHand[1]);
+            handValue0 = HandEval.hand7Eval(board | holeHand[PLAYER_ONE]);
+            handValue1 = HandEval.hand7Eval(board | holeHand[PLAYER_TWO]);
             long wins[] = new long[mPlayers.length];
             long ties[] = new long[mPlayers.length];
             ties[PLAYER_ONE] = 0;

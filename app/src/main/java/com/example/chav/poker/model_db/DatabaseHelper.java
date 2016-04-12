@@ -54,7 +54,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
             + KEY_CRAM_DECK_TITLE + " TEXT NOT NULL, "
             + KEY_CRAM_DECK_USER_ID + " INTEGER REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
-//            + " FOREIGN KEY (" + KEY_CRAM_DECK_USER_ID + ") REFERENCES " + TABLE_USERS + "("+KEY_ID+")" + ")";
 
     private static DatabaseHelper instance;
 

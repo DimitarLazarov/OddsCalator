@@ -243,12 +243,10 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         Random r = new Random();
         int rGen = r.nextInt(3) + 3;
         mBoard = drawCards(rGen);
-        if (rGen >= 3) {
-            mBoardCardFour.setText("");
-            mBoardCardFour.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            mBoardCardFive.setText("");
-            mBoardCardFive.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        }
+        mBoardCardFour.setText("");
+        mBoardCardFour.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        mBoardCardFive.setText("");
+        mBoardCardFive.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         setBoard(mPlayers, mBoard);
     }
 
@@ -362,7 +360,7 @@ public class BasicQuizActivity extends AppCompatActivity implements BasicQuizRes
         basicQuizMessageCallback.setCancelable(false);
         android.app.FragmentManager fm = getFragmentManager();
         Bundle args = new Bundle();
-        args.putString("title", "Incorrect");
+        args.putString(BASIC_QUIZ_FRAGMENT_WIN_TITLE, "Incorrect");
         args.putInt(BASIC_QUIZ_FRAGMENT_CURRENT_STREAK, mCurrentWiningStreak);
         basicQuizMessageCallback.setArguments(args);
         basicQuizMessageCallback.show(fm, "tagged");

@@ -182,9 +182,7 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
     private void flipCard() {
 
-        // Create and commit a new fragment transaction that adds the fragment for
-        // the back of the card, uses custom animations, and is part of the fragment
-        // manager's back stack.
+
         if(!mPressed) {
             mPressed = true;
             mBackFragment = new CramCardFrontEndFragment();
@@ -195,27 +193,13 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
 
             manager
                     .beginTransaction()
-
-                            // Replace the default fragment animations with animator resources
-                            // representing rotations when switching to the back of the card, as
-                            // well as animator resources representing rotations when flipping
-                            // back to the front (e.g. when the system Back button is pressed).
                     .setCustomAnimations(
                             R.anim.fragment_card_flip_rigth_in,
                             R.anim.fragment_card_flip_rigth_out,
                             R.anim.fragment_card_flip_left_in,
                             R.anim.fragment_card_flip_left_out)
-
-                            // Replace any fragments currently in the container view with a
-                            // fragment representing the next page (indicated by the
-                            // just-incremented currentPage variable).
                     .replace(R.id.cram_mode_frame_layout, mBackFragment)
-
-                            // Add this transaction to the back stack, allowing users to press
-                            // Back to get to the front of the card.
                     .addToBackStack(null)
-
-                            // Commit the transaction.
                     .commit();
         }
         else {
@@ -227,27 +211,13 @@ public class CramModeActivity extends AppCompatActivity implements CramModeResul
             mFrontFragment.setArguments(bundle);
             manager
                     .beginTransaction()
-
-                            // Replace the default fragment animations with animator resources
-                            // representing rotations when switching to the back of the card, as
-                            // well as animator resources representing rotations when flipping
-                            // back to the front (e.g. when the system Back button is pressed).
                     .setCustomAnimations(
                             R.anim.fragment_card_flip_left_in,
                             R.anim.fragment_card_flip_left_out,
                             R.anim.fragment_card_flip_rigth_in,
                             R.anim.fragment_card_flip_rigth_out)
-
-                            // Replace any fragments currently in the container view with a
-                            // fragment representing the next page (indicated by the
-                            // just-incremented currentPage variable).
                     .replace(R.id.cram_mode_frame_layout, mFrontFragment)
-
-                            // Add this transaction to the back stack, allowing users to press
-                            // Back to get to the front of the card.
                     .addToBackStack(null)
-
-                            // Commit the transaction.
                     .commit();
         }
     }

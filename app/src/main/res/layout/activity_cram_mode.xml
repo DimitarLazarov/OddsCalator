@@ -22,15 +22,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp">
 
-        <!--<Button-->
-            <!--android:id="@+id/cram_mode_button_back"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginRight="5dp"-->
-            <!--android:layout_marginEnd="5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/cardColor"-->
-            <!--android:padding="30dp"/>-->
+
 
         <ImageButton
             android:id="@+id/cram_mode_button_back"
